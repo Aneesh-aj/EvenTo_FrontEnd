@@ -9,13 +9,12 @@ const UploadImage = async (image:any) :Promise <any>=>{
 
     if(image){
         try{
-            console.log("entrings to theis function")
-            const snapshot = await uploadBytes(imgRef,image)
+            await uploadBytes(imgRef,image)
             const downloeadUrl = await getDownloadURL(imgRef)
-            console.log("get the downlead",downloeadUrl)
+          
             return downloeadUrl
         }catch(error:any){
-            console.log("console.loggggg eorororo",error)
+            throw error
         }
     }
 }

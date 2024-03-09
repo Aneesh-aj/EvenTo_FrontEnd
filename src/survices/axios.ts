@@ -14,16 +14,6 @@ Api.interceptors.request.use((request)=>{
 Api.interceptors.response.use(
     response => {
         return response;
-    },
-    error => {
-        if (error.response) {
-            const { data } = error.response;
-            console.log(data.message);
-
-        } else {
-            console.log(error);
-        }
-        return Promise.reject(error);
     }
 );
 

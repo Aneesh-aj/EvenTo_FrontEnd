@@ -1,7 +1,7 @@
 const userRoutes={
     signup : '/user/register',
     login:'/user/login',
-    verifyOTP:'/user/verify-otp'
+    verifyOTP:'/user/createUser'
 }
 
 export default userRoutes

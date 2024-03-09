@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { validateEmail, validatePassword, validateUsername } from '../../utils/validation';
 import { signup } from '../../api/user';
+
 
 type User = {
   name: string;
@@ -13,26 +14,28 @@ type User = {
 };
 
 const Signup: React.FC = () => {
+  
+  const [loading,setLoading] = useState<boolean>(false)
+  const navigate = useNavigate()
+ 
 
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
-const check = async (user: User) => {
-  try {
-    const response = await signup(user)
-    if (response.status === 400) {
-      alert('User already exists');
-    } else {
-      alert(response.message);
-    }
-  } catch (error:any) {
-    if (error.response && error.response.status === 400) {
-      alert(error.message);
-    }
-    console.error(error);
-  }
-};
-
-
-
+  const check = async (user: User) => {
+    console.log("before")
+      setLoading(true)
+      const response = await signup(user);
+      setLoading(false)
+      console.log("resonse from that function",response)
+      if(response.success){
+         alert("1"+response.message)
+         navigate("/otp")
+      }if(response.response.data.status===400){
+        alert("2"+response.response.data.message)
+      }else{
+        alert(response.response.data.message)
+      }
+  };
+  
   const handleFormSubmit = async (data : any) => {
     try {
       const user = {
@@ -63,7 +66,6 @@ const check = async (user: User) => {
 
         <form className="my-10" onSubmit={handleSubmit(handleFormSubmit)}>
           <div className="flex flex-col space-y-5">
-
             <label htmlFor="name">
               <p className="font-medium text-slate-700 pb-2">Name</p>
               <input
@@ -136,8 +138,9 @@ const check = async (user: User) => {
 
             <button
               type="submit"
-              className="w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"
-            >
+              disabled={loading}
+              className={loading?'w-full disabled:submit py-3 font-medium text-white bg-indigo-400 hover:bg-indigo-300 rounded-lg border-indigo-300 hover:shadow inline-flex space-x-2 items-center justify-center':"w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"}
+              >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"

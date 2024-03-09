@@ -15,11 +15,23 @@ type User = {
 const Signup: React.FC = () => {
 
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
-
-  const check = async(user:User) => {
-    let res =  await signup(user).then((res)=>console.log("successsss",res.message))
-    console.log(res)
+const check = async (user: User) => {
+  try {
+    const response = await signup(user)
+    if (response.status === 400) {
+      alert('User already exists');
+    } else {
+      alert(response.message);
+    }
+  } catch (error:any) {
+    if (error.response && error.response.status === 400) {
+      alert(error.message);
+    }
+    console.error(error);
   }
+};
+
+
 
   const handleFormSubmit = async (data : any) => {
     try {

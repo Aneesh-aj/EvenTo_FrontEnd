@@ -12,17 +12,18 @@ function App() {
 
   return (
     <>
-        <BrowserRouter>
+      <BrowserRouter>
 
-       <Nav></Nav>
-       {/* <Home></Home> */}
-         <Routes>
-         <Route path='/signup' element={<Signup/>} />
-       {/* <OrganizerRegistration></OrganizerRegistration> */}
-       {/* <Login/> */}
-       <Route path='/otp' element={<OtpForm/>} ></Route>
-         </Routes>
-       </BrowserRouter>
+        <Nav></Nav>
+        {/* <Home></Home> */}
+        <Routes>
+          <Route path='/signup' element={<Signup />} />
+          {/* <OrganizerRegistration></OrganizerRegistration> */}
+          {/* <Login/> */}
+          <Route path='/otp' element={<OtpForm />} ></Route>
+          <Route path='/login' element={<Login />}></Route>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }

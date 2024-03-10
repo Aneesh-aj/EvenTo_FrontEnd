@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { validateEmail, validatePassword, validateUsername } from '../../utils/validation';
 import { signup } from '../../api/user';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 type User = {
@@ -27,12 +28,16 @@ const Signup: React.FC = () => {
       setLoading(false)
       console.log("resonse from that function",response)
       if(response.success){
-         alert("1"+response.message)
+        //  alert("1"+response.message)
+        toast.success(response.message)
          navigate("/otp")
       }if(response.response.data.status===400){
-        alert("2"+response.response.data.message)
+        // alert("2"+response.response.data.message)
+         toast.error(response.response.data.message)
       }else{
-        alert(response.response.data.message)
+        // alert(response.response.data.message)
+        toast.error(response.response.data.message)
+
       }
   };
   
@@ -51,8 +56,10 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div className="h-auto overflow-y-scroll bg-[#f0f2f0] w-full flex justify-center custom-scrollbar">
+    <div className="h-auto  overflow-y-scroll bg-[#f0f2f0] w-full flex justify-center custom-scrollbar">
       <div className="w-5/12 mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300">
+        <Toaster position="top-right"
+  reverseOrder={false}/>
         <div className="flex justify-center ">
           <h1 className="text-4xl font-medium pb-4">Signup</h1>
         </div>

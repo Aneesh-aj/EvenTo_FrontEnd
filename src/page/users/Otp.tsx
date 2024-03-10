@@ -1,9 +1,12 @@
 import React, { useRef, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast'
 import { otpVerify } from '../../api/user';
 import { useNavigate } from 'react-router-dom';
 
+
 const OtpForm: React.FC = () => {
     const navigate = useNavigate()
+    
     const [loading,setLoading] = useState <boolean>(false)
     const formRef = useRef<HTMLFormElement>(null);
     const inputsRef = useRef<Array<React.RefObject<HTMLInputElement>>>(Array.from({ length: 4 }, () => useRef<HTMLInputElement>(null)));
@@ -24,8 +27,6 @@ const OtpForm: React.FC = () => {
         if (e.target.value) {
             if (index < inputsRef.current.length - 1 && inputsRef.current[index + 1].current) {
                 inputsRef?.current[index + 1]?.current?.focus();
-            } else {
-                // formRef.current?.submit();
             }
         }
     };
@@ -46,61 +47,46 @@ const OtpForm: React.FC = () => {
         digits.forEach((digit, index) => {
             if (inputsRef.current && inputsRef.current[index]?.current) {
                 inputsRef.current && (inputsRef.current[index].current!.value = digit);
-
             }
 
         });
-        // formRef.current?.submit();
     };
 
     const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
          setLoading(true)
         let otp = inputsRef.current.map((input) => input.current?.value).join('');
+        if(!otp){
+            toast.error("enter otp")
+            setLoading(false)
+            return
+        }
         console.log(" the otp", otp)
-        // alert(otp)
-    //    otp  = JSON.stringify(otp)
+        
         const response = await otpVerify(otp )
         setLoading(false)
-        console.log("heree",response)
-         console.log("the status",response?.response?.data?.status)
-         console.log("ther message",response?.response?.data?.message)
-         console.log("ther success",response?.response?.data?.success)
-
-         if(response.success){
-            alert(response.message)
+         if(response.email){
+            toast.success(response.message)
             navigate("/login")
          }if(response.response.data.status ===400){
-            alert(response.response.data.message)
-         }else[
-            alert(response.response.data.message)
-         ]
+            toast.error(response.response.data.message)
+         }else{
+            toast.error(response.response.data.message)
+
+        }
      
-        // fetch('http://localhost:3000/user/login', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({ otp }),
-        // })
-        //     .then((response) => {
-        //         if (!response.ok) {
-        //             throw new Error('Failed to submit OTP');
-        //         }
-        //         // Handle successful submission, e.g., show a success message
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error submitting OTP:', error);
-        //         // Handle error, e.g., show an error message
-        //     });
     };
 
     return (
-        <div className="relative font-inter antialiased">
-            <main className="relative min-h-screen flex flex-col justify-center bg-slate-50 overflow-hidden">
-                <div className="w-full max-w-6xl mx-auto px-4 md:px-6 py-24">
+        <div className="relative  font-inter antialiased">
+         
+            <main className="relative min-h-screen flex flex-col justify-center bg-slate-100 overflow-hidden">
+                <div className="w-ful max-w-6xl mx-auto px-4 md:px-6 py-24">
                     <div className="flex justify-center">
-                        <div className="max-w-md mx-auto text-center bg-white px-4 sm:px-8 py-10 rounded-xl shadow">
+               
+                        <div className="max-w-4xl mx-auto max-h-svh text-center bg-white px-4 sm:px-8 py-10 rounded-xl shadow">
+                        <Toaster position="top-right"
+  reverseOrder={false} />
                             <header className="mb-8">
                                 <h1 className="text-2xl font-bold mb-1">Email OTP Verification</h1>
                                 <p className="text-[15px] text-slate-500">Enter the 4-digit verification code that was sent to your Email.</p>
@@ -142,33 +128,7 @@ const OtpForm: React.FC = () => {
                 </div>
             </main>
 
-            <footer className="absolute left-6 right-6 md:left-12 md:right-auto bottom-4 md:bottom-8 text-center md:text-left">
-                <a className="text-xs text-slate-500 hover:underline" href="https://cruip.com">&copy;Cruip - Tailwind CSS templates</a>
-            </footer>
-
-            {/* Banner with links */}
-            <div className="fixed bottom-0 right-0 w-full md:bottom-6 md:right-12 md:w-auto z-50">
-                <div className="bg-slate-800 text-sm p-3 md:rounded shadow flex justify-between">
-                    <div className="text-slate-500 inline-flex">
-                        <a className="font-medium hover:underline text-slate-300" href="https://cruip.com/otp-form-example-made-with-tailwind-css-and-javascript/" target="_blank">
-                            Read Tutorial
-                        </a>
-                        <span className="italic px-1.5">or</span>
-                        <a className="font-medium hover:underline text-indigo-500 flex items-center" href="https://github.com/cruip/cruip-tutorials/blob/main/otp-form/index.html" target="_blank" rel="noreferrer">
-                            <span>Download</span>
-                            <svg className="fill-indigo-400 ml-1" xmlns="http://www.w3.org/2000/svg" width="9" height="9">
-                                <path d="m1.649 8.514-.91-.915 5.514-5.523H2.027l.01-1.258h6.388v6.394H7.158l.01-4.226z" />
-                            </svg>
-                        </a>
-                    </div>
-                    <button className="text-slate-500 hover:text-slate-400 pl-2 ml-3 border-l border-slate-700" onClick={() => { /* close banner */ }}>
-                        <span className="sr-only">Close</span>
-                        <svg className="w-4 h-4 shrink-0 fill-current" viewBox="0 0 16 16">
-                            <path d="M12.72 3.293a1 1 0 00-1.415 0L8.012 6.586 4.72 3.293a1 1 0 00-1.414 1.414L6.598 8l-3.293 3.293a1 1 0 101.414 1.414l3.293-3.293 3.293 3.293a1 1 0 001.414-1.414L9.426 8l3.293-3.293a1 1 0 000-1.414z" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
+            
         </div>
     );
 };

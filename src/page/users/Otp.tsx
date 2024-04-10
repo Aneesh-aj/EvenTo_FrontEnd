@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast'
 import { otpVerify } from '../../api/user';
 import { useNavigate } from 'react-router-dom';
+import asset from "../../assets/two-factor-authentication-concept-illustration_114360-5488.avif"
 
 
 const OtpForm: React.FC = () => {
@@ -67,7 +68,7 @@ const OtpForm: React.FC = () => {
         setLoading(false)
          if(response.email){
             toast.success(response.message)
-            navigate("/login")
+            navigate("/auth/userLogin")
          }if(response.response.data.status ===400){
             toast.error(response.response.data.message)
          }else{
@@ -78,13 +79,15 @@ const OtpForm: React.FC = () => {
     };
 
     return (
-        <div className="relative  font-inter antialiased">
+        <div className="relative  font-inter antialiased" style={{ backgroundColor: 'white' }}>
          
-            <main className="relative min-h-screen flex flex-col justify-center bg-slate-100 overflow-hidden">
-                <div className="w-ful max-w-6xl mx-auto px-4 md:px-6 py-24">
-                    <div className="flex justify-center">
-               
-                        <div className="max-w-4xl mx-auto max-h-svh text-center bg-white px-4 sm:px-8 py-10 rounded-xl shadow">
+            <main className="relative min-h-screen flex flex-col justify-center  overflow-hidden">
+                <div className="w-full  flex max-w-6xl mx-auto px-4  md:px-6 py-24 gap-3">
+                        <div  className="object-contain h-96  w-full  hidden xl:block  text-center px-4 sm:px-8  ">
+                            <img className='w-full h-full' src={asset} alt="" />
+                        </div>
+                    <div className="flex justify-center  ">
+                        <div className="max-w-4xl mx-auto max-h-svh text-center bg-white px-4 sm:px-8 py-10  rounded-xl shadow-2xl">
                         <Toaster position="top-right"
   reverseOrder={false} />
                             <header className="mb-8">

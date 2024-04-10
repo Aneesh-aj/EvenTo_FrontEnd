@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 import { validateEmail, validatePassword, validateUsername } from '../../utils/validation';
 import { signup } from '../../api/user';
 import toast, { Toaster } from 'react-hot-toast';
+import  style from '../../index.css'
+import image from '../../assets/business-management-illustration-set-characters-planning-work-tasks-managing-inbox-emails_566886-5785.jpg'
 
 
 type User = {
@@ -15,33 +17,33 @@ type User = {
 };
 
 const Signup: React.FC = () => {
-  
-  const [loading,setLoading] = useState<boolean>(false)
+
+  const [loading, setLoading] = useState<boolean>(false)
   const navigate = useNavigate()
- 
+
 
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
   const check = async (user: User) => {
     console.log("before")
-      setLoading(true)
-      const response = await signup(user);
-      setLoading(false)
-      console.log("resonse from that function",response)
-      if(response.success){
-        //  alert("1"+response.message)
-        toast.success(response.message)
-         navigate("/otp")
-      }if(response.response.data.status===400){
-        // alert("2"+response.response.data.message)
-         toast.error(response.response.data.message)
-      }else{
-        // alert(response.response.data.message)
-        toast.error(response.response.data.message)
+    setLoading(true)
+    const response = await signup(user);
+    setLoading(false)
+    console.log("resonse from that function", response)
+    if (response.success) {
+      //  alert("1"+response.message)
+      toast.success(response.message)
+      navigate("/auth/otp")
+    } if (response.response.data.status === 400) {
+      // alert("2"+response.response.data.message)
+      toast.error(response.response.data.message)
+    } else {
+      // alert(response.response.data.message)
+      toast.error(response.response.data.message)
 
-      }
+    }
   };
-  
-  const handleFormSubmit = async (data : any) => {
+
+  const handleFormSubmit = async (data: any) => {
     try {
       const user = {
         name: data.name || '',
@@ -56,10 +58,16 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div className="h-auto  overflow-y-scroll bg-[#f0f2f0] w-full flex justify-center custom-scrollbar">
-      <div className="w-5/12 mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300">
+    <div className="h-auto  overflow-y-scroll bg-white w-full p-5 xl:flex  justify-center custom-scrollbar">
+      <div className='xl:w-7/12 hidden xl:visible xl:flex   justify-center items-center'>
+         <div className="bg-red xl:w-full h-[600px] flex object-contain">
+              <img src={image} alt="" className='xl:w-full h-full' />
+         </div>
+      </div>
+      <div className="xl:w-5/12 ">
+        <div className="w-full m-2 xl:w-10/12   mx-auto my-6 bg-white p-8  rounded-xl custom-box-shadow   " >
         <Toaster position="top-right"
-  reverseOrder={false}/>
+          reverseOrder={false} />
         <div className="flex justify-center ">
           <h1 className="text-4xl font-medium pb-4">Signup</h1>
         </div>
@@ -146,8 +154,8 @@ const Signup: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className={loading?'w-full disabled:submit py-3 font-medium text-white bg-indigo-400 hover:bg-indigo-300 rounded-lg border-indigo-300 hover:shadow inline-flex space-x-2 items-center justify-center':"w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"}
-              >
+              className={loading ? 'w-full disabled:submit py-3 font-medium text-white bg-indigo-400 hover:bg-indigo-300 rounded-lg border-indigo-300 hover:shadow inline-flex space-x-2 items-center justify-center' : "w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -167,7 +175,7 @@ const Signup: React.FC = () => {
 
             <p className="text-center">
               Already a user?{' '}
-              <Link to="/userLogin" className="text-indigo-600 font-medium inline-flex space-x-1 items-center">
+              <Link to="/auth/userLogin" className="text-indigo-600 font-medium inline-flex space-x-1 items-center">
                 <span>Login </span>
                 <span>
                   <svg
@@ -190,6 +198,7 @@ const Signup: React.FC = () => {
 
           </div>
         </form>
+        </div>
       </div>
     </div>
   );

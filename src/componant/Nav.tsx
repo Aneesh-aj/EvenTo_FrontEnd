@@ -1,35 +1,146 @@
+import {  useState } from "react";
+import useGetUser from "../hook/useGetUser";
+import { logout } from "../api/user";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/userSlice";
+import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { orgLout } from "../api/organizer";
 
 const Nav: React.FC = () => {
-
+    const role = useGetUser().role;
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const [path, setPath] = useState<boolean>(true);
+    
+    
+    async function logingOut (){
+       const response = await logout()
+       if(response.sucess){
+          dispatch(setUser({role:"",name:"",email:"",id:""}))
+          toast.success(response.message)
+          navigate("/")
+       }else{
+           toast.error("unable to log out")
+       }
+    }
+    async function organizerLogout(){
+        const response = await orgLout()
+        console.log(" whahah",response)
+          if(response.success){
+            dispatch(setUser({role:"",name:"",email:"",id:""}))
+          toast.success(response.message)
+          navigate("/")
+          }else{
+             toast.error("enable to logout")
+          }
+    }
+    
     return (
-        <>
-                <div className="w-full bg-white h-14 relative shadow-md rounded-xl p-3">
-                    <h1 className="font-sans text-2xl ps-2 font-bold">EvenTo</h1>
-                    {/* <button >logout</button> */}
+        <>  {!role&&path && <>
+            <div className="bg-white fixed w-full text-black p-4 border shadow-lg rounded-2xl">
+            <Toaster position="top-right" reverseOrder={false}/>  
+
+                <div className="container mx-auto flex justify-between items-center">
+                    <h1 className="text-2xl  font-bold">EvenTo</h1>
+                    <nav>
+                        <ul className="flex space-x-4">
+                            <li>
+                                <a href="/" className="hover:text-gray-300">Home</a>
+                            </li>
+                            <li>
+                                <a href="#" className="hover:text-gray-300">Events</a>
+                            </li>
+                            <li>
+                                <a href="#" className="hover:text-gray-300">About</a>
+                            </li>
+                        
+                        </ul>
+                    </nav>
                 </div>
+            </div>
 
-                {/* <div className="w-full bg-white h-14 relative shadow-md rounded-xl p-3">
-                    <ul className="flex space-x-52">
-                        <li>
-                            <h1  className="font-sans text-2xl ps-2 font-bold">EvenTo</h1>
-                        </li>
-                        <li>
-                            <h3 onClick={e=>navigate("/admin/users")}>user</h3>
+        </>}
+            {role === "user" && <>
+                <div className="bg-white  w-full text-black p-4 border z-10 shadow-lg fixed">
+                <Toaster position="top-right" reverseOrder={false}/>  
 
-                        </li>
-                        <li>
-                             <h3 onClick={e=>navigate("/admin/organizers")}>orgnaizer</h3>
-                        </li>
-                        <li>
-                             <h3 onClick={e=>navigate("/admin/Requests")}>Requests</h3>
-                        </li>
-                    </ul>
-                    <div>
-                        <button onClick={logout} className="bg-blue-400">Logout</button>
+                    <div className="container mx-auto flex justify-between items-center">
+                        <h1 className="text-2xl  font-bold">EvenTo</h1>
+                        <nav>
+                            <ul className="flex space-x-4">
+                                <li>
+                                    <a href="/" className="hover:text-gray-300">Home</a>
+                                </li>
+                                <li>
+                                    <a href="#" className="hover:text-gray-300"></a>
+                                </li>
+                                <li>
+                                    <a href="/user/profile" className="hover:text-gray-300">profile</a>
+                                </li>
+                            
+                                <li>
+                                    <button onClick={logingOut} className="bg-blue-400 pt-1 pb-1 ps-3 pe-3 text-white rounded-md hover:bg-blue-300">logout</button>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
-            */}
-           
+            </>
+
+            }
+             {role === "organizer"|| role=="requestPending" && <>
+                <div className="bg-white fixed w-full text-black p-4 border shadow-lg">
+                    <div className="container mx-auto flex justify-between items-center">
+                    <Toaster position="top-right" reverseOrder={false}/>  
+                        <h1 className="text-2xl  font-bold">EvenTo</h1>
+                        <nav>
+                            <ul className="flex space-x-4">
+                                <li>
+                                    <a href="#" className="hover:text-gray-300">posts</a>
+                                </li>
+                                <li>
+                                    <a href="#" className="hover:text-gray-300">Events</a>
+                                </li>
+                                <li>
+                                    <a href="#" className="hover:text-gray-300">About</a>
+                                </li>
+                                <li>
+                                    <button onClick={organizerLogout} className="bg-blue-400 pt-1 pb-1 ps-3 pe-3 text-white rounded-md hover:bg-blue-300">logout</button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </>
+
+            }
+             {role === "admin" && <>
+                <div className="bg-white fixed w-full text-black p-4 border shadow-lg">
+                    <div className="container mx-auto flex justify-between items-center">
+                        <h1 className="text-2xl  font-bold">EvenTo</h1>
+                        <nav>
+                            <ul className="flex space-x-4">
+                                <li>
+                                    <a href="/admin/organizer" className="hover:text-gray-300">organizer</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/users" className="hover:text-gray-300">Users</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/request" className="hover:text-gray-300">request</a>
+                                </li>
+                                <li>
+                                    <button className="bg-blue-400 pt-1 pb-1 ps-3 pe-3 text-white rounded-md hover:bg-blue-300">logout</button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </>
+
+            }
+
         </>
     );
 }

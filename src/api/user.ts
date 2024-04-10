@@ -1,6 +1,6 @@
 import Api from "../survices/axios";
 import userRoutes from "../survices/endpoints/userEndPoint";
-import { userFormData } from "../@types/userType";
+import { userFormData } from "../@types/user";
 import { loginData } from "../@types/loginType";
 
 
@@ -32,4 +32,15 @@ export const otpVerify = async (otp: string) => {
         console.log("the eroror of called fucntion",error.response.data.status,error.response.data.message,error.response.data.success)
         return error
     }
+}
+
+export const logout = async ()=>{
+     try{
+        const response = await Api.post(userRoutes.logout)
+        console.log(" the respoe",response)
+       
+        return response.data
+     }catch(error){
+        throw error
+     }
 }

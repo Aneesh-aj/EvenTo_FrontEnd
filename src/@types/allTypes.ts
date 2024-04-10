@@ -11,3 +11,11 @@ export interface Icountry {
 export  interface Icity {
     name: string;
   }
+
+export interface currentUser{
+   user: any;
+   role:string,
+   name:string,
+   email:string,
+   id:string
+}

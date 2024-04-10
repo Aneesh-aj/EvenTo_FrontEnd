@@ -14,3 +14,8 @@ export  const isValidName = (name: string): boolean => {
   };
 
 
+ export const isValidOTP = (otp: string): boolean => {
+    const otpRegex = /^\d{4}$/;
+    return otpRegex.test(otp);
+  };
+  

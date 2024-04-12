@@ -35,6 +35,11 @@ const Nav: React.FC = () => {
              toast.error("enable to logout")
           }
     }
+     function adminLogout(){
+        dispatch(setUser({role:"",name:"",email:"",id:""}))
+        // toast.success(response.message)
+        navigate("/")
+    }
     
     return (
         <>  {!role&&path && <>
@@ -89,7 +94,7 @@ const Nav: React.FC = () => {
             </>
 
             }
-             {role === "organizer"|| role=="requestPending" && <>
+             {role === "organizer" && <>
                 <div className="bg-white fixed w-full text-black p-4 border shadow-lg">
                     <div className="container mx-auto flex justify-between items-center">
                     <Toaster position="top-right" reverseOrder={false}/>  
@@ -97,7 +102,8 @@ const Nav: React.FC = () => {
                         <nav>
                             <ul className="flex space-x-4">
                                 <li>
-                                    <a href="#" className="hover:text-gray-300">posts</a>
+
+                                    {/* <a href="#" className="hover:text-gray-300">{role}</a> */}
                                 </li>
                                 <li>
                                     <a href="#" className="hover:text-gray-300">Events</a>
@@ -114,6 +120,26 @@ const Nav: React.FC = () => {
                 </div>
             </>
 
+            }{role=="requestPending"&&
+                <>
+                  <div className="bg-white fixed w-full text-black p-4 border shadow-lg">
+                    <div className="container mx-auto flex justify-between items-center">
+                    <Toaster position="top-right" reverseOrder={false}/>  
+                        <h1 className="text-2xl  font-bold">EvenTo</h1>
+                        <nav>
+                            <ul className="flex space-x-4">
+                              
+                                <li>
+                                    <a href="/organizer/pending" className="hover:text-gray-300">Event</a>
+                                </li>
+                                <li>
+                                    <button onClick={organizerLogout} className="bg-blue-400 pt-1 pb-1 ps-3 pe-3 text-white rounded-md hover:bg-blue-300">logout</button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                </>
             }
              {role === "admin" && <>
                 <div className="bg-white fixed w-full text-black p-4 border shadow-lg">
@@ -122,7 +148,7 @@ const Nav: React.FC = () => {
                         <nav>
                             <ul className="flex space-x-4">
                                 <li>
-                                    <a href="/admin/organizer" className="hover:text-gray-300">organizer</a>
+                                    <a href="/admin/organizers" className="hover:text-gray-300">organizer</a>
                                 </li>
                                 <li>
                                     <a href="/admin/users" className="hover:text-gray-300">Users</a>
@@ -131,7 +157,7 @@ const Nav: React.FC = () => {
                                     <a href="/admin/request" className="hover:text-gray-300">request</a>
                                 </li>
                                 <li>
-                                    <button className="bg-blue-400 pt-1 pb-1 ps-3 pe-3 text-white rounded-md hover:bg-blue-300">logout</button>
+                                    <button onClick={adminLogout} className="bg-blue-400 pt-1 pb-1 ps-3 pe-3 text-white rounded-md hover:bg-blue-300">logout</button>
                                 </li>
                             </ul>
                         </nav>

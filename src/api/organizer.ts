@@ -44,3 +44,22 @@ export const orgLout= async()=>{
      throw error
    }
 }
+
+export const isApprove= async(id:string)=>{
+  try{
+       const response = await Api.post(organizerRoutes.approve+`/${id}`)
+        console.log(response.data)
+        return response.data
+  }
+  catch(error){
+    throw error
+  }
+}
+export const organizerLogin = async(email:string,password:string)=>{
+   try{
+      const response = await Api.post(organizerRoutes.organizerLogin,{email,password})
+      return response.data
+   }catch(error){
+      throw error
+   }
+}

@@ -170,7 +170,7 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
             }))
             
             setLoading(false)
-          navigate('/organizer/waiting')
+          navigate('/organizer/pending')
         }else{
            toast.error(result.response.data.message)
         }

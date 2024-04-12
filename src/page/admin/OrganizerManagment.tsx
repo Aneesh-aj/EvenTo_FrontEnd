@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Api from "../../survices/axios";
-import { Link } from "react-router-dom";
 import Nav from "../../componant/Nav";
 
 const Organizers: React.FC = () => {
@@ -22,7 +21,7 @@ const Organizers: React.FC = () => {
 
     async function access(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id: any) {
         console.log("the calling id ", id)
-        const response = await Api.post(`/admin/organizer/block/${id}`)
+         await Api.post(`/admin/organizer/block/${id}`)
     }
 
     return (

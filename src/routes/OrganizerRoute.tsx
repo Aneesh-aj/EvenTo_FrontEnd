@@ -4,9 +4,12 @@ import ErrorPage from "../componant/ErrorPage";
 import OrganizerRegistration from "../page/organizer/OrganizerSignup";
 import { WaitingPage } from "../componant/WaitingPage";
 import useGetUser from "../hook/useGetUser";
+import { useEffect } from "react";
+// import { OrganizerPending } from "../page/organizer/OrganizerPending";
 
 function OrganizerRoutes() {
     const role = useGetUser().role;
+    
      console.log(" the role")
     return (
         <>
@@ -15,16 +18,13 @@ function OrganizerRoutes() {
                     <>
                         <Route path="/Registration" element={<OrganizerRegistration />} />
                         <Route path="/profile" element={<OrganizerProfile />} />
-                        {/* <Route path="/Login" element={<OrganizerLogin/>} /> */}
-                        {
-                            console.log("not comming")
-                        }
                         <Route path="*" element={<ErrorPage />} />
                     </>
                 )}
                 {role && role === "requestPending" && (
-                    <>{console.log(" wiagingnggnngn")}
-                    <Route path="/waiting" element={<WaitingPage />} /> </>
+                    <>
+                    
+                    <Route path="/pending" element={<WaitingPage />} /> </>
                 )}
             </Routes>
         </>

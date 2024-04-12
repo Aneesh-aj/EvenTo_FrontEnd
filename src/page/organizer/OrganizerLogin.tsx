@@ -4,16 +4,17 @@ import { InputText } from 'primereact/inputtext';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { validateEmail, validatePassword } from '../../utils/validation';
-import { login } from '../../api/user';
+// import { login } from '../../api/user';
 import toast, { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../redux/userSlice';
 import { currentUser } from '../../@types/allTypes';
 import  '../../index.css'
 import image from '../../assets/business-management-illustration-set-characters-planning-work-tasks-managing-inbox-emails_566886-5785.jpg'
+import { organizerLogin } from '../../api/organizer';
 
 
-const Login: React.FC = () => {
+const OrganizerLogin: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const navigate = useNavigate()
     useSelector((state: currentUser) => state)
@@ -26,7 +27,7 @@ const Login: React.FC = () => {
             email: data.email || "",
             password: data.password || ""
         }
-        const result = await login(user)
+        const result = await organizerLogin(user.email,user.password)
         setLoading(false)
         if (result.user) {
             toast.success(result.message)
@@ -128,4 +129,4 @@ const Login: React.FC = () => {
     );
 };
 
-export default Login
+export default OrganizerLogin

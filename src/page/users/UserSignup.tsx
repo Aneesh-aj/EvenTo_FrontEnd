@@ -32,7 +32,7 @@ const Signup: React.FC = () => {
     if (response.success) {
       //  alert("1"+response.message)
       toast.success(response.message)
-      navigate("/auth/otp")
+      navigate(`/auth/otp/${user.email}`)
     } if (response.response.data.status === 400) {
       // alert("2"+response.response.data.message)
       toast.error(response.response.data.message)
@@ -72,12 +72,12 @@ const Signup: React.FC = () => {
           <h1 className="text-4xl font-medium pb-4">Signup</h1>
         </div>
 
-        <div className="my-5">
+        {/* <div className="my-5">
           <button className="w-full text-center py-3 my-3 border flex space-x-2 items-center justify-center border-slate-200 rounded-lg text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow transition duration-150">
             <img src="https://www.svgrepo.com/show/355037/google.svg" className="w-6 h-6" alt="" />{' '}
             <span>Login with Google</span>
           </button>
-        </div>
+        </div> */}
 
         <form className="my-10" onSubmit={handleSubmit(handleFormSubmit)}>
           <div className="flex flex-col space-y-5">

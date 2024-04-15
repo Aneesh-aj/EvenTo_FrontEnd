@@ -9,7 +9,7 @@ function UserRoute() {
         
         <Routes>
             <Route path="/home" element={<Home />} />
-            <Route path="/profile" element={<ProfilePage/>} />
+            <Route path="/profile/:id" element={<ProfilePage/>} />
             <Route path="/*" element={<ErrorPage/>} />
         </Routes>
     )

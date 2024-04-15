@@ -4,7 +4,11 @@ const organizerRoutes={
     otpSenting:'/organizer/sentOtp',
     verifyOtp:'/organizer/verifyotp',
     logout:'/organizer/logout',
-    approve:'/organizer/approvel'
+    approve:'/organizer/approvel',
+    profile :'/organizer/profile',
+    uploadBackground:'/organizer/backgroundUpload',
+    uploadProfilePicture:'/organizer/profilePicture',
+    resendOtp:"/organizer/resendOtp"
 }
 
 export default organizerRoutes

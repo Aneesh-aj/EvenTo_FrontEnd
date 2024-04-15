@@ -4,7 +4,7 @@ import ErrorPage from "../componant/ErrorPage";
 import OrganizerRegistration from "../page/organizer/OrganizerSignup";
 import { WaitingPage } from "../componant/WaitingPage";
 import useGetUser from "../hook/useGetUser";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 // import { OrganizerPending } from "../page/organizer/OrganizerPending";
 
 function OrganizerRoutes() {
@@ -17,7 +17,7 @@ function OrganizerRoutes() {
                 {role && role === "organizer" && (
                     <>
                         <Route path="/Registration" element={<OrganizerRegistration />} />
-                        <Route path="/profile" element={<OrganizerProfile />} />
+                        <Route path="/profile/:id" element={<OrganizerProfile />} />
                         <Route path="*" element={<ErrorPage />} />
                     </>
                 )}

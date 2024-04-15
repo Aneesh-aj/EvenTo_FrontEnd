@@ -44,3 +44,43 @@ export const logout = async ()=>{
         throw error
      }
 }
+
+
+export const userDetails= async (id : string)=>{
+       try{
+          const response = await Api.get(userRoutes.getUser+`/${id}`)
+          return response.data
+       }catch(error){
+         throw error
+       }
+}
+
+export const profileEdit= async (id:string,formData:any)=>{
+     try{
+         const response = await Api.post(userRoutes.profileEdit+`/${id}`,{formData})
+          return response.data
+     }catch(error){
+        throw error
+     }
+}
+
+
+export const userUploadPicture= async(id:string,img:string)=>{
+    try{
+        const response = await Api.post(userRoutes.uploadProfile,{id:id,image:img})
+        return response.data
+  
+    }catch(error){
+      throw error
+    }
+  }
+
+  export const resendOtp= async(email:string)=>{
+    try{
+        const response = await Api.post(userRoutes.resendOpt,{email:email})
+        return response.data
+  
+    }catch(error){
+      throw error
+    }
+  }

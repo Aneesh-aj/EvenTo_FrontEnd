@@ -7,10 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import { IorganizerFormData } from '../../@types/organizer';
 import { isValidEmail, isValidName, isValidOTP, isValidPhoneNumber } from "../../utils/organizerValidation/formValidation"
 import UploadImage from '../../survices/firebase/uploadImage'
-import { organizerSignup, otpSenting, verifyOtp } from '../../api/organizer';
+import { organizerSignup, otpSenting, resendOtp, verifyOtp } from '../../api/organizer';
 import toast, { Toaster } from 'react-hot-toast';
 import { currentUser } from '../../@types/allTypes';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../redux/userSlice';
 
 interface OrganizerRegistrationProps { }
@@ -37,7 +37,7 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
   const [selectedState, setSelectedState] = useState<string | undefined>();
   const [selectedCity, setSelectedCity] = useState<string | undefined>();
   const navigate = useNavigate()
-  const [loading,setLoading] = useState <boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const [ownerName, setOwnername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
@@ -51,8 +51,8 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
   const [license, setLicense] = useState<File | null>(null);
   const [insurance, setInsurance] = useState<File | null>(null);
   const [passbook, setPassbook] = useState<File | null>(null);
-  
-   useSelector((state:currentUser)=>state)
+
+  useSelector((state: currentUser) => state)
   const dispatch = useDispatch()
 
   const formData = new FormData()
@@ -68,7 +68,7 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
     license: '',
     insurance: '',
     passbook: '',
-    otp:''
+    otp: ''
   });
 
   const [showOtp, setShowotp] = useState<boolean>(false);
@@ -133,7 +133,7 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
       const licenseUrls: any = await UploadImage(license);
       const insuranceUrls: any = await UploadImage(insurance);
       const passbookUrls: any = await UploadImage(passbook);
-    
+
       formData.append('ownerId', ownerIdUrls); // Assuming you want the first URL
       formData.append('companyLicense', licenseUrls);
       formData.append('companyInsurance', insuranceUrls);
@@ -158,21 +158,21 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
       };
       try {
         setLoading(true)
-       const result = await organizerSignup(convertedData)
-       console.log(" the reuslt of the registeration",result)
-       if(result.success){
-            toast.success(result.message)
-            dispatch(setUser({
-              role:result.role,
-              name:result.organizer.name,
-              email:result.organizer.email,
-              id:result.organizer._id
-            }))
-            
-            setLoading(false)
+        const result = await organizerSignup(convertedData)
+        console.log(" the reuslt of the registeration", result)
+        if (result.success) {
+          toast.success(result.message)
+          dispatch(setUser({
+            role: result.role,
+            name: result.organizer.name,
+            email: result.organizer.email,
+            id: result.organizer._id
+          }))
+
+          setLoading(false)
           navigate('/organizer/pending')
-        }else{
-           toast.error(result.response.data.message)
+        } else {
+          toast.error(result.response.data.message)
         }
       } catch (error) {
         throw error
@@ -182,11 +182,11 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
     }
 
   }
-//validating  the otp
+  //validating  the otp
 
-  async function otpValidation(e: React.FormEvent){
+  async function otpValidation(e: React.FormEvent) {
     e.preventDefault
-    let newErrors = {...errors}
+    let newErrors = { ...errors }
     setLoading(true)
 
     if (!otp.trim()) {
@@ -204,15 +204,15 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
     } else {
       newErrors.otp = '';
       setErrors(newErrors)
-      
-      const response = await verifyOtp(email,otp)
-      console.log("thre resonps",response)
+
+      const response = await verifyOtp(email, otp)
+      console.log("thre resonps", response)
       setLoading(false)
-      if(response.success){
+      if (response.success) {
         toast.success(response.message)
-         handler(e)
-      }else{
-         toast.error(response.response.data.message)
+        handler(e)
+      } else {
+        toast.error(response.response.data.message)
       }
     }
     console.log("after the checking")
@@ -353,15 +353,15 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
     // Check if there are no errors
     if (Object.values(allerror).every((value) => value === "")) {
       try {
-        const result =  await otpSenting(email,ownerName)
-        console.log(" the result",result)
-          if(result.status === 200){
-            toast.success(result.data.message)
-            setPartTwo(false);
-            setShowotp(true)
-          }else{
-             toast.error(result.response.data.message)
-          }
+        const result = await otpSenting(email, ownerName)
+        console.log(" the result", result)
+        if (result.status === 200) {
+          toast.success(result.data.message)
+          setPartTwo(false);
+          setShowotp(true)
+        } else {
+          toast.error(result.response.data.message)
+        }
       } catch (error) {
         throw error
       }
@@ -370,8 +370,16 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
     setLoading(false)
     setErrors(allerror)
   };
-  
 
+ 
+  const resendotp= async()=>{
+       const otp = await resendOtp(email)
+       if(otp.status==200){
+           toast.success("otp resended to your mail")
+       }else{
+           toast.error("failed to resend")
+       }
+  }
 
 
 
@@ -379,21 +387,21 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
     <div className='h-auto overflow-y-scroll bg-[#f0f2f0] w-full flex justify-center custom-scrollbar'>
       <div className="md:w-8/12 lg:w-6/12 xl:w-5/12 mx-auto my-10 bg-white p-6 md:p-12 rounded-xl shadow shadow-slate-300">
         <div className='flex justify-center '>
-        <Toaster position="top-right" reverseOrder={false}/>  
-         <h1 className="text-4xl font-medium pb-4">Register</h1>
+          <Toaster position="top-right" reverseOrder={false} />
+          <h1 className="text-4xl font-medium pb-4">Register</h1>
         </div>
         <form action="" onSubmit={handler} className="my-6 md:my-10 space-y-5">
           {partOne && (
             <>
               <label htmlFor="ownerName">
-                <p className="font-medium text-slate-700 pb-2">Ownername</p>
+                <p className="font-medium text-slate-700 pb-2">Company name</p>
                 <input
                   id="ownerName"
                   name="ownerName"
                   type="text"
                   className="w-full py-3 border border-black rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow"
                   onChange={(e) => setOwnername(e.target.value)}
-                  placeholder="Enter your Owner name"
+                  placeholder="Enter your company"
                 />
                 {errors.ownerName && <div className="text-red-500 p-1.5">{errors.ownerName}</div>}
 
@@ -448,7 +456,7 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
 
               </label>
 
-              <button type='button' disabled={loading} onClick={validationOne}className={loading?'w-full disabled:submit py-3 font-medium text-white bg-indigo-400 hover:bg-indigo-300 rounded-lg border-indigo-300 hover:shadow inline-flex space-x-2 items-center justify-center':"w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"}>{loading?"Loading":"next"}</button>
+              <button type='button' disabled={loading} onClick={validationOne} className={loading ? 'w-full disabled:submit py-3 font-medium text-white bg-indigo-400 hover:bg-indigo-300 rounded-lg border-indigo-300 hover:shadow inline-flex space-x-2 items-center justify-center' : "w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"}>{loading ? "Loading" : "next"}</button>
             </>
           )}
           {partTwo && (
@@ -603,7 +611,7 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
                   {errors.passbook && <div className="text-red-600 p-2">{errors.passbook}</div>}
                 </label>
               </div>
-              <button onClick={(e) => validationTwo(e)} disabled={loading} type='button' className={loading?'w-full disabled:submit py-3 font-medium text-white bg-indigo-400 hover:bg-indigo-300 rounded-lg border-indigo-300 hover:shadow inline-flex space-x-2 items-center justify-center':"w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"}> {loading?"Loading":"next"}</button>
+              <button onClick={(e) => validationTwo(e)} disabled={loading} type='button' className={loading ? 'w-full disabled:submit py-3 font-medium text-white bg-indigo-400 hover:bg-indigo-300 rounded-lg border-indigo-300 hover:shadow inline-flex space-x-2 items-center justify-center' : "w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"}> {loading ? "Loading" : "next"}</button>
             </>
           )}
 
@@ -612,38 +620,42 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
           </div>
           {
             showOtp && <>
-
-              <label htmlFor="otp">
-                <p className="font-medium  mt-1 mb-1 text-slate-700 pb-2">OTP</p>
-                <input
-                  id="otp"
-                  name="otp"
-                  type="text"
-                  onChange={(e) => setOtp(e.target.value)}
-                  className="w-full py-3 border border-black rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow"
-                  placeholder="Enter your password"
-                />
-                {errors.otp && <div className="text-red-600 p-2">{errors.otp}</div>}
-
-              </label>
-
-              <button  disabled={loading} onClick={(e)=>otpValidation(e)} className={loading?'w-full disabled:submit py-3 font-medium text-white bg-indigo-400 hover:bg-indigo-300 rounded-lg border-indigo-300 hover:shadow inline-flex space-x-2 items-center justify-center':"w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+              <div className='w-full h-[350px] flex flex-col gap-8'>
+                <label htmlFor="otp">
+                  <p className="font-medium  mt-1 mb-1 text-slate-700 pb-2">OTP</p>
+                  <input
+                    id="otp"
+                    name="otp"
+                    type="text"
+                    onChange={(e) => setOtp(e.target.value)}
+                    className="w-full py-3 border border-black rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow"
+                    placeholder="Enter your otp"
                   />
-                </svg>
-                <span>{loading?"Loading":"Register"}</span>
-              </button>
+                  {errors.otp && <div className="text-red-600 p-2">{errors.otp}</div>}
+
+                </label>
+
+                <button disabled={loading} onClick={(e) => otpValidation(e)} className={loading ? 'w-full disabled:submit py-3 font-medium text-white bg-indigo-400 hover:bg-indigo-300 rounded-lg border-indigo-300 hover:shadow inline-flex space-x-2 items-center justify-center' : "w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                    />
+                  </svg>
+                  <span>{loading ? "Loading" : "Register"}</span>
+                </button>
+                <div className="text-sm text-slate-500 mt-4">Didn't receive code? <p className="font-medium text-indigo-500 hover:text-indigo-600" onClick={ resendotp}>Resend</p></div>
+
+              </div>
+
             </>
           }
           <p className="text-center">

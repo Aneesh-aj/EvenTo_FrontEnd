@@ -59,11 +59,11 @@ const Login: React.FC = () => {
                     <div className='flex  justify-center '>
                         <p className="text-slate-500">Hi, Welcome back 👋</p>
                     </div>
-                    <div className="my-5">
+                    {/* <div className="my-5">
                         <button className="w-full text-center py-3 my-3 border flex space-x-2 items-center justify-center border-slate-200 rounded-lg text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow transition duration-150">
                             <img src="https://www.svgrepo.com/show/355037/google.svg" className="w-6 h-6" alt="" /> <span>Login with Google</span>
                         </button>
-                    </div>
+                    </div> */}
 
                     <form action="" onSubmit={handleSubmit(handleFormSubmit)} className="my-10">
                         <div className="flex flex-col space-y-5">

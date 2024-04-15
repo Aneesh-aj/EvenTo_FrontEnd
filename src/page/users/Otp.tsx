@@ -1,16 +1,16 @@
 import React, { useRef, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast'
-import { otpVerify } from '../../api/user';
-import { useNavigate } from 'react-router-dom';
+import { otpVerify, resendOtp } from '../../api/user';
+import { useNavigate, useParams } from 'react-router-dom';
 import asset from "../../assets/two-factor-authentication-concept-illustration_114360-5488.avif"
 
 
 const OtpForm: React.FC = () => {
-    const navigate = useNavigate()
     
     const [loading,setLoading] = useState <boolean>(false)
     const formRef = useRef<HTMLFormElement>(null);
     const inputsRef = useRef<Array<React.RefObject<HTMLInputElement>>>(Array.from({ length: 4 }, () => useRef<HTMLInputElement>(null)));
+    const { email } = useParams<{ email: string }>();    const navigate = useNavigate()
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
         if (!/^[0-9]{1}$/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Delete' && e.key !== 'Tab' && !e.metaKey) {
@@ -77,6 +77,17 @@ const OtpForm: React.FC = () => {
         }
      
     };
+    
+    
+    const resendOpt = async () => {
+        console.log(email," emailllllll")
+        if (email) {
+            const resended = await resendOtp(email);
+            toast.success(" otp sended to your mail") // Use extracted email if it's defined
+        } else {
+            toast.error('invalid email address')
+        }
+    };
 
     return (
         <div className="relative  font-inter antialiased" style={{ backgroundColor: 'white' }}>
@@ -125,7 +136,7 @@ const OtpForm: React.FC = () => {
 
                                 </div>
                             </form>
-                            <div className="text-sm text-slate-500 mt-4">Didn't receive code? <a className="font-medium text-indigo-500 hover:text-indigo-600" href="#0">Resend</a></div>
+                            <div className="text-sm text-slate-500 mt-4">Didn't receive code? <p className="font-medium text-indigo-500 hover:text-indigo-600" onClick={resendOpt}>Resend</p></div>
                         </div>
                     </div>
                 </div>

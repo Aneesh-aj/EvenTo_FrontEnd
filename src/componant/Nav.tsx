@@ -9,10 +9,12 @@ import { orgLout } from "../api/organizer";
 
 const Nav: React.FC = () => {
     const role = useGetUser().role;
+    const currentUser = useGetUser()
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [path, setPath] = useState<boolean>(true);
     
+
     
     async function logingOut (){
        const response = await logout()
@@ -25,6 +27,20 @@ const Nav: React.FC = () => {
        }
     }
     async function organizerLogout(){
+        const response = await orgLout()
+        console.log(" whahah",response)
+        alert(response)
+          if(response.success){
+            dispatch(setUser({role:"",name:"",email:"",id:""}))
+          toast.success(response.message)
+          alert('/jdjdjdjjddjj')
+           
+           
+          }else{
+             toast.error("enable to logout")
+          }
+    }
+    async function organizerLogoutReq(){
         const response = await orgLout()
         console.log(" whahah",response)
           if(response.success){
@@ -81,7 +97,7 @@ const Nav: React.FC = () => {
                                     <a href="#" className="hover:text-gray-300"></a>
                                 </li>
                                 <li>
-                                    <a href="/user/profile" className="hover:text-gray-300">profile</a>
+                                    <a href={`/user/profile/${currentUser.id}`} className="hover:text-gray-300">profile</a>
                                 </li>
                             
                                 <li>
@@ -109,7 +125,7 @@ const Nav: React.FC = () => {
                                     <a href="#" className="hover:text-gray-300">Events</a>
                                 </li>
                                 <li>
-                                    <a href="#" className="hover:text-gray-300">About</a>
+                                    <a href={`/organizer/profile/${currentUser.id}`} className="hover:text-gray-300">Profile</a>
                                 </li>
                                 <li>
                                     <button onClick={organizerLogout} className="bg-blue-400 pt-1 pb-1 ps-3 pe-3 text-white rounded-md hover:bg-blue-300">logout</button>
@@ -133,7 +149,7 @@ const Nav: React.FC = () => {
                                     <a href="/organizer/pending" className="hover:text-gray-300">Event</a>
                                 </li>
                                 <li>
-                                    <button onClick={organizerLogout} className="bg-blue-400 pt-1 pb-1 ps-3 pe-3 text-white rounded-md hover:bg-blue-300">logout</button>
+                                    <button onClick={organizerLogoutReq} className="bg-blue-400 pt-1 pb-1 ps-3 pe-3 text-white rounded-md hover:bg-blue-300">logout</button>
                                 </li>
                             </ul>
                         </nav>

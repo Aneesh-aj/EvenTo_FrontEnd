@@ -6,7 +6,7 @@ import OrganizerRoutes from './routes/OrganizerRoute';
 import useGetUser from './hook/useGetUser';
 import Home from './page/Home';
 import ErrorPage from './componant/ErrorPage';
-import OrganizerLogin from './page/organizer/OrganizerLogin';
+// import OrganizerLogin from './page/organizer/OrganizerLogin';
 
 function App() {
   const user = useGetUser().role;
@@ -17,7 +17,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route  path="/auth/organizerLogin" element={user === "requestPending" ? <OrganizerLogin /> : <AuthRoute />} />
+          {/* <Route  path="/auth/organizerLogin" element={user === "requestPending" ? <OrganizerLogin /> : <AuthRoute />} /> */}
           <Route path="/auth/*"
             element={
               user === "user" || user === "organizer" || user === "admin" ? (

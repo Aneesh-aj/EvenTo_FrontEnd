@@ -13,10 +13,11 @@ function CommonRoutes() {
             <Routes>
                     <Route path="/userSignup" element={<Signup />} />
                     <Route path="/userLogin" element={<Login />} />
-                    <Route path="/otp" element={<OtpForm/>} />
+                    <Route path="/otp/:email" element={<OtpForm/>} />
                     <Route path="/adminlogin" element={<AdminLogin/>} />
                     <Route path="/organizerRegister" element={<OrganizerRegistration/>} />
                     <Route path="/organizerLogin" element={<OrganizerLogin/>} />
+                                  
                     {/* <Route path="/adminlogin" element={< AdminLogin/>} /> */}
                     <Route path="*" element={<ErrorPage/>} />
 

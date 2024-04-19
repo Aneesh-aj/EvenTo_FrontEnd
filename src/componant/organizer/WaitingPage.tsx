@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
-import image from "../assets/3255337.jpg"
+import image from "../../assets/3255337.jpg"
 // import Api from "../survices/axios"
-import { isApprove } from "../api/organizer"
+import { isApprove } from "../../api/organizer"
 import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { currentUser } from "../@types/allTypes"
+import { currentUser } from "../../@types/allTypes"
 
 export const WaitingPage = () => {
     const [isApproved,setApprove]= useState<boolean>()

@@ -8,7 +8,8 @@ const organizerRoutes={
     profile :'/organizer/profile',
     uploadBackground:'/organizer/backgroundUpload',
     uploadProfilePicture:'/organizer/profilePicture',
-    resendOtp:"/organizer/resendOtp"
+    resendOtp:"/organizer/resendOtp",
+    getEvents:'/organizer/getEvents'
 }
 
 export default organizerRoutes

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Country, State, City } from 'country-state-city';
 import { Modal, Box, TextField, Button, FormControl, InputLabel, Select, MenuItem, FormHelperText } from "@mui/material";
-import useGetUser from "../hook/useGetUser";
-import { profileEdit } from "../api/user";
+import useGetUser from "../../hook/useGetUser";
+import { profileEdit } from "../../api/user";
 
 
 interface FormData {

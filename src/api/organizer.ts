@@ -104,3 +104,13 @@ export const resendOtp= async(email:string)=>{
     throw error
   }
 }
+
+
+export const fetchEvent = async(id:string)=>{
+   try{
+     const response = await Api.get(organizerRoutes.getEvents+`/${id}`)
+      return response.data
+   }catch(error){
+     throw error
+   }
+}

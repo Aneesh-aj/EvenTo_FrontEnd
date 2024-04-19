@@ -4,6 +4,7 @@ import { userFormData } from "../@types/user";
 import { loginData } from "../@types/loginType";
 
 
+
 export const signup = async (userData: userFormData) => {
     try {
         const response = await Api.post(userRoutes.signup, userData)

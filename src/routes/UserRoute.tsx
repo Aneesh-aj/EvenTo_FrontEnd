@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 import Home from "../page/Home"
-import ErrorPage from "../componant/ErrorPage"
+import ErrorPage from "../componant/common/ErrorPage"
 import { ProfilePage } from "../page/users/ProfilePage"
 
 

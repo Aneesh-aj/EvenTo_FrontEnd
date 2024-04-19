@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Api from "../../survices/axios";
-import Nav from "../../componant/Nav";
+import Nav from "../../componant/common/Nav";
 
 const Organizers: React.FC = () => {
     const [requests, setRequests] = useState<any[] | null>(null);

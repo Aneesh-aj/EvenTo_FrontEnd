@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Api from "../../survices/axios";
 import { Link } from "react-router-dom";
-import Nav from "../../componant/Nav";
+import Nav from "../../componant/common/Nav";
 
 const AdminRequest: React.FC = () => {
   const [requests, setRequests] = useState<any[] | null>(null);

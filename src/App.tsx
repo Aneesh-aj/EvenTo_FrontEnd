@@ -5,7 +5,7 @@ import AdminRoutes from './routes/AdminRoute';
 import OrganizerRoutes from './routes/OrganizerRoute';
 import useGetUser from './hook/useGetUser';
 import Home from './page/Home';
-import ErrorPage from './componant/ErrorPage';
+import ErrorPage from './componant/common/ErrorPage';
 // import OrganizerLogin from './page/organizer/OrganizerLogin';
 
 function App() {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Nav from "../../componant/Nav";
+import Nav from "../../componant/common/Nav";
 // import backgorund from "../../assets/FE.jpg"
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { useRef } from "react";

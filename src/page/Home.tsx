@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { currentUser } from "../@types/allTypes";
-import Nav from "../componant/Nav";
+import Nav from "../componant/common/Nav";
 import asset3 from "../assets/decorated-banquet-hall-with-flowers.jpg"
 import asset2 from "../assets/luxurious-dinner-hall-with-large-crystal-chandelier.jpg"
 import asset from "../assets/FE.jpg"

@@ -1,11 +1,11 @@
 import {  useState } from "react";
-import useGetUser from "../hook/useGetUser";
-import { logout } from "../api/user";
+import useGetUser from "../../hook/useGetUser";
+import { logout } from "../../api/user";
 import { useDispatch } from "react-redux";
-import { setUser } from "../redux/userSlice";
+import { setUser } from "../../redux/userSlice";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { orgLout } from "../api/organizer";
+import { orgLout } from "../../api/organizer";
 
 const Nav: React.FC = () => {
     const role = useGetUser().role;
@@ -111,7 +111,7 @@ const Nav: React.FC = () => {
 
             }
              {role === "organizer" && <>
-                <div className="bg-white fixed w-full text-black p-4 border shadow-lg">
+                <div className="bg-white fixed z-30 w-full text-black p-4 border shadow-lg">
                     <div className="container mx-auto flex justify-between items-center">
                     <Toaster position="top-right" reverseOrder={false}/>  
                         <h1 className="text-2xl  font-bold">EvenTo</h1>
@@ -122,7 +122,7 @@ const Nav: React.FC = () => {
                                     {/* <a href="#" className="hover:text-gray-300">{role}</a> */}
                                 </li>
                                 <li>
-                                    <a href="#" className="hover:text-gray-300">Events</a>
+                                    <a href={`/organizer/dashboard/${currentUser.id}`} className="hover:text-gray-300">Events</a>
                                 </li>
                                 <li>
                                     <a href={`/organizer/profile/${currentUser.id}`} className="hover:text-gray-300">Profile</a>

@@ -1,10 +1,10 @@
-import Nav from "../../componant/Nav"
+import Nav from "../../componant/common/Nav"
 import Avatar from '@mui/material/Avatar';
 import LoopSharpIcon from '@mui/icons-material/LoopSharp';
 import TrendingFlatTwoToneIcon from '@mui/icons-material/TrendingFlatTwoTone';
-import { LatestEvent } from "../../componant/LatestEvent";
+import { LatestEvent } from "../../componant/user/LatestEvent";
 import { useEffect, useRef, useState } from "react";
-import EditProfileModal from "../../componant/ProfileEdit";
+import EditProfileModal from "../../componant/user/ProfileEdit";
 import useGetUser from "../../hook/useGetUser";
 import { userDetails, userUploadPicture } from "../../api/user";
 import { Country, State, City } from 'country-state-city';

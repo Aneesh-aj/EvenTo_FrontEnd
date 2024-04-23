@@ -85,3 +85,13 @@ export const userUploadPicture= async(id:string,img:string)=>{
       throw error
     }
   }
+
+  export const allOrganizers = async()=>{
+     try{
+      const response = await Api.get(userRoutes.getAllorganizer)
+      console.log(" the data form the api",response)
+       return response.data
+     }catch(error){
+        throw error
+     }
+  }

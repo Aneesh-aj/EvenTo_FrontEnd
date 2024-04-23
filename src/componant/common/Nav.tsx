@@ -70,6 +70,9 @@ const Nav: React.FC = () => {
                                 <a href="/" className="hover:text-gray-300">Home</a>
                             </li>
                             <li>
+                                <a href=""></a>
+                            </li>
+                            <li>
                                 <a href="#" className="hover:text-gray-300">Events</a>
                             </li>
                             <li>
@@ -94,7 +97,7 @@ const Nav: React.FC = () => {
                                     <a href="/" className="hover:text-gray-300">Home</a>
                                 </li>
                                 <li>
-                                    <a href="#" className="hover:text-gray-300"></a>
+                                    <a href="/user/organizer" className="hover:text-gray-300">organizers</a>
                                 </li>
                                 <li>
                                     <a href={`/user/profile/${currentUser.id}`} className="hover:text-gray-300">profile</a>
@@ -146,7 +149,7 @@ const Nav: React.FC = () => {
                             <ul className="flex space-x-4">
                               
                                 <li>
-                                    <a href="/organizer/pending" className="hover:text-gray-300">Event</a>
+                                    <a href="/pending" className="hover:text-gray-300">Event</a>
                                 </li>
                                 <li>
                                     <button onClick={organizerLogoutReq} className="bg-blue-400 pt-1 pb-1 ps-3 pe-3 text-white rounded-md hover:bg-blue-300">logout</button>

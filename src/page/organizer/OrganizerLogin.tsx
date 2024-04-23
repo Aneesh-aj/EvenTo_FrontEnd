@@ -12,6 +12,7 @@ import { currentUser } from '../../@types/allTypes';
 import  '../../index.css'
 import image from '../../assets/business-management-illustration-set-characters-planning-work-tasks-managing-inbox-emails_566886-5785.jpg'
 import { organizerLogin } from '../../api/organizer';
+import useGetUser from '../../hook/useGetUser';
 
 
 const OrganizerLogin: React.FC = () => {
@@ -20,6 +21,12 @@ const OrganizerLogin: React.FC = () => {
     useSelector((state: currentUser) => state)
     const dispatch = useDispatch()
 
+     const currentUser = useGetUser()
+    if(currentUser.approve === false){
+         console.log(" comming here yes")
+         alert("yes")
+         navigate("/")
+    }
     const { register, handleSubmit, formState: { errors } } = useForm()
     const handleFormSubmit = async (data: any) => {
         setLoading(true)
@@ -36,7 +43,9 @@ const OrganizerLogin: React.FC = () => {
                 role: result.organizer.role,
                 name: result.organizer.name,
                 email: result.organizer.email,
-                id: result.organizer._id
+                id: result.organizer._id,
+                blocked:result.organizer.blocked,
+                approve:result.organizer.approved
             }))
             navigate("/")
         } else {

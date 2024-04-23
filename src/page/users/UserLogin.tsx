@@ -28,13 +28,15 @@ const Login: React.FC = () => {
         }
         const result = await login(user)
         setLoading(false)
+        alert(result.user.blocked)
         if (result.user) {
             toast.success(result.message)
             dispatch(setUser({
                 role: result.role,
                 name: result.user.name,
                 email: result.user.email,
-                id: result.user._id
+                id: result.user._id,
+                blocked:result.user.blocked 
             }))
             navigate("/")
         } else {

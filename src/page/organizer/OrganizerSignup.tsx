@@ -77,6 +77,8 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
 
 
   useEffect(() => {
+    
+
     const getCountries = async () => {
       const result: Country[] = await Country.getAllCountries();
       setCountries(result);
@@ -166,7 +168,10 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
             role: result.role,
             name: result.organizer.name,
             email: result.organizer.email,
-            id: result.organizer._id
+            id: result.organizer._id,
+            blocked:result.organizer.blocked,
+            approve:false
+
           }))
 
           setLoading(false)

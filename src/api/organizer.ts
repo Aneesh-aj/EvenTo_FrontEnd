@@ -67,6 +67,7 @@ export const organizerLogin = async (email: string, password: string) => {
 export const findbyId = async (id: string) => {
   try {
     const response = await Api.get(organizerRoutes.profile + `/${id}`)
+     console.log(" the data :::?..>" , response)
     return response.data
   } catch (error) {
     throw error

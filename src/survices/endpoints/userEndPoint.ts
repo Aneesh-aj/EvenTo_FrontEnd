@@ -6,7 +6,8 @@ const userRoutes={
     getUser:"/user/profile",
     profileEdit:"/user/profileEdit",
     uploadProfile:"/user/profileUpload",
-    resendOpt:"/user/resendOtp"
+    resendOpt:"/user/resendOtp",
+    getAllorganizer:'/user/allorganizers'
 }
 
 export default userRoutes

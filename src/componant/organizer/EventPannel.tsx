@@ -3,6 +3,7 @@ import { fetchEvent } from "../../api/organizer"
 import { useEffect, useState } from "react"
 import useGetUser from "../../hook/useGetUser"
 import EventCreationForm from "./EventCreationForm"
+import SeatCreating from "./SeatCreating"
 
 const EventPannel: React.FC = () => {
     const navigate = useNavigate()
@@ -62,6 +63,7 @@ const EventPannel: React.FC = () => {
             <div>
                 {eventTrue && <>event trueee</>}
                 {eventFormTrue && <EventCreationForm/>}
+                {/* {eventFormTrue && <SeatCreating/>} */}
                 {scheduleTrue && <>schedules true</>}
             </div>
         </>

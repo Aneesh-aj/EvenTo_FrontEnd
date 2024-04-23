@@ -6,6 +6,8 @@ const initialState: currentUser ={
     name: '',
     email: '',
     id: '',
+    blocked:false,
+    approve:false,
     user: undefined
 }
 
@@ -21,11 +23,17 @@ const userSlice = createSlice({
            state.role = ''
         },
         setUser: (state, action) => {
-            const { role, name, email, id } = action.payload;
+            const { role, name, email, id ,blocked,approve} = action.payload;
             state.role = role;
             state.name = name;
             state.email = email;
             state.id = id;
+            state.blocked = blocked
+            state.approve = approve
+          },
+          setApproval:(state,action)=>{
+              const {approvel} = action.payload
+              state.approve = approvel
           },
 
         removeUser:(state)=>{
@@ -38,5 +46,5 @@ const userSlice = createSlice({
 })
 
 
-export const {setRole,removeRole,setUser} = userSlice.actions
+export const {setRole,removeRole,setUser,setApproval} = userSlice.actions
 export default userSlice.reducer

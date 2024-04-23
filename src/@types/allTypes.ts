@@ -17,5 +17,7 @@ export interface currentUser{
    role:string,
    name:string,
    email:string,
-   id:string
+   id:string,
+   blocked:boolean,
+   approve?:boolean,
 }

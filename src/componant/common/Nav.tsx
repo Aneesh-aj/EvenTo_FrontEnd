@@ -176,6 +176,9 @@ const Nav: React.FC = () => {
                                     <a href="/admin/request" className="hover:text-gray-300">request</a>
                                 </li>
                                 <li>
+                                    <a href="/admin/category" className="hover:text-gray-300">category</a>
+                                </li>
+                                <li>
                                     <button onClick={adminLogout} className="bg-blue-400 pt-1 pb-1 ps-3 pe-3 text-white rounded-md hover:bg-blue-300">logout</button>
                                 </li>
                             </ul>

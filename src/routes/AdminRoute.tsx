@@ -9,6 +9,7 @@ import RequestDetails from "../page/admin/RequestDetails"
 // import AdminProtected from "./protectedRoute/AdminProctedRoute"
 // import Errorpage from "../Components/404page"
 import Users from "../page/admin/Users"
+import { CategoryPage } from "../page/admin/CategoryPage"
 // import Organizers from "../Pages/AdminPages/organizer"
 
 
@@ -21,6 +22,7 @@ function AdminRoutes() {
                     <Route path="/request" element={<AdminRequest />} />
                     <Route path="/users" element={<Users/>} />                   
                      <Route path="/login" element={< AdminLogin/>} />
+                     <Route path="/category" element={<CategoryPage/>} />
                     {/* <Route path="/RequestDetails/:id" element={<RequestDetails />} /> */}
                     <Route path="/organizers" element={<Organizers/>} />
                     <Route path="/requestDetails/:id" element={<RequestDetails/>} />

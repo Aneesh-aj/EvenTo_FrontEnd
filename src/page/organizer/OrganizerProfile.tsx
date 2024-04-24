@@ -6,6 +6,8 @@ import { useRef } from "react";
 import { UploadBackgroundImage, UploadProfilePicture } from "../../survices/firebase/uploadImage";
 import { findbyId, uploadBackground, uploadProfilePicture } from "../../api/organizer";
 import { useSelector } from "react-redux";
+import Chip from '@mui/material/Chip';
+
 import { currentUser } from "../../@types/allTypes";
 import ProfileEdit from "../../componant/organizer/ProfileEdit";
 import { Country, State } from "country-state-city";
@@ -121,7 +123,7 @@ const OrganizerProfile: React.FC = () => {
                         <div className="flex justify-between ">
                             <h1 className="ps-4  pt-20 xl:ps-9 xl:pt-20 font-sans  text-xl xl:text-3xl font-extrabold ">{organizerData?.name}</h1>
                             <button className="w-[5rem] m-4 h-[2rem]   bg-blue-500 rounded-md text-white" onClick={handleOpenModal}>Edit</button>
-                            <ProfileEdit isOpen={isModalOpen} onClose={handleCloseModal} userData={organizerData} />
+                            <ProfileEdit isOpen={isModalOpen} onClose={handleCloseModal} organizerData={organizerData} />
                         </div>
                         <div className="flex justify-between w-full h-auto">
                             <h1 className="pt-8  ps-9 font-bold">Organizer Details</h1>
@@ -134,30 +136,15 @@ const OrganizerProfile: React.FC = () => {
                                 <p className="ps-4  xl:ps-9 font-serif">{regions.pin} , {organizerData?.email} , {organizerData?.phoneNumber}</p>
                             </div>
                             <div className="   flex  gap-1 w-6/12 flex-row-reverse pe-9  flex-wrap">
-                                 <div className="rounded-xl ps-1 pe-1 h-fit border-black border-2 border-opacity-20 opacity-40 bg-slate-200  w-auto">
-                                    hsdfhsldfh
-                                 </div>
-                                 <div className="rounded-xl ps-1 pe-1 h-fit border-black border-2 border-opacity-20 opacity-40 bg-slate-200  w-auto">
-                                    hsdfhsldfh
-                                 </div>
-                                 <div className="rounded-xl ps-1 pe-1 h-fit border-black border-2 border-opacity-20 opacity-40 bg-slate-200  w-auto">
-                                    hsdfhsldfh
-                                 </div>
-                                 <div className="rounded-xl ps-1 pe-1 h-fit border-black border-2 border-opacity-20 opacity-40 bg-slate-200  w-auto">
-                                    hsdfhsldfh
-                                 </div>
-                                 <div className="rounded-xl ps-1 pe-1 h-fit border-black border-2 border-opacity-20 opacity-40 bg-slate-200  w-auto">
-                                    hsdfhsldfh
-                                 </div>
-                                 <div className="rounded-xl ps-1 pe-1 h-fit border-black border-2 border-opacity-20 opacity-40 bg-slate-200  w-auto">
-                                    hsdfhsldfh
-                                 </div>
+                                <Chip label="Marraiage" />
+                                <Chip label="food fest" />
+                                <Chip label="funneral" />
                             </div>
                         </div>
-                         <div className="m-4 ps-4">
+                        <div className="m-4 ps-4">
                             <h1 className="font-bold">About the company</h1>
                             <p className="pt-3 pe-5 font-serif">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet fugiat provident, itaque est sunt nobis eius, voluptate saepe corrupti velit delectus recusandae in, exercitationem distinctio? Impedit molestias porro ducimus facere.</p>
-                         </div>
+                        </div>
                         <div className="w-full xl:ps-4 ">
                             <button className="w-[5rem] m-4 h-[2rem]   bg-blue-500 rounded-md text-white">book</button>
                             <button className="w-[5rem] h-[2rem]  bg-blue-500 rounded-md text-white">message</button>

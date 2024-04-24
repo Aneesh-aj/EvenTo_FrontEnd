@@ -22,7 +22,7 @@ const OrganizerLogin: React.FC = () => {
     const dispatch = useDispatch()
 
      const currentUser = useGetUser()
-    if(currentUser.approve === false){
+    if(currentUser.role &&currentUser.approve === false){
          console.log(" comming here yes")
          alert("yes")
          navigate("/")
@@ -34,9 +34,12 @@ const OrganizerLogin: React.FC = () => {
             email: data.email || "",
             password: data.password || ""
         }
+        alert("before teh callign")
         const result = await organizerLogin(user.email,user.password)
         console.log(result)
         setLoading(false)
+        alert("role will set")
+
         if (result.organizer) {
             toast.success(result.message)
             dispatch(setUser({
@@ -47,6 +50,7 @@ const OrganizerLogin: React.FC = () => {
                 blocked:result.organizer.blocked,
                 approve:result.organizer.approved
             }))
+            alert("role seetted")
             navigate("/")
         } else {
             toast.error(result.response.data.message)

@@ -34,7 +34,7 @@ const AdminRequest: React.FC = () => {
     <>
       <Nav />
 
-      <div className="w-full h-96 p-4 flex flex-col items-center">
+      <div className="w-full h-96 p-4 pt-[5rem] flex flex-col items-center">
         <div className="rounded-md bg-white shadow-md w-full h-11 flex flex-row items-center">
           <h2 className="font-sans font-bold ps-5">Organization Request</h2>
         </div>

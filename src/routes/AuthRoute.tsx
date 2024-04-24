@@ -17,7 +17,7 @@ function CommonRoutes() {
                  
                    
                         
-                        <Route path="/adminlogin" element={ currentUser? <Navigate to={"/"} />:<AdminLogin/>} />
+                        <Route path="/adminLogin" element={ currentUser.role? <Navigate to={"/"} />:<AdminLogin/>} />
 
                         <Route path="/organizerLogin" element={ <OrganizerLogin/>} />
                         <Route path="/userSignup" element={currentUser&&currentUser.role ? <Navigate to={"/"} /> :<Signup />} />

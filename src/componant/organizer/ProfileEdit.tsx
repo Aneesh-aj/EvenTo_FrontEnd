@@ -1,51 +1,69 @@
 import React, { useEffect, useState } from "react";
 import { Country, State, City } from 'country-state-city';
-import { Modal, Box, TextField, Button, FormControl, InputLabel, Select, MenuItem, FormHelperText } from "@mui/material";
+import { Modal, Box, TextField, Button, FormControl, InputLabel, Select, MenuItem, FormHelperText, Autocomplete } from "@mui/material";
 import useGetUser from "../../hook/useGetUser";
 import { profileEdit } from "../../api/user";
 
 
 interface FormData {
     name: string;
-    pinCode: string;
     phoneNumber: string;
     country: string;
     state: string;
     city: string;
+    pinCode: string;
+    about: string;
+    eventCategory: [];
+    email: string;
+    building: string;
+
 }
 
 interface Props {
     isOpen: boolean;
     onClose: () => void;
-    userData: any;
+    organizerData: any;
 }
 
 
 
-const ProfileEdit: React.FC<Props> = ({ isOpen, onClose,userData}) => {
+const ProfileEdit: React.FC<Props> = ({ isOpen, onClose, organizerData }) => {
     const [formData, setFormData] = useState<FormData>({
-        name:"",
-        pinCode:  "",
+        name: "",
         phoneNumber: "",
-        country:"",
-        state:  "",
+        country: "",
+        state: "",
         city: "",
+        pinCode: "",
+        about: "",
+        eventCategory: [],
+        email: '',
+        building: ''
+
     });
     const currentUser = useGetUser()
+
     useEffect(() => {
-        if (userData) {
+        if (organizerData) {
+            const organizer = organizerData;
+            const address = organizer.address[0];
             setFormData({
-                name: userData.user ? userData.user.name : "",
-                pinCode: userData.address ? userData.address.pincode : "",
-                phoneNumber: userData.user ? userData.user.phoneNumber : "",
-                country: userData.address ? userData.address.country : "",
-                state: userData.address ? userData.address.state : "",
-                city: userData.address ? userData.address.city : ""
+                name: organizer.name ? organizer.name : "",
+                phoneNumber: organizer.phoneNumber ? organizer.phoneNumber : "",
+                country: address?.country ? address.country : "",
+                state: address?.state ? address.state : "", // Use optional chaining here
+                city: address?.city ? address.city : "", // Use optional chaining here
+                pinCode: address?.pincode ? address.pincode : "", // Use optional chaining here
+                about: organizer.about ? organizer.about : "",
+                eventCategory: organizer.category ? organizer.category : ["helloos","hiiiiii","nexttttt"],
+                email: organizer.email ? organizer.email : "",
+                building: address?.building ? address.building : "", // Use optional chaining here
             });
         }
-    }, [userData]);
-   
-   
+    }, [organizerData]);
+
+
+
     const [countries, setCountries] = useState<any[]>([]);
     const [states, setStates] = useState<any[]>([]);
     const [cities, setCities] = useState<any[]>([]);
@@ -119,7 +137,7 @@ const ProfileEdit: React.FC<Props> = ({ isOpen, onClose,userData}) => {
         } else if (!/^\d{6}$/.test(formData.pinCode)) {
             validationErrors.pinCode = "Pin code must be 6 digits";
         }
-    
+
         if (!formData.phoneNumber.trim()) {
             validationErrors.phoneNumber = "Phone Number is required";
         } else if (!/^\d{10}$/.test(formData.phoneNumber.trim())) {
@@ -139,23 +157,38 @@ const ProfileEdit: React.FC<Props> = ({ isOpen, onClose,userData}) => {
         if (!formData.city) {
             validationErrors.city = "City is required";
         }
+
+        if (!formData.about) {
+            validationErrors.about = "About is required"
+        }
+        if (!formData.building) {
+            validationErrors.building = "building is required"
+        }
+        if (!formData.email) {
+            validationErrors.email = "Email is required"
+        }
+
         setErrors(validationErrors);
         if (Object.keys(validationErrors).length === 0) {
 
             console.log(" goign therec")
-            const result = await profileEdit(currentUser?.id , formData)
+            const result = await profileEdit(currentUser?.id, formData)
             console.log(result)
             onClose()
         }
     };
 
     return (
-        <Modal open={isOpen} onClose={onClose}>
-            <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", bgcolor: "background.paper", boxShadow: 24, p: 5, width: 500 }}>
-                <form onSubmit={handleSubmit}>
-                    <div className="flex gap-3 flex-col scroll-m-2">
+        <Modal open={isOpen} onClose={onClose} className="">
+            <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", bgcolor: "background.paper", boxShadow: 24, p: 5, width: 500, overflowY: 'auto', maxHeight: '90vh' }}>
+                <form onSubmit={handleSubmit} className="">
+                    <div className="flex gap-3 flex-col scroll-m-2  ">
                         <TextField fullWidth label="Name" name="name" value={formData.name} onChange={(e) => handleChange(e as any)} />
                         {errors.name && <FormHelperText error>{errors.name}</FormHelperText>}
+                        <TextField fullWidth label="Email" name="email" value={formData.email} onChange={(e) => handleChange(e as any)} />
+                        {errors.email && <FormHelperText error>{errors.email}</FormHelperText>}
+                        <TextField fullWidth label="About" name="about" value={formData.about} onChange={(e) => handleChange(e as any)} />
+                        {errors.about && <FormHelperText error>{errors.about}</FormHelperText>}
                         <TextField fullWidth label="Pincode" name="pinCode" value={formData.pinCode} onChange={(e) => handleChange(e as any)} />
                         {errors.pinCode && <FormHelperText error>{errors.pinCode}</FormHelperText>}
                         <TextField fullWidth label="Phone Number" name="phoneNumber" value={formData.phoneNumber} onChange={(e) => handleChange(e as any)} />
@@ -205,6 +238,8 @@ const ProfileEdit: React.FC<Props> = ({ isOpen, onClose,userData}) => {
                             </Select>
                             {errors.city && <FormHelperText error>{errors.city}</FormHelperText>}
                         </FormControl>
+                         
+
                         <Button variant="contained" color="primary" type="submit">Submit</Button>
                     </div>
                 </form>

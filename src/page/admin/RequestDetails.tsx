@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import api from "../../survices/axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { Country, State, City } from "country-state-city";
+import toast, { Toaster } from "react-hot-toast";
 
 const RequestDetails: React.FC = () => {
     const [details, setDetails] = useState<any | null>();
@@ -14,8 +15,13 @@ const RequestDetails: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                let response = await api.get(`/admin/requestDetails/${id}`);
-                let data = response.data.result;
+                const response = await api.get(`/admin/requestDetails/${id}`);
+                const data = response.data.result;
+                console.log(" the reonses")
+                console.log(data,"dataaaa===================================================")
+                if(response.data.state === 400){
+                    toast.error(response.data.message)
+                }
                 console.log(" the result", data);
                 setDetails(data);
             } catch (error) {
@@ -42,6 +48,8 @@ const RequestDetails: React.FC = () => {
                 <div className="rounded-md bg-white shadow-md w-full h-11 flex flex-row items-center">
                     {details?.name}
                 </div>
+                <Toaster position="top-right"
+                        reverseOrder={false} />
                 <div className="rounded-md mt-2 bg-white shadow-md h-auto p-7 ps-13 w-full">
                     <div className="bg-white ps-2">
                         <h1 className="font-sans font-bold text-2xl">Organization Information</h1>

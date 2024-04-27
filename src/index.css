@@ -12,7 +12,9 @@
   }
 
   body{
-    background-color:#fcf3eb ;
+    /* background-color:#fcf3eb ; */
+    background-color:hsl(0, 3%, 94%) ;
+
   }
   .custom-box-shadow{
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;

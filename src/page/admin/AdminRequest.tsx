@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from "react";
-import Api from "../../survices/axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Nav from "../../componant/common/Nav";
-
+import toast, { Toaster } from "react-hot-toast";
+import { allRequests } from "../../api/admin";
+import { clearUser } from "../../utils/clearUser";
+import { useDispatch } from "react-redux";
 const AdminRequest: React.FC = () => {
   const [requests, setRequests] = useState<any[] | null>(null);
   const [isAccepted, setIsAccepted] = useState<boolean>(false);
+  const navigate =  useNavigate()
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await Api.get('/admin/Requests');
-        setRequests(response.data.result);
+        const response = await allRequests()
+        console.log(" the response======================================================= from the user",response)
+        if(response.success === false){
+          toast.error(response.message)
+          clearUser(dispatch);
+          navigate("/auth/adminLogin")
+      }
+        setRequests(response.result);
       } catch (error) {
         console.error('Error fetching requests:', error);
       }
@@ -37,6 +48,8 @@ const AdminRequest: React.FC = () => {
       <div className="w-full h-96 p-4 pt-[5rem] flex flex-col items-center">
         <div className="rounded-md bg-white shadow-md w-full h-11 flex flex-row items-center">
           <h2 className="font-sans font-bold ps-5">Organization Request</h2>
+          <Toaster position="top-right"
+                        reverseOrder={false} />
         </div>
         <div className="rounded-md mt-1 w-11/12 h-11 flex items-center">
           <div className={`w-6/12 flex justify-center ${isAccepted ? '' : 'underline'}`}>

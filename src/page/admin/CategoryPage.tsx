@@ -19,7 +19,7 @@ export const CategoryPage: React.FC = () => {
     useEffect(() => {
         async function getCategorys() {
             const response = await getCategory()
-            console.log(response)
+            console.log("inside effect",response)
             setAllcategory(response.category)
         }
         getCategorys()
@@ -37,9 +37,13 @@ export const CategoryPage: React.FC = () => {
     function hangleCloseModal() {
         setIsModalOpen(false)
     }
-    const updateAllCategory = (updatedCategories: any[]) => {
+    const updateAllCategory = (updatedCategories: any) => {
+        console.log(" the resulted category=========================================>",allCategory)
         setAllcategory(updatedCategories);
+        
+
     };
+    
     
 
     return (
@@ -64,7 +68,7 @@ export const CategoryPage: React.FC = () => {
                     <CategoryModal isOpen={isModalOpen} onClose={hangleCloseModal} categoryData={categoryData} onEditSuccess={updateAllCategory} />
 
                     {
-                        allCategory && allCategory.map((elem: any) => {
+                        allCategory && allCategory?.map((elem: any) => {
                             return (
                                 <>
                                     <div className="w-full p-2 h-16 items-center flex">

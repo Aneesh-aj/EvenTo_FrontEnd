@@ -9,7 +9,12 @@ const organizerRoutes={
     uploadBackground:'/organizer/backgroundUpload',
     uploadProfilePicture:'/organizer/profilePicture',
     resendOtp:"/organizer/resendOtp",
-    getEvents:'/organizer/getEvents'
+    getEvents:'/organizer/getEvents',
+    allcategory :"/organizer/allcategory",
+    profileEdit:"/organizer/profileEdit",
+    eventCategory:"/organizer/categorys",
+    eventCreation:"/organizer/eventCreation",
+    getAllEvents:"/organizer/getAllEvents"
 }
 
 export default organizerRoutes

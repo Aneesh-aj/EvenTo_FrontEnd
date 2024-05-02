@@ -1,6 +1,7 @@
 import Api from "../survices/axios"
 import organizerRoutes from "../survices/endpoints/organizerEndPoint"
 import { IorganizerFormData } from "../@types/organizer"
+import { eventFormData } from "../@types/eventType"
 
 
 
@@ -110,6 +111,55 @@ export const resendOtp= async(email:string)=>{
 export const fetchEvent = async(id:string)=>{
    try{
      const response = await Api.get(organizerRoutes.getEvents+`/${id}`)
+      return response.data
+   }catch(error){
+     throw error
+   }
+}
+
+export const Allcategory = async ()=>{
+  try{
+    const response = await Api.get(organizerRoutes.allcategory)
+       return response.data
+  }catch(error){
+    throw error
+  }
+}
+
+
+export const organizerProfileEdit = async(id:string,formData:object)=>{
+   try{
+
+      console.log(" the form data ",formData)
+       const response = await Api.post(organizerRoutes.profileEdit,{id,formData})
+        return response.data
+   }catch(error){
+     throw error
+   }
+}
+
+
+export const getCategory = async(id:string)=>{
+  try{
+       const response = await Api.get(organizerRoutes.eventCategory+`/${id}`)
+       return response.data
+  }catch(error){
+     throw error
+  }
+}
+
+export const createEvent= async(data:any)=>{
+   try{
+          const response = await Api.post(organizerRoutes.eventCreation,{data})
+          return response.data
+   }catch(error){
+     throw error
+   }
+}
+
+export const getAllEvents = async(id:string)=>{
+   try{
+      const response = await Api.get(organizerRoutes.getAllEvents+`/${id}`)
       return response.data
    }catch(error){
      throw error

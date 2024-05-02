@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import useGetUser from "../../hook/useGetUser"
 import EventCreationForm from "./EventCreationForm"
 import SeatCreating from "./SeatCreating"
+import { EventListing } from "./EventListing"
 
 const EventPannel: React.FC = () => {
     const navigate = useNavigate()
@@ -48,7 +49,7 @@ const EventPannel: React.FC = () => {
             setEventTrue(false);
             setEventFormTrue(false);
             navigate("/organizer/events/Schedules");
-        }
+        } 
     }
 
     console.log(events, "okkk")
@@ -61,7 +62,7 @@ const EventPannel: React.FC = () => {
                 <div className="flex justify-center w-2/12 bg-white items-center border shadow-md rounded-md h-14" onClick={() => changeComponent(2)}>Schedule</div>
             </div>
             <div>
-                {eventTrue && <>event trueee</>}
+                {eventTrue && <><EventListing/></>}
                 {eventFormTrue && <EventCreationForm/>}
                 {/* {eventFormTrue && <SeatCreating/>} */}
                 {scheduleTrue && <>schedules true</>}

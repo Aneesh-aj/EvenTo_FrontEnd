@@ -28,13 +28,10 @@ const OrganizerProfile: React.FC = () => {
         pin: undefined
     });
     const [profile, setProfile] = useState<any>()
-    // const [image , setImage] = useState<File>()
     const currentUser = useSelector((state: { user: currentUser }) => state.user)
     const id = currentUser?.id
-    // var img 
     async function changing(e: React.ChangeEvent<HTMLInputElement>) {
         const file = e.target.files?.[0];
-        // alert(" the file : ",file)
         if (file) {
             const url = await UploadBackgroundImage(file);
             console.log("getting the url", url);
@@ -46,7 +43,6 @@ const OrganizerProfile: React.FC = () => {
 
     async function changingProfile(e: React.ChangeEvent<HTMLInputElement>) {
         const file = e.target.files?.[0];
-        // alert(" the file : ",file)
         if (file) {
             const url = await UploadProfilePicture(file);
             console.log("getting the url", url);
@@ -95,9 +91,9 @@ const OrganizerProfile: React.FC = () => {
     return (
         <>
             <Nav />
-            <div className='h-auto   bg-[#f0f2f0] w-full flex p-2 flex-col  items-center '>
+            <div className='h-auto   bg-white w-full flex p-2 flex-col  items-center '>
 
-                <div className="w-full  xl:w-7/12 rounded-lg shadow mt-20 h-auto bg-white">
+                <div className="w-full  xl:w-7/12 rounded-lg shadow-md border-2 mt-20 h-auto bg-white">
                     <div className="w-full rounded-lg object-contain  relative shadow bg-white h-32 xl:h-48 flex  items-end  ">
                         {/* <AddPhotoAlternateIcon className=" "/> */}
                         <button className="top-2 end-2  absolute text-white" onClick={(e) => {
@@ -136,14 +132,20 @@ const OrganizerProfile: React.FC = () => {
                                 <p className="ps-4  xl:ps-9 font-serif">{regions.pin} , {organizerData?.email} , {organizerData?.phoneNumber}</p>
                             </div>
                             <div className="   flex  gap-1 w-6/12 flex-row-reverse pe-9  flex-wrap">
-                                <Chip label="Marraiage" />
-                                <Chip label="food fest" />
-                                <Chip label="funneral" />
+                              
+                                {
+                                    organizerData&&organizerData.eventCategory.map((elem:any,key:any)=>{
+                                        return(
+                                            <Chip label={elem?.category} key={key} />
+
+                                        )
+                                    })
+                                }
                             </div>
                         </div>
                         <div className="m-4 ps-4">
                             <h1 className="font-bold">About the company</h1>
-                            <p className="pt-3 pe-5 font-serif">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet fugiat provident, itaque est sunt nobis eius, voluptate saepe corrupti velit delectus recusandae in, exercitationem distinctio? Impedit molestias porro ducimus facere.</p>
+                            <p className="pt-3 pe-5 font-serif">{organizerData?.about}</p>
                         </div>
                         <div className="w-full xl:ps-4 ">
                             <button className="w-[5rem] m-4 h-[2rem]   bg-blue-500 rounded-md text-white">book</button>

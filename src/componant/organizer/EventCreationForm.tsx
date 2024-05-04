@@ -5,18 +5,23 @@ import { City, Country, State } from 'country-state-city';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import {  useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import  { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers';
 import { createEvent, getCategory } from '../../api/organizer';
 import useGetUser from '../../hook/useGetUser';
 import SeatCreating from './SeatCreating';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { eventFormData } from '../../@types/eventType';
 import { setEvent } from '../../redux/eventSlice';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 import toast, { Toaster } from 'react-hot-toast';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 interface Country {
     isoCode: string;
@@ -46,15 +51,15 @@ type FormValues = {
     eventType: string;
     eventCategory: string;
     date: Date | null,
-    startingTime: Date;
-    endingTime: Date;
+    startingTime: Date | null;
+    endingTime: Date | null;
     eventBooking: string;
     paymentMethod: string;
     paymentAmount: string;
     seatNumber: number;
     seatArrangement: Seat[],
-    organizerId:string,
-    totalAmount:number
+    organizerId: string,
+    totalAmount: number
 }
 interface Seat {
     row: string; // Change row type to string for alphabet letters
@@ -85,7 +90,7 @@ const EventCreationForm: React.FC = () => {
     const [eventCountrys, setEventCountys] = useState<Country[]>([]);
     const [payment, setPayment] = useState<boolean>(false)
     const [category, setCategory] = useState([])
-    useSelector((states:eventFormData)=>states)
+    useSelector((states: eventFormData) => states)
     const navigate = useNavigate()
 
 
@@ -103,49 +108,83 @@ const EventCreationForm: React.FC = () => {
             location: "",
             eventType: "",
             eventCategory: "",
-            date: undefined,
-            startingTime: undefined,
-            endingTime: undefined,
+            date: null,
+            startingTime: null,
+            endingTime: null,
             eventBooking: "",
             paymentMethod: "",
             paymentAmount: "",
             seatNumber: undefined,
-            seatArrangement:[],
+            seatArrangement: [],
             organizerId: currentUser.id,
-            totalAmount:undefined
+            totalAmount: undefined
 
         }
     });
 
-    const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
-    const handleDateChange = (date: Dayjs | null) => {
-        setSelectedDate(date);
-    };
+
 
 
     const onSubmit = async (data: FormValues) => {
-      
-        console.log("and the dataa-----------------------  ",data.seatArrangement)
-        if(data.eventBooking === "SeatArrangment" &&data.seatArrangement.length <= 0){
-        
+
+        console.log("and the dataa-----------------------  ", data.seatArrangement)
+        console.log(" the data from the form", data)
+        if (data.eventBooking === "SeatArrangment" && data.seatArrangement.length <= 0) {
+
             console.log(" it is showinig the anothe part")
-        
+
             setFormPart(false)
             setSeatPart(true)
-        }else{
-             setValue('organizerId',currentUser.id)
+        } else {
+            setValue('organizerId', currentUser.id)
+            const date = dayjs(data.date);
+            let startTime = dayjs(data.startingTime);
+            let endTime = dayjs(data.endingTime);
             
-              const response = await createEvent(data)
-             console.log(" the resposne ss",response)
-             if(response.event.success == true){
-                 setFormPart(true)
-                 setSeatPart(false)
-                 window.location.reload()
-                 toast.success(response.event.message)
+            startTime = startTime.set('date', date.date());
+            if (endTime.isBefore(startTime)) {
+                endTime = endTime.set('date', date.date());
+                if (endTime.isBefore(startTime)) {
+                    endTime = endTime.add(1, 'day');
+                }
+            }
+            
+            // Convert to JavaScript Date objects
+            const startDate = date.toDate();
+            const startingTime = startTime.toDate();
+            const endingTime = endTime.toDate();
+            
+            // Set values in the form data
+            console.log('Start Date:', startDate);
+            console.log('Starting Time:', startingTime);
+            console.log('Ending Time:', endingTime);
+            
+            setValue('date', startDate);
+            setValue('startingTime', startingTime);
+            setValue('endingTime', endingTime);
 
-             }
-         }
-         
+            data.date = startDate
+            data.startingTime = startingTime,
+            data.endingTime = endingTime
+            
+            console.log("after the adding date",data)
+            
+            
+            
+
+
+
+            const response = await createEvent(data)
+            // console.log(" the resposne ss", response)
+            // if (response.event.success == true) {
+            //     setFormPart(true)
+            //     setSeatPart(false)
+            //     window.location.reload()
+            //     toast.success(response.event.message)
+
+            // }
+        }
+
     };
 
     useEffect(() => {
@@ -219,10 +258,10 @@ const EventCreationForm: React.FC = () => {
         getEventStates();
     }, [selectedCountry, eventCountry]);
 
-   function  seatArranging(seat:Seat[]){
-        setValue('seatArrangement',seat)
-     
-        handleSubmit(onSubmit)       
+    function seatArranging(seat: Seat[]) {
+        setValue('seatArrangement', seat)
+
+        handleSubmit(onSubmit)
     }
 
     return (
@@ -231,7 +270,7 @@ const EventCreationForm: React.FC = () => {
                 <h1 className=' m-6 w-full flex justify-center text-3xl font-extrabold'>Event Creation Form</h1>
                 <div className="w-full flex justify-center ">
                     <Toaster position='top-center'></Toaster>
-                    <Box component="form" sx={{ m: 1, width: '100%', display: 'flex', flexDirection: 'column', alignItems:'center', justifyContent: 'center' }} onSubmit={handleSubmit(onSubmit)}>
+                    <Box component="form" sx={{ m: 1, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} onSubmit={handleSubmit(onSubmit)}>
                         <div className='w-[100%] flex items-center flex-col justify-center'>
                             {
                                 formPart && <>
@@ -239,7 +278,7 @@ const EventCreationForm: React.FC = () => {
                                         <p> *provide information about the event</p>
                                     </div>
 
-                                    <Box sx={{ m: 1, width: '50%', display: 'flex',  }}>
+                                    <Box sx={{ m: 1, width: '50%', display: 'flex', }}>
                                         <TextField
                                             id="outlined-basic"
                                             sx={{ m: 1, width: '45%', display: 'flex' }}
@@ -430,7 +469,8 @@ const EventCreationForm: React.FC = () => {
                                             {...register("location", { required: "location is required" })}
                                             error={Boolean(errors.location)}
                                             helperText={errors.location && errors.location.message}
-                                        />                        </Box>
+                                        />
+                                    </Box>
                                     <Box sx={{ m: 1, width: '50%' }}>
                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                                             <DatePicker sx={{ width: '92%', marginLeft: 1 }}
@@ -467,9 +507,10 @@ const EventCreationForm: React.FC = () => {
                                                     <TimePicker
                                                         sx={{ width: '100%', display: 'flex' }}
                                                         label="Ending Time"
-                                                        {...register('endingTime', { required: "Select Ending time" })} // Set value manually
+                                                        {...register('endingTime', { required: "Select Ending time" })}
                                                         onChange={(newValue: any) => setValue('endingTime', newValue)}
                                                     />
+
                                                 </DemoContainer>
                                                 {errors.endingTime && (
                                                     <FormHelperText className='ps-2' error>{errors.endingTime.message}</FormHelperText>
@@ -524,7 +565,7 @@ const EventCreationForm: React.FC = () => {
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
                                                 {...register("eventBooking", { required: "Select BookingType" })}
-                                                onChange={(e) => { e.target.value == "Registration" ? setBooking(true) : setBooking(false)    }}
+                                                onChange={(e) => { e.target.value == "Registration" ? setBooking(true) : setBooking(false) }}
                                                 label="eventBooking" >
                                                 <MenuItem value={"SeatArrangment"}>SeatArrangment</MenuItem>
                                                 <MenuItem value={"Registration"}>Registration</MenuItem>
@@ -580,10 +621,10 @@ const EventCreationForm: React.FC = () => {
                                             </FormControl>
                                         </Box>
                                     }
-                                      <Box sx={{ m: 1, width: '50%', display: 'flex',  }}>
+                                    <Box sx={{ m: 1, width: '50%', display: 'flex', }}>
                                         <TextField
                                             id="outlined-basic"
-                                            sx={{ m: 1, width: '100%', display: 'flex' ,marginRight: '3rem'}}
+                                            sx={{ m: 1, width: '100%', display: 'flex', marginRight: '3rem' }}
                                             label="TotalAmount"
                                             type='totalAmount'
                                             variant="outlined"
@@ -592,7 +633,7 @@ const EventCreationForm: React.FC = () => {
                                             helperText={errors.totalAmount && errors.totalAmount.message}
                                         />
 
-                                        
+
                                     </Box>
                                     <div className='w-[50%] p-4'>
                                         <button type='submit' className='w-[97%] py-3  font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center'>submit</button>

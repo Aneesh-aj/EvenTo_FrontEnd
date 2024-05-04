@@ -22,6 +22,7 @@ export const EventListing = () => {
   // function EditEvent= ()=>{
       
   // }
+  let count = 0;
 
   return (
     <>
@@ -41,22 +42,23 @@ export const EventListing = () => {
             <li className="w-1/12">Status</li>
             <li className="w-1/12"></li>
             <li className="w-1/12" ></li>
-
-
           </ul>
         </div>
         <div className="w-full  h-auto flex   pt-4  flex-col gap-3">
           {
-            events && events.map((elem: any) => {
+           
+            events && events.map((elem: any, index) => {
+              count++
               return (
-                <Card
-                  sx={{
-                    boxShadow: "1px 3px 8px 1px 1px rgba(0, 0, 0, 0.1)",
-                    "&:hover": {
-                      boxShadow: "1px 2px 2px 2px  rgba(0, 0, 0, 0.2)",
-                    },
+                <div
+                  key={index}
+                  style={{
+                    transition: "opacity 1s linear",
+                    opacity: 1, // Start with opacity 1
+                    transitionDelay: `${(index * 0.5) + 1}s`, // Apply delay based on index
                   }}
-                  className="w-full  border-t-2 flex gap-11 h-20 items-center shadow-md p-6 bg-white rounded-md">
+                  className="w-full  border-t-2 flex gap-11 h-20 items-center shadow-md p-6 bg-white rounded-md"
+                >
                   <ul className="w-full flex justify-around">
                     <li className="">{elem.name}</li>
                     <li>{elem.email}</li>
@@ -96,12 +98,12 @@ export const EventListing = () => {
                         elem.status && elem.status ==="upcoming" ?  <Button variant="contained"  >Edit</Button>:''
                       }
                       <Button variant="contained" sx={{ bgcolor: 'red' }}>Delete</Button>
-                      <EastIcon onAuxClick={(e)=>{navigate(`/organizer/eventDetails/${elem._id}`)}} />
+                      <div onClick={(e)=>{navigate(`/organizer/eventDetails/${elem._id}`)}} >
+                      <EastIcon/>
+                      </div>
                     </li>
-
-
                   </ul>
-                </Card>
+                </div>
 
               )
             })

@@ -149,12 +149,16 @@ export const getCategory = async(id:string)=>{
 }
 
 export const createEvent= async(data:any)=>{
-   try{
-          const response = await Api.post(organizerRoutes.eventCreation,{data})
+   try{   
+            console.log(" data is before that  clalinggg",data)
+            data.date = data.date.toString()
+            data.endingTime = data.endingTime.toString()
+            data.startingTime = data.startingTime.toString()
+          const response = await Api.post(organizerRoutes.eventCreation,{data:data})
           return response.data
    }catch(error){
      throw error
-   }
+   }``
 }
 
 export const getAllEvents = async(id:string)=>{

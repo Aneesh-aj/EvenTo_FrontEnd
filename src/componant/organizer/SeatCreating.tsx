@@ -1,11 +1,12 @@
 import React, { useRef, useState } from "react";
 
 interface Seat {
-    row: string; // Change row type to string for alphabet letters
+    row: string; 
     column: number;
     booked: boolean;
     selected: boolean;
     userSelected: boolean;
+    userId:string,
 }
 
 interface Propose {
@@ -25,17 +26,18 @@ const SeatCreating: React.FC<Propose> = ({ seatArranging }) => {
         const numColumns = parseInt(columnInputRef.current?.value || "0");
         const newSeats: Seat[][] = [];
 
-        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''); // Declare alphabet here
+        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''); 
 
         for (let i = 0; i < numRows; i++) {
             const row: Seat[] = [];
             for (let j = 0; j < numColumns; j++) {
                 row.push({
-                    row: alphabet[i], // Use alphabet letters for rows
-                    column: j + 1, // Column numbers start from 1
+                    row: alphabet[i], 
+                    column: j + 1, 
                     booked: false,
                     selected: false,
-                    userSelected: false
+                    userSelected: false,
+                    userId:"",
                 });
             }
             newSeats.push(row);

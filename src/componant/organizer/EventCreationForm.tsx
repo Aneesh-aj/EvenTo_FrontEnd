@@ -125,7 +125,7 @@ const EventCreationForm: React.FC = () => {
 
     const onSubmit = async (data: FormValues) => {
       
-        console.log("and the dataa-----------------------",data.eventBooking , "and ",data.seatArrangement)
+        console.log("and the dataa-----------------------  ",data.seatArrangement)
         if(data.eventBooking === "SeatArrangment" &&data.seatArrangement.length <= 0){
         
             console.log(" it is showinig the anothe part")
@@ -138,10 +138,10 @@ const EventCreationForm: React.FC = () => {
               const response = await createEvent(data)
              console.log(" the resposne ss",response)
              if(response.event.success == true){
-                toast.success(response.event.message)
                  setFormPart(true)
                  setSeatPart(false)
                  window.location.reload()
+                 toast.success(response.event.message)
 
              }
          }

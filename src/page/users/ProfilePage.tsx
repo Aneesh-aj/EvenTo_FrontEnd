@@ -9,6 +9,7 @@ import useGetUser from "../../hook/useGetUser";
 import { userDetails, userUploadPicture } from "../../api/user";
 import { Country, State, City } from 'country-state-city';
 import { userProfileUpload } from "../../survices/firebase/uploadImage";
+import { Box } from "@mui/material";
 
 export const ProfilePage: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -70,7 +71,7 @@ export const ProfilePage: React.FC = () => {
             <Nav />
             <div className="w-full flex flex-col xl:flex-row    justify-center h-auto  bg-gray-300-600">
                 <div className="w-full  xl:w-6/12   p-2 flex flex-col mt-20   gap-2 rounded-xl">
-                    <div className="w-full h-auto p-6  gap-3 flex flex-col   xl:pt-6 bg-white rounded-md  justify-center items-center   xl:justify-start  xl:items-start xl:ps-10 ">
+                    <Box className="w-full h-auto p-6  gap-3 flex flex-col border-2  xl:pt-6 bg-white rounded-md  justify-center items-center   xl:justify-start  xl:items-start xl:ps-10 ">
                        <div className=" w-full flex items-center justify-center xl:justify-start gap-3 flex-col xl:flex-row">
                          <Avatar className="relative" alt="Remy Sharp" sx={{ width: 130, height: 130 }} src={profile}  />
                         <h1 className="font-bold text-xl xl:text-3xl">{userData&&userData.user.name}</h1>
@@ -81,9 +82,9 @@ export const ProfilePage: React.FC = () => {
                             <input type="file" className="hidden" ref={profileIMG} onChange={(e)=>changingProfile(e)}  />
 
                         </button>
-                    </div>
+                    </Box>
 
-                    <div className="w-full h-80 bg-white rounded-md  ">
+                    <Box className="w-full h-80 bg-white rounded-md border-2  ">
                         <div className="w-full p-3 flex justify-end gap-2">
                             <button className="w-[5rem] h-[2rem] rounded-md bg-blue-500 text-white" onClick={handleOpenModal}>Edit</button>
                             <EditProfileModal isOpen={isModalOpen}  onClose={handleCloseModal}  userData={userData} />
@@ -134,11 +135,11 @@ export const ProfilePage: React.FC = () => {
                                 </div>
                             </li>
                         </ul>
-                    </div>
+                    </Box>
 
                 </div>
                 <div className="xl:w-3/12 mt-0 xl:mt-20  p-2">
-                     <div className="w-full mb-4 bg-white rounded-md h-[2.5rem] flex justify-center items-center">
+                     <div className="w-full mb-4 bg-white rounded-md h-[2.5rem] border-2 flex justify-center items-center">
                         latest Events 
                         <TrendingFlatTwoToneIcon/>
                      </div>

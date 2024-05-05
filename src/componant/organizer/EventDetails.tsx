@@ -1,9 +1,23 @@
 import { Divider } from "@mui/material"
 import Nav from "../common/Nav"
+import { useEffect } from "react"
+import { useParams } from "react-router-dom"
+import { geteventDetails } from "../../api/organizer"
 
 
 
 export const EventDetails = () => {
+    
+    const {id} = useParams()
+    useEffect(()=>{
+        async function getDetails(){
+             console.log(" the id",id)
+            const details = await geteventDetails(id as string)
+            console.log(" the details ----------------->",details)
+        }
+        getDetails()
+    },[])
+
     return (
         <>  <Nav />
             <div className="w-full pt-20 flex flex-col mb-8 items-center bg-white ">

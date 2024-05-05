@@ -148,16 +148,9 @@ const EventCreationForm: React.FC = () => {
                     endTime = endTime.add(1, 'day');
                 }
             }
-            
-            // Convert to JavaScript Date objects
-            const startDate = date.toDate();
+                        const startDate = date.toDate();
             const startingTime = startTime.toDate();
             const endingTime = endTime.toDate();
-            
-            // Set values in the form data
-            console.log('Start Date:', startDate);
-            console.log('Starting Time:', startingTime);
-            console.log('Ending Time:', endingTime);
             
             setValue('date', startDate);
             setValue('startingTime', startingTime);
@@ -167,12 +160,6 @@ const EventCreationForm: React.FC = () => {
             data.startingTime = startingTime,
             data.endingTime = endingTime
             
-            console.log("after the adding date",data)
-            
-            
-            
-
-
 
             const response = await createEvent(data)
             console.log(" the resposne ss", response)

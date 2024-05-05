@@ -35,7 +35,7 @@ const Organizers: React.FC = () => {
     return (
         <>
             <Nav />
-            <div className="w-full flex pt-12 gap-2  justify-center  h-[auto]">
+            <div className="w-full flex pt-12 gap-2  justify-center bg-white h-[auto]">
                 <SideBar/>
                 <div className="w-9/12 mt-9 flex flex-col gap-2">
                     <div className="w-full  rounded-lg h-[13rem]  ">

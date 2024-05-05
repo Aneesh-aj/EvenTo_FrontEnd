@@ -14,7 +14,7 @@ export const UserEventListing = () => {
 
 
     return (
-        <div className="">
+        <div className="bg-white">
             < motion.section
                 variants={{
                     Hidden: { opacity: 0 }, show: {

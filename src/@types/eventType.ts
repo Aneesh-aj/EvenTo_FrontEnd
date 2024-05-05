@@ -32,3 +32,37 @@ export interface eventFormData{
     seatNumber?:number
      
 }
+
+export interface Ievents{
+
+  name:string,
+  organizerId:string,
+  eventCategory:{
+     category:string,
+     delete:boolean,
+     active:boolean
+  },
+  eventCountry:string,
+  eventState:string,
+  eventCity:string,
+  location:string,
+  eventType:string,
+  paymentMethod:string,
+  paymentAmount?:string,
+  email:string,
+   country:string,
+  state:string,
+  city:string,
+  phoneNumber:string,
+  startingTime:string,
+    endingTime:string,
+  date:string,
+  seatArrangement?:[],
+  seatNumber?:number
+  status:string,
+  totalAmount:number,
+  paymentStatus:boolean,
+  eventBooking:string
+
+   
+}

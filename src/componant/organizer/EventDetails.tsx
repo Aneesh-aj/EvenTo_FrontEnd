@@ -6,7 +6,7 @@ import Nav from "../common/Nav"
 export const EventDetails = () => {
     return (
         <>  <Nav />
-            <div className="w-full pt-20 flex flex-col items-center bg-white ">
+            <div className="w-full pt-20 flex flex-col mb-8 items-center bg-white ">
                 <div className=" w-[80%] p-6 h-auto flex flex-col  gap-6">
                     <h1 className="font-bold text-2xl">Information</h1>
                     <Divider />
@@ -122,6 +122,9 @@ export const EventDetails = () => {
                         </li>
                       
                     </ul>
+                </div>
+                <div className="w-[80%] flex justify-end">
+                    <button className="w-[5rem] rounded-lg h-[2rem] bg-blue-500 text-white">Post</button>
                 </div>
             </div>
 

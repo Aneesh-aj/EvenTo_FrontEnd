@@ -158,7 +158,7 @@ export const createEvent= async(data:any)=>{
           return response.data
    }catch(error){
      throw error
-   }``
+   }
 }
 
 export const getAllEvents = async(id:string)=>{
@@ -168,4 +168,14 @@ export const getAllEvents = async(id:string)=>{
    }catch(error){
      throw error
    }
+}
+
+
+export const geteventDetails = async(id:string)=>{
+  try{
+     const response = await Api.get(organizerRoutes.getEventDetails+`/${id}`)
+     return response.data
+  }catch(error){
+     throw error
+  }
 }

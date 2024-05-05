@@ -175,14 +175,14 @@ const EventCreationForm: React.FC = () => {
 
 
             const response = await createEvent(data)
-            // console.log(" the resposne ss", response)
-            // if (response.event.success == true) {
-            //     setFormPart(true)
-            //     setSeatPart(false)
-            //     window.location.reload()
-            //     toast.success(response.event.message)
+            console.log(" the resposne ss", response)
+            if (response.event.success == true) {
+                setFormPart(true)
+                setSeatPart(false)
+                window.location.reload()
+                toast.success(response.event.message)
 
-            // }
+            }
         }
 
     };

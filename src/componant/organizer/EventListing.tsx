@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllEvents } from "../../api/organizer"
+import { getAllEvents, geteventDetails } from "../../api/organizer"
 import useGetUser from "../../hook/useGetUser"
 import { Box, Button, Card } from "@mui/material"
 import EastIcon from '@mui/icons-material/East';
@@ -98,7 +98,7 @@ export const EventListing = () => {
                         elem.status && elem.status ==="upcoming" ?  <Button variant="contained"  >Edit</Button>:''
                       }
                       <Button variant="contained" sx={{ bgcolor: 'red' }}>Delete</Button>
-                      <div onClick={(e)=>{navigate(`/organizer/eventDetails/${elem._id}`)}} >
+                      <div onClick={(e)=>{geteventDetails(elem._id)}} >
                       <EastIcon/>
                       </div>
                     </li>

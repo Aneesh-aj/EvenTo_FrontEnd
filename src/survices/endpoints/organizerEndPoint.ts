@@ -14,7 +14,8 @@ const organizerRoutes={
     profileEdit:"/organizer/profileEdit",
     eventCategory:"/organizer/categorys",
     eventCreation:"/organizer/eventCreation",
-    getAllEvents:"/organizer/getAllEvents"
+    getAllEvents:"/organizer/getAllEvents",
+    getEventDetails:'/organizer/eventDetails/'
 }
 
 export default organizerRoutes

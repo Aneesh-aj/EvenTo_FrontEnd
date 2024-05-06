@@ -179,3 +179,22 @@ export const geteventDetails = async(id:string)=>{
      throw error
   }
 }
+
+export const createPost = async (data:any)=>{
+  try{
+      const response = await Api.post(organizerRoutes.postEvent,{data:data})
+      return response.data
+  }catch(error){
+     throw error
+  }
+}
+
+export const getAlleventPost = async()=>{
+  try{
+      const response = await Api.get(organizerRoutes.eventPosts)
+      return response.data
+
+  }catch(error){
+     throw error
+  }
+}

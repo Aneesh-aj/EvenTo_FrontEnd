@@ -12,7 +12,7 @@ import { PostModal } from "./PostModal"
 export const EventDetails = () => {
     const [event, setEvent] = useState<Ievents>()
     const [organizer, setOrganizer] = useState<Iorganizer>()
-    const [isModalOpen ,setIsModalOpen] = useState<boolean>()
+    const [isModalOpen ,setIsModalOpen] = useState<boolean>(false)
     const [formData,setFormData] = useState({
          eventId:'',
          organizerId:"",
@@ -32,7 +32,6 @@ export const EventDetails = () => {
                     eventId:details.event._id,
                     organizerId:details.organizer?._id,
                     seatArrangment:details.event.seatArrangement
-                    
                 })
             }
         }

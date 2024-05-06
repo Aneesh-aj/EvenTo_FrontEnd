@@ -15,7 +15,9 @@ const organizerRoutes={
     eventCategory:"/organizer/categorys",
     eventCreation:"/organizer/eventCreation",
     getAllEvents:"/organizer/getAllEvents",
-    getEventDetails:'/organizer/eventDetails'
+    getEventDetails:'/organizer/eventDetails',
+    postEvent:"/organizer/eventPost",
+    eventPosts :"/organizer/alleventPost"
 }
 
 export default organizerRoutes

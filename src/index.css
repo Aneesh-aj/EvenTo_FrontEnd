@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.custom-scrollbar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+
+  body{
+    /* background-color:#fcf3eb ; */
+    background-color:rgba(243, 240, 240, 0.459) ;
+
+  }
+  .custom-box-shadow{
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  }

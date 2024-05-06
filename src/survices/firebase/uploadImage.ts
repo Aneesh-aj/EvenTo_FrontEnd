@@ -62,6 +62,7 @@ export const userProfileUpload = async (image:File):Promise <any>=>{
     }
 }
 
+<<<<<<< HEAD
 export const eventPostImageUploead = async (image:File):Promise <any>=>{
     console.log(" the image  from the upload" , image)
     const imageRef = ref(firebaseDB,`/organizer/eventPost/${v4()+image.name}`)
@@ -76,4 +77,6 @@ export const eventPostImageUploead = async (image:File):Promise <any>=>{
     }
 }
 
+=======
+>>>>>>> origin/master
 export default UploadImage

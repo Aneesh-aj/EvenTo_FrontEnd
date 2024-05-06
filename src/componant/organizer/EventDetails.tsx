@@ -5,19 +5,25 @@ import { useParams } from "react-router-dom"
 import { geteventDetails } from "../../api/organizer"
 import { Ievents } from "../../@types/eventType"
 import { Iorganizer } from "../../@types/organizer"
+<<<<<<< HEAD
 import { PostModal } from "./PostModal"
+=======
+>>>>>>> origin/master
 
 
 
 export const EventDetails = () => {
     const [event, setEvent] = useState<Ievents>()
     const [organizer, setOrganizer] = useState<Iorganizer>()
+<<<<<<< HEAD
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [formData, setFormData] = useState<any>({
          eventId:"",
         organizerId:"",
         seatArrangment:[]
     })
+=======
+>>>>>>> origin/master
 
     const { id } = useParams()
     useEffect(() => {
@@ -25,6 +31,7 @@ export const EventDetails = () => {
             console.log(" the id", id)
             const response = await geteventDetails(id as string)
             if (response.success) {
+<<<<<<< HEAD
                 const { details } = response                                                                             
                 setOrganizer(details.organizer)
                 setEvent(details.event)
@@ -34,6 +41,11 @@ export const EventDetails = () => {
                     seatArrangment:details.event.seatArrangement
                     
                 })
+=======
+                const { details } = response
+                setOrganizer(details.organizer)
+                setEvent(details.event)
+>>>>>>> origin/master
             }
         }
         getDetails()
@@ -67,6 +79,7 @@ export const EventDetails = () => {
     };
 
 
+<<<<<<< HEAD
     const handleOpenModal = () => {
         setIsModalOpen(true);
     };
@@ -76,6 +89,8 @@ export const EventDetails = () => {
     };
 
 
+=======
+>>>>>>> origin/master
 
     return (
         <>  <Nav />
@@ -85,8 +100,11 @@ export const EventDetails = () => {
                     <Divider />
                 </div>
                 <div className="w-[80%] ">
+<<<<<<< HEAD
                 <PostModal isOpen={isModalOpen} onClose={handleCloseModal} formData={formData} />
 
+=======
+>>>>>>> origin/master
                     <ul className="p-6 flex flex-col gap-3">
                         <li>
                             <div className="w-full flex">
@@ -249,7 +267,11 @@ export const EventDetails = () => {
                     </ul>
                 </div>
                 <div className="w-[80%] flex justify-end">
+<<<<<<< HEAD
                     {event && event.eventType === "Public" && <button onClick={handleOpenModal} className="w-[5rem] rounded-lg h-[2rem] bg-blue-500 text-white">Post</button>}
+=======
+                    {event && event.eventType === "Public" && <button className="w-[5rem] rounded-lg h-[2rem] bg-blue-500 text-white">Post</button>}
+>>>>>>> origin/master
                 </div>
             </div>
 

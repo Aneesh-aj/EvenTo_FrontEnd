@@ -65,6 +65,7 @@ export interface Ievents{
   eventBooking:string
 
    
+<<<<<<< HEAD
 }
 
 
@@ -78,4 +79,6 @@ export interface IeventPost{
   subTitle:string,
   seatArrangment:[],
   entryFormId:string
+=======
+>>>>>>> origin/master
 }

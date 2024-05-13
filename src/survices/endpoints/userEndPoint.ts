@@ -7,7 +7,12 @@ const userRoutes={
     profileEdit:"/user/profileEdit",
     uploadProfile:"/user/profileUpload",
     resendOpt:"/user/resendOtp",
-    getAllorganizer:'/user/allorganizers'
+    getAllorganizer:'/user/allorganizers',
+    getPostDetails:"/user/eventPostDetails",
+    getSeats:"/user/seatBooking",
+    booking:"/user/Booking",
+    payments:'/user/payment',
+    searchQuery:"/user/searchQuery"
 }
 
 export default userRoutes

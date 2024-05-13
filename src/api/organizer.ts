@@ -68,7 +68,7 @@ export const organizerLogin = async (email: string, password: string) => {
 export const findbyId = async (id: string) => {
   try {
     const response = await Api.get(organizerRoutes.profile + `/${id}`)
-     console.log(" the data :::?..>" , response)
+    console.log(" the data :::?..>", response)
     return response.data
   } catch (error) {
     throw error
@@ -76,125 +76,126 @@ export const findbyId = async (id: string) => {
 }
 
 
-export const uploadBackground= async(id:string,img:string)=>{
-   try{
-       const response = await Api.post(organizerRoutes.uploadBackground,{id:id,image:img})
-       return response.data
+export const uploadBackground = async (id: string, img: string) => {
+  try {
+    const response = await Api.post(organizerRoutes.uploadBackground, { id: id, image: img })
+    return response.data
 
-   }catch(error){
-     throw error
-   }
-}
-
-
-export const uploadProfilePicture= async(id:string,img:string)=>{
-  try{
-      const response = await Api.post(organizerRoutes.uploadProfilePicture,{id:id,image:img})
-      return response.data
-
-  }catch(error){
-    throw error
-  }
-}
-
-export const resendOtp= async(email:string)=>{
-  try{
-      const response = await Api.post(organizerRoutes.resendOtp,{email:email})
-      return response.data
-
-  }catch(error){
+  } catch (error) {
     throw error
   }
 }
 
 
-export const fetchEvent = async(id:string)=>{
-   try{
-     const response = await Api.get(organizerRoutes.getEvents+`/${id}`)
-      return response.data
-   }catch(error){
-     throw error
-   }
+export const uploadProfilePicture = async (id: string, img: string) => {
+  try {
+    const response = await Api.post(organizerRoutes.uploadProfilePicture, { id: id, image: img })
+    return response.data
+
+  } catch (error) {
+    throw error
+  }
 }
 
-export const Allcategory = async ()=>{
-  try{
+export const resendOtp = async (email: string) => {
+  try {
+    const response = await Api.post(organizerRoutes.resendOtp, { email: email })
+    return response.data
+
+  } catch (error) {
+    throw error
+  }
+}
+
+
+export const fetchEvent = async (id: string) => {
+  try {
+    const response = await Api.get(organizerRoutes.getEvents + `/${id}`)
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+export const Allcategory = async () => {
+  try {
     const response = await Api.get(organizerRoutes.allcategory)
-       return response.data
-  }catch(error){
+    return response.data
+  } catch (error) {
     throw error
   }
 }
 
 
-export const organizerProfileEdit = async(id:string,formData:object)=>{
-   try{
+export const organizerProfileEdit = async (id: string, formData: object) => {
+  try {
 
-      console.log(" the form data ",formData)
-       const response = await Api.post(organizerRoutes.profileEdit,{id,formData})
-        return response.data
-   }catch(error){
-     throw error
-   }
-}
-
-
-export const getCategory = async(id:string)=>{
-  try{
-       const response = await Api.get(organizerRoutes.eventCategory+`/${id}`)
-       return response.data
-  }catch(error){
-     throw error
+    console.log(" the form data ", formData)
+    const response = await Api.post(organizerRoutes.profileEdit, { id, formData })
+    return response.data
+  } catch (error) {
+    throw error
   }
 }
 
-export const createEvent= async(data:any)=>{
-   try{   
-            console.log(" data is before that  clalinggg",data)
-            data.date = data.date.toString()
-            data.endingTime = data.endingTime.toString()
-            data.startingTime = data.startingTime.toString()
-          const response = await Api.post(organizerRoutes.eventCreation,{data:data})
-          return response.data
-   }catch(error){
-     throw error
-   }
-}
 
-export const getAllEvents = async(id:string)=>{
-   try{
-      const response = await Api.get(organizerRoutes.getAllEvents+`/${id}`)
-      return response.data
-   }catch(error){
-     throw error
-   }
-}
-
-
-export const geteventDetails = async(id:string)=>{
-  try{
-     const response = await Api.get(organizerRoutes.getEventDetails+`/${id}`)
-     return response.data
-  }catch(error){
-     throw error
+export const getCategory = async (id: string) => {
+  try {
+    const response = await Api.get(organizerRoutes.eventCategory + `/${id}`)
+    return response.data
+  } catch (error) {
+    throw error
   }
 }
 
-export const createPost = async (data:any)=>{
-  try{
-      const response = await Api.post(organizerRoutes.postEvent,{data:data})
-      return response.data
-  }catch(error){
-     throw error
+export const createEvent = async (data: any) => {
+  try {
+    console.log(" data is before that  clalinggg", data)
+    data.date = data.date.toString()
+    data.endingTime = data.endingTime.toString()
+    data.startingTime = data.startingTime.toString()
+    const response = await Api.post(organizerRoutes.eventCreation, { data: data })
+    return response.data
+  } catch (error) {
+    throw error
   }
 }
 
-export const getAlleventPost = async()=>{
-  try{
-      const response = await Api.get(organizerRoutes.eventPosts)
-      return response.data
-
-  }catch(error){
-     throw error
+export const getAllEvents = async (id: string) => {
+  try {
+    const response = await Api.get(organizerRoutes.getAllEvents + `/${id}`)
+    return response.data
+  } catch (error) {
+    throw error
   }
 }
+
+
+export const geteventDetails = async (id: string) => {
+  try {
+    const response = await Api.get(organizerRoutes.getEventDetails + `/${id}`)
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+export const createPost = async (data: any) => {
+  try {
+    const response = await Api.post(organizerRoutes.postEvent, { data: data })
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+export const getAlleventPost = async () => {
+  try {
+    const response = await Api.get(organizerRoutes.eventPosts)
+    return response.data
+
+  } catch (error) {
+    throw error
+  }
+}
+

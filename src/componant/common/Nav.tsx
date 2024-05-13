@@ -59,7 +59,7 @@ const Nav: React.FC = () => {
     
     return (
         <>  {!role&&path && <>
-            <div className="bg-white fixed w-full text-black p-4 border shadow-lg rounded-2xl">
+            <div className="bg-transparent fixed w-full text-black p-4 border shadow-lg rounded-2xl">
             <Toaster position="top-right" reverseOrder={false}/>  
 
                 <div className="container mx-auto flex justify-between items-center">
@@ -86,7 +86,7 @@ const Nav: React.FC = () => {
 
         </>}
             {role === "user" && <>
-                <div className="bg-white  w-full text-black p-4 border z-10 shadow-lg fixed">
+                <div className="bg-[#fffef6] bg-opacity-20 backdrop-filter backdrop-blur-lg  w-full text-black p-4 border z-10 shadow-lg fixed">
                 <Toaster position="top-right" reverseOrder={false}/>  
 
                     <div className="container mx-auto flex justify-between items-center">
@@ -119,7 +119,7 @@ const Nav: React.FC = () => {
 
             }
              {role === "organizer" && <>
-                <div className="bg-white fixed z-30 w-full text-black p-4 border shadow-lg">
+                <div className="bg-white fixed z-30 w-full text-black p-4 border rounded shadow-lg">
                     <div className="container mx-auto flex justify-between items-center">
                     <Toaster position="top-right" reverseOrder={false}/>  
                         <h1 className="text-2xl  font-bold"><a href="/">EvenTo</a></h1>

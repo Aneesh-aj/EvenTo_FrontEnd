@@ -19,9 +19,7 @@ export const EventListing = () => {
     getEvents()
   }, [])
 
-  // function EditEvent= ()=>{
-      
-  // }
+
   let count = 0;
 
   return (

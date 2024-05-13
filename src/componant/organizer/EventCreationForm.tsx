@@ -168,7 +168,6 @@ const EventCreationForm: React.FC = () => {
                 setSeatPart(false)
                 window.location.reload()
                 toast.success(response.event.message)
-
             }
         }
 
@@ -556,7 +555,6 @@ const EventCreationForm: React.FC = () => {
                                                 label="eventBooking" >
                                                 <MenuItem value={"SeatArrangment"}>SeatArrangment</MenuItem>
                                                 <MenuItem value={"Registration"}>Registration</MenuItem>
-                                                <MenuItem value={"NoRegistration"}>No Registration</MenuItem>
 
                                             </Select>
                                             {errors.eventBooking && (

@@ -2,6 +2,7 @@ import Api from "../survices/axios";
 import userRoutes from "../survices/endpoints/userEndPoint";
 import { userFormData } from "../@types/user";
 import { loginData } from "../@types/loginType";
+import { Seat } from "../@types/eventType";
 
 
 
@@ -94,4 +95,53 @@ export const userUploadPicture= async(id:string,img:string)=>{
      }catch(error){
         throw error
      }
+  }
+
+  export const getPostDetails = async(id:string)=>{
+     try{
+        const response = await Api.get(userRoutes.getPostDetails+`/${id}`)
+        return response.data
+     }catch(error){
+        throw error
+     }
+  }
+
+
+  export const getAllseat = async(id:string)=>{
+    try{
+        const response = await Api.get(userRoutes.getSeats+`/${id}`)
+        return response.data
+
+    }catch(error){
+        throw error
+    }
+  }
+
+
+  export const book = async(id:string,selectedSeat:Seat[])=>{
+    try{
+        const response = await Api.post(userRoutes.booking,{id,selectedSeat})
+        return response.data
+    }catch(error){
+        throw error
+    }
+  }
+
+  export const payment = async(eventId:string,userId:string,seat:Seat[],amount:string)=>{
+     try{
+         const response = await Api.post(userRoutes.payments,{eventId,userId,seat,amount})
+         console.log(response,"j")
+         return response.data
+     }catch(error){
+         throw error
+     }
+  }
+
+  export const  searchEventPost = async(searchQuery:string)=>{
+    try{
+      const response = await Api.get(userRoutes.searchQuery+`/${searchQuery}`)
+      return  response.data
+    }catch(error){
+        throw error
+    }
   }

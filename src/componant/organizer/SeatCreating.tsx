@@ -6,6 +6,7 @@ interface Seat {
     booked: boolean;
     selected: boolean;
     userSelected: boolean;
+    isSelected:boolean;
     userId:string,
 }
 
@@ -37,6 +38,7 @@ const SeatCreating: React.FC<Propose> = ({ seatArranging }) => {
                     booked: false,
                     selected: false,
                     userSelected: false,
+                    isSelected:false,
                     userId:"",
                 });
             }

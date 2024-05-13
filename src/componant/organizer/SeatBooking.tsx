@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { book, getAllseat, payment } from "../../api/user"
-import { useParams } from "react-router-dom"
-import { Seat } from "../../@types/eventType";
-import {loadStripe} from "@stripe/stripe-js"
+import { useNavigate, useParams } from "react-router-dom"
+import { Ievents, Seat } from "../../@types/eventType";
+import { loadStripe } from "@stripe/stripe-js"
 import toast from "react-hot-toast";
 import useGetUser from "../../hook/useGetUser";
 
@@ -12,14 +12,19 @@ export const SeatBooking = () => {
     const [seats, setSeats] = useState<Seat[][]>([]);
     const [selectedSeats, setSelectedSeats] = useState<Seat[]>([]);
     const [show, setShow] = useState<boolean>(false);
+    const [event, setEvent] = useState<Ievents>()
+    const navigate = useNavigate()
 
     useEffect(() => {
         async function getSeat() {
             const allSeats = await getAllseat(id as string);
-            console.log("all seats ", allSeats.eventSeat.seat);
+
+            console.log("all seats ", allSeats);
+            console.log(" iddddd", id)
+            setEvent(allSeats.eventSeat)
 
             const groupedSeats: { [key: string]: Seat[] } = {};
-            allSeats.eventSeat.seat.forEach((seat: Seat) => {
+            allSeats.eventSeat.seatArrangement.forEach((seat: Seat) => {
                 if (!groupedSeats[seat.row]) {
                     groupedSeats[seat.row] = [];
                 }
@@ -34,6 +39,7 @@ export const SeatBooking = () => {
         getSeat();
     }, []);
 
+    console.log(" the paymetns amoudn", event?.paymentAmount)
     const handleSeatClick = (row: string, column: number, disabled: boolean, booked: boolean) => {
         if (disabled || booked) {
             return;
@@ -68,22 +74,24 @@ export const SeatBooking = () => {
     };
 
 
-    const handleConfirmBooking = async() => {
+    const handleConfirmBooking = async () => {
         // Send selectedSeats array to backend
         console.log("Selected Seats:", selectedSeats);
-        
+
         setSelectedSeats([]);
-        const response = await book(id as string,selectedSeats)
-        console.log(" the respnseeeeeeeee",response)
-         if(response.success){             
-            await loadStripe("pk_test_51P2yGBSGV6hrQc7cK3KHLXeHHyd9h645uNtMyMIfJoP8QH7Lz6PR1GD5BxLoZarWVNYlKXDiwXp3QqihCB0QOjdW00Kjf8FBNx")
-          const payments =     await payment(id as string,currentUser.id,selectedSeats,'100')
-            console.log(" paymentss---",payments)
-            alert("after")
-         }else{
-            toast.error(response.message)                                                                       
-         }
-         
+        const response = await book(id as string, selectedSeats)
+        console.log(" the respnseeeeeeeee", response)
+        if (response.success) {
+            await loadStripe("pk_test_51PFyqWSEhUTiu13xKxIRFqzlwRSAvqHPNSJ0EfCCjE37wcSfKFBZmKiv2oJY1gnaSWPmKb4HgfpITlKqwZ70Amoo00Rwxor5D4")
+            const payments = await payment(id as string, currentUser.id, selectedSeats, event?.paymentAmount as string)
+            console.log(payments)
+            alert(" comes")
+            window.location = payments
+            //  navigate(payments)
+        } else {
+            toast.error(response.message)
+        }
+
     };
 
     return (
@@ -91,12 +99,16 @@ export const SeatBooking = () => {
             <div className="w-full flex flex-col gap-5 p-7 items-center h-screen">
                 {/* Seat booking header */}
                 <div className="w-full h-[60px] flex items-center p-5 bg-white rounded-md border-2">
-                    <div className="w-8/12">
+                    <div className="w-7/12">
                         <h1 className="font-bold text-xl">Seat Booking</h1>
                     </div>
-                    <div className="w-4/12 ">
-                        <div className="flex gap-4">
-                            <span className="flex gap-2">
+                    <div className="w-5/12  ">
+                        <div className="flex gap-6">
+                            <span className="flex gap-2 w-[4rem] me-8 ">
+                                <div className=" rounded-md ">Amount </div>
+                                <p className="font-medium text-black">{`${event?.paymentAmount}/-`}</p>
+                            </span>
+                            <span className="flex gap-2 ">
                                 <div className="bg-gray-300 rounded-md w-6 h-6"></div>
                                 <p className="font-medium text-gray-400">Disabled Seat</p>
                             </span>
@@ -118,8 +130,7 @@ export const SeatBooking = () => {
                             {row.map((seat: Seat, columnIndex: number) => (
                                 <div
                                     key={`${rowIndex}-${columnIndex}`}
-                                    className={`h-8 cursor-pointer ${
-                                        seat.userSelected
+                                    className={`h-8 cursor-pointer ${seat.userSelected
                                             ? "bg-yellow-300" :
                                             seat.booked
                                                 ? "bg-green-500"

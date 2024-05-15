@@ -28,7 +28,8 @@ const Login: React.FC = () => {
         }
         const result = await login(user)
         setLoading(false)
-        alert(result.user.blocked)
+        localStorage.setItem("accessToken",result.accessToken)
+        localStorage.setItem("refreshToken",result.refreshToken)
         if (result.user) {
             toast.success(result.message)
             dispatch(setUser({

@@ -31,29 +31,28 @@ export const otpVerify = async (otp: string) => {
         console.log(" after that api call ", response)
         return response.data
     } catch (error:any) {
-        console.log("the eroror of called fucntion",error.response.data.status,error.response.data.message,error.response.data.success)
         return error
     }
 }
 
 export const logout = async ()=>{
-     try{
+    try{
         const response = await Api.post(userRoutes.logout)
         console.log(" the respoe",response)
-       
         return response.data
-     }catch(error){
+    }catch(error){
         throw error
-     }
+    }
 }
 
 
 export const userDetails= async (id : string)=>{
-       try{
-          const response = await Api.get(userRoutes.getUser+`/${id}`)
-          return response.data
-       }catch(error){
-         throw error
+    try{
+        const response = await Api.get(userRoutes.getUser+`/${id}`)
+        console.log(" the response from the usersss---------",response)
+        return response.data
+    }catch(error:any){
+          throw error
        }
 }
 
@@ -118,9 +117,9 @@ export const userUploadPicture= async(id:string,img:string)=>{
   }
 
 
-  export const book = async(id:string,selectedSeat:Seat[])=>{
+  export const book = async(id:string,selectedSeat:Seat[],userId:string)=>{
     try{
-        const response = await Api.post(userRoutes.booking,{id,selectedSeat})
+        const response = await Api.post(userRoutes.booking,{id,selectedSeat,userId})
         return response.data
     }catch(error){
         throw error
@@ -143,5 +142,25 @@ export const userUploadPicture= async(id:string,img:string)=>{
       return  response.data
     }catch(error){
         throw error
+    }
+  }
+  
+
+  export const getAllcategory = async()=>{
+     try{
+        const response = await Api.get(userRoutes.getCategory)
+        return response.data
+     }catch(error){
+        throw error
+     }
+  }
+  
+
+  export const bookings = async(id:string)=>{
+    try{
+          const response = await Api.get(userRoutes.bookings+`/${id}`)
+          return response.data
+    }catch(error){
+         throw error
     }
   }

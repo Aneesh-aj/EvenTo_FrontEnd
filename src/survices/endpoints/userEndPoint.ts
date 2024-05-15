@@ -12,7 +12,9 @@ const userRoutes={
     getSeats:"/user/seatBooking",
     booking:"/user/Booking",
     payments:'/user/payment',
-    searchQuery:"/user/searchQuery"
+    searchQuery:"/user/searchQuery",
+    getCategory:"/user/allcategory",
+    bookings:"/user/allbooking"
 }
 
 export default userRoutes

@@ -10,9 +10,15 @@ import { userDetails, userUploadPicture } from "../../api/user";
 import { Country, State, City } from 'country-state-city';
 import { userProfileUpload } from "../../survices/firebase/uploadImage";
 import { Box } from "@mui/material";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { clearUser } from "../../utils/clearUser";
+import { useDispatch } from "react-redux";
 
 export const ProfilePage: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const currentUser = useGetUser()
     const [userData,setUser] = useState<any>()
     const [countryName,setCountry] = useState<any>() 
@@ -20,26 +26,37 @@ export const ProfilePage: React.FC = () => {
     const [cityName,setCity] = useState<any>()
     const [profile,setProfile] = useState<any>()
     const profileIMG = useRef<HTMLInputElement>(null);
+
     useEffect(()=>{
         async function getUser (){
-             const user = await userDetails(currentUser.id)
-             console.log(" the userss",user)
-             setUser(user.user)
-             console.log(" the image",user.user.user.profielImage)
-             setProfile(user.user.user.profileImage)
-              if(user.user.address){
-                const coun = await Country.getCountryByCode(user.user.address.country)
-                const stat = await State.getStateByCode(user.user.address.state)
-                 console.log(coun?.name,stat?.name,user.user.address.city)
-                 setCountry(coun?.name)
-                 setState(stat?.name)
-                 setCity(user.user.address.city)
+            try{
+                  const user = await userDetails(currentUser.id)
+                  setUser(user.user)
+                  setProfile(user.user.user.profileImage)
+                   if(user.user.address){
+                     const coun = await Country.getCountryByCode(user.user.address.country)
+                     const stat = await State.getStateByCode(user.user.address.state)
+                      console.log(coun?.name,stat?.name,user.user.address.city)
+                      setCountry(coun?.name)
+                      setState(stat?.name)
+                      setCity(user.user.address.city)
+                   }
+
+              }catch(error:any){
+                if (error.response.status == 401) {
+                    const errorMessage = error.response.data.message || "Something went wrong";
+                    clearUser(dispatch)
+                    navigate("/auth/userLogin")
+                    toast.error(errorMessage);
+                  } else {
+                    console.log(error);
+                    toast.error("Something went wrong");
+                  }
               }
             }
             getUser()
         },[])
         
-        console.log('======================================>userdata',userData)
     const handleOpenModal = () => {
       setIsModalOpen(true);
     };
@@ -49,8 +66,7 @@ export const ProfilePage: React.FC = () => {
         // alert(" the file : ",file)
         if (file) {
             const url = await userProfileUpload(file);
-            console.log("getting the url", url);
-
+            console.log(" the ulr---",url)
             setProfile(url);
             const result = await userUploadPicture(currentUser.id, url);      
         }
@@ -99,13 +115,7 @@ export const ProfilePage: React.FC = () => {
                                     <div className="w-40  ps-2"> {userData && userData?.user.email}</div>
                                 </div>
                             </li>
-                            {/* <li>
-                                <div className="w-full flex">
-                                    <div className="w-32 ">age</div>
-                                    <span>:</span>
-                                    <div className="w-40 ps-2"> 12</div>
-                                </div>
-                            </li> */}
+                          
                             <li>
                                 <div className="w-full flex">
                                     <div className="w-32 ">phone number</div>

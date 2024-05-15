@@ -1,0 +1,34 @@
+.ticket {
+    position: relative;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+  }
+  
+  .ticket::before,
+  .ticket::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+  }
+  
+  .ticket::before {
+    top: 50%;
+    left: -10px;
+    transform: translateY(-50%);
+  }
+  
+  .ticket::after {
+    top: 50%;
+    right: -10px;
+    transform: translateY(-50%);
+  }
+  
+  .ticket-dashed {
+    border-top: 1px dashed #ccc;
+    border-bottom: 1px dashed #ccc;
+  }

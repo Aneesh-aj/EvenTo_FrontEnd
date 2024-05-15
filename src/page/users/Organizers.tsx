@@ -6,14 +6,18 @@ import { Country, State, City } from "country-state-city";
 import { allOrganizers } from "../../api/user";
 import { SideBar } from "../../componant/common/SideBar";
 import { Card } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 
 
 const Organizers: React.FC = () => {
     const [allorganizer, setAllorganizer] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         async function getOrganizer() {
+           try{
             const result = await allOrganizers()
 
             console.log(" the reuslt of the api : - ", result.allOrganizer[0].address[0].country)
@@ -28,6 +32,10 @@ const Organizers: React.FC = () => {
             }
             console.log(" after the reuslt  ------------------------------>", result)
             setAllorganizer(result.allOrganizer)
+           }catch(error){
+                toast.error("Token expired !! Login again")
+                navigate("/aut/userLogin")
+           }
         }
         getOrganizer()
     }, [])
@@ -41,7 +49,7 @@ const Organizers: React.FC = () => {
                     <div className="w-full  rounded-lg h-[13rem]  ">
                         <div className="w-full p-[2rem] flex justify-between">
                             <h1 className="font-bold  text-[25px]  w-96">Booking Information</h1>
-                            <button className="bg-blue-500 p-2 text-white rounded-md">booking</button>
+                            <button className="bg-blue-500 p-2 text-white rounded-md" onClick={()=>navigate("/user/bookedlist")}>booking</button>
                         </div>
                         <div className="w-full flex ps-5 pe-5  ">
                             <p className="ms-5 me-5">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae doloribus iure adipisci illo quaerat rerum molestiae, cum, cumque fugiat commodi eligendi nulla? Consequatur eligendi ipsum impedit molestias quos rem placeat? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellat eligendi, voluptatibus totam labore </p>

@@ -6,7 +6,7 @@ import Organizers from "../page/users/Organizers"
 import { Events } from "../page/users/Events"
 import { PostDetails } from "../page/users/PostDetails"
 import { SeatBooking } from "../componant/organizer/SeatBooking"
-import MovieTicket from "../componant/user/MovieTicket"
+import MovieTicket from "../componant/user/Bookings"
 import SuccessCard from "../componant/user/successCard"
 
 function UserRoute() {

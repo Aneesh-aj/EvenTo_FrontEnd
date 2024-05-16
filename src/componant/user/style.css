@@ -17,18 +17,119 @@
   }
   
   .ticket::before {
-    top: 50%;
-    left: -10px;
-    transform: translateY(-50%);
+    left: 27%;
+    transform: translateY(-100%);
   }
   
   .ticket::after {
-    top: 50%;
-    right: -10px;
-    transform: translateY(-50%);
+    left: 27%;
+    bottom: 0;
+    transform: translateY(30%);
   }
   
   .ticket-dashed {
-    border-top: 1px dashed #ccc;
+    border-left: 1px dashed #ccc;
     border-bottom: 1px dashed #ccc;
   }
+
+
+  @media  (max-width:400px) {
+    .ticket {
+        position: relative;
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 1rem;
+      }
+      
+      .ticket::before,
+      .ticket::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: white;
+        border: 2px solid #ccc;
+        border-radius: 50%;
+        background-color: blueviolet;
+      }
+      
+      .ticket::before {
+        top: 50%;
+        left: -10px;
+        transform: translateY(-50%);
+      }
+      
+      .ticket::after {
+        top: 50%;
+        right:0 ;
+        background-color: blue;
+        transform: translateY(-50%);
+      }
+      
+      .ticket-dashed {
+        border-top: 1px dashed #ccc;
+        border-bottom: 1px dashed #ccc;
+      }
+  }
+
+
+/* 
+  .ticket {
+    position: relative;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+  }
+  
+  .ticket::before,
+  .ticket::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+  }
+  
+  @media (max-width: 639px) {
+    .ticket {
+      max-width: 100%;
+      margin: auto;
+    }
+  
+    .ticket::before {
+      top: 50%;
+      left: -10px;
+      transform: translateY(-50%);
+    }
+  
+    .ticket::after {
+      top: 50%;
+      right: -10px;
+      transform: translateY(-50%);
+    }
+  
+    .ticket-dashed {
+      border-top: 1px dashed #ccc;
+      border-bottom: 1px dashed #ccc;
+    }
+  }
+  
+  @media (min-width: 640px) {
+    .ticket {
+      max-width: 640px;
+      margin: auto;
+    }
+  
+    .ticket::before,
+    .ticket::after {
+      display: none; 
+    }
+  
+    .ticket-dashed {
+      border-left: 1px dashed #ccc;
+      border-bottom: 1px dashed #ccc;
+    }
+  }
+   */

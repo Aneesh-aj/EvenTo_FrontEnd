@@ -30,6 +30,7 @@ const Login: React.FC = () => {
         setLoading(false)
         localStorage.setItem("accessToken",result.accessToken)
         localStorage.setItem("refreshToken",result.refreshToken)
+        localStorage.setItem("role",result.role)
         if (result.user) {
             toast.success(result.message)
             dispatch(setUser({

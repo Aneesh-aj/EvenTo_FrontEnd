@@ -112,7 +112,6 @@ export const SeatBooking = () => {
         if (selectedSeats.length == 0) return toast.error("please select seats")
 
             selectedSeats.map((ele: any) => {
-                //  alert(`${ele.isSelected}`)
                 const isSeatTaken = seats.map((elem: any) => {
                     return elem.row === ele.row && elem.column === ele.column&&  ele.isSelected ?  toast.error("Seat is already taken"):''
 
@@ -128,14 +127,14 @@ export const SeatBooking = () => {
         console.log(" the respnseeeeeeeee -----------------------", response)
         handleSeatSelection()
         if (response.success) {
-            // await loadStripe("pk_test_51PFyqWSEhUTiu13xKxIRFqzlwRSAvqHPNSJ0EfCCjE37wcSfKFBZmKiv2oJY1gnaSWPmKb4HgfpITlKqwZ70Amoo00Rwxor5D4")
-            // const payments = await payment(id as string, currentUser.id, selectedSeats, event?.paymentAmount as string)
-            // console.log(payments)
+            await loadStripe("pk_test_51PFyqWSEhUTiu13xKxIRFqzlwRSAvqHPNSJ0EfCCjE37wcSfKFBZmKiv2oJY1gnaSWPmKb4HgfpITlKqwZ70Amoo00Rwxor5D4")
+            const payments = await payment(id as string, currentUser.id, selectedSeats, event?.paymentAmount as string)
+            console.log(payments)
             // alert(" comes")
-            // window.location = payments
+            window.location = payments
             //  navigate(payments)
         } else {
-            toast.error(response.message)
+            toast.error("seat Already taken")
         }
 
     };
@@ -189,7 +188,7 @@ export const SeatBooking = () => {
                                             seat.booked
                                                 ? " bg-gray-200 border-gray-200 text-gray-400"
                                                 :
-                                                seat.isSelected ? "bg-violet-500" : seat.selected
+                                                seat.isSelected ? " bg-gray-200 border-gray-200 text-gray-400" : seat.selected
                                                     ? "bg-white text-white border-0"
                                                     : "bg-white border-sky-400 text-sky-400"
                                         } border w-9 m-1 rounded-md flex items-center justify-center`}

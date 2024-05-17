@@ -50,7 +50,6 @@
         background: white;
         border: 2px solid #ccc;
         border-radius: 50%;
-        background-color: blueviolet;
       }
       
       .ticket::before {
@@ -60,10 +59,12 @@
       }
       
       .ticket::after {
-        top: 50%;
-        right:0 ;
-        background-color: blue;
-        transform: translateY(-50%);
+        top: 48%;
+        
+        /* background-color: blue; */
+        /* transform: translateY(-55%); */
+
+        transform: translateX(232px);
       }
       
       .ticket-dashed {

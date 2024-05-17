@@ -1,8 +1,5 @@
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
-import { clearUser } from '../utils/clearUser';
-import { useDispatch } from 'react-redux';
-import toast from 'react-hot-toast';
+
 
 
 const Api = axios.create({

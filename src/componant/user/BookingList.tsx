@@ -4,11 +4,11 @@ import bg from "../../assets/decorated-banquet-hall-with-flowers.jpg"
 
 export const BoookingList =()=>{
     return(
-        <div className=" lg:w-[80%] sm:w-full mx-auto   shadow-lg rounded-2xl overflow-hidden mt-10">
+        <div className=" lg:w-[80%] sm:w-full mx-auto   shadow-lg bg-transparent  rounded-2xl overflow-hidden mt-10">
         <div className="ticket flex flex-col sm:flex-row  ">
-          <div className="flex items-start  justify-between p-4">
+          <div className="flex items-start  justify-between p-2 sm:p-4">
             <img
-              className="w-24 h-32 object-cover rounded-lg"
+              className="w-20 h-24 sm:w-24 sm-h-32  object-cover rounded-lg"
               src={bg}
               alt="Movie Poster"
             />
@@ -26,7 +26,7 @@ export const BoookingList =()=>{
             <div className="ticket-dashed  my-4 "></div>
 
       
-          <div className="text-center  p-5 ms-3 me-3">
+          <div className="text-center  sm:p-5 sm:ms-3 sm:me-3">
             <p className="text-sm text-gray-600">3 Ticket(s)</p>
             <p className="text-lg font-bold">Blue Pearl</p>
             <p className="text-sm text-gray-600">Blue Pearl - E8, E7, E9</p>
@@ -35,7 +35,7 @@ export const BoookingList =()=>{
 
           <div className="ticket-dashed my-4"></div>
 
-          <div className="text-center p-4 flex flex-col gap-4">
+          <div className="text-center sm:p-4 flex flex-col sm:gap-4">
             <p className="text-sm text-gray-600">Cancellation not available for this venue</p>
             <div className="flex items-center justify-between">
               <p className="text-sm text-gray-600">Total Amount</p>
@@ -43,9 +43,9 @@ export const BoookingList =()=>{
             </div>
           </div>
 
-          <div className=" w-[30%] flex justify-end   my-4">
+          <div className="w-[100%] sm:w-[30%] flex sm:justify-end justify-center   my-4">
 
-            <div className=' flex flex-col gap-3 '>
+            <div className=' flex flex-row sm:flex-col gap-3 '>
               <h1 className="font-bold">Share</h1>
               <WhatsappShareButton url={'http://localhost:5173/user/bookedlist'}>
                 <img width="35" height="35" src="https://img.icons8.com/3d-fluency/94/whatsapp.png" alt="whatsapp" />

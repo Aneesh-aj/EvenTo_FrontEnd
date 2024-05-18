@@ -26,7 +26,8 @@ export const PostInfo = () => {
     function navigation() {
         console.log(" cominnnn")
         if (data.event.eventBooking === "SeatArrangment") {
-            navigate(`/user/seatBooking/${data.event._id}`)
+             console.log("-------------data",data)
+            navigate(`/user/seatBooking/${data.post._id}`)
         }
     }
 

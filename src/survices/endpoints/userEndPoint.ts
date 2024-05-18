@@ -14,7 +14,7 @@ const userRoutes={
     payments:'/user/payment',
     searchQuery:"/user/searchQuery",
     getCategory:"/user/allcategory",
-    bookings:"/user/allbooking"
+    bookings:"/user/allbooking",
 }
 
 export default userRoutes

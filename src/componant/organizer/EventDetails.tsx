@@ -12,11 +12,11 @@ import { PostModal } from "./PostModal"
 export const EventDetails = () => {
     const [event, setEvent] = useState<Ievents>()
     const [organizer, setOrganizer] = useState<Iorganizer>()
-    const [isModalOpen ,setIsModalOpen] = useState<boolean>(false)
-    const [formData,setFormData] = useState({
-         eventId:'',
-         organizerId:"",
-         seatArrangment:[]
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+    const [formData, setFormData] = useState({
+        eventId: '',
+        organizerId: "",
+        seatArrangment: []
     })
 
     const { id } = useParams()
@@ -25,13 +25,13 @@ export const EventDetails = () => {
             console.log(" the id", id)
             const response = await geteventDetails(id as string)
             if (response.success) {
-                const { details } = response                                                                             
+                const { details } = response
                 setOrganizer(details.organizer)
                 setEvent(details.event)
                 setFormData({
-                    eventId:details.event._id,
-                    organizerId:details.organizer?._id,
-                    seatArrangment:details.event.seatArrangement
+                    eventId: details.event._id,
+                    organizerId: details.organizer?._id,
+                    seatArrangment: details.event.seatArrangement
                 })
             }
         }
@@ -78,14 +78,15 @@ export const EventDetails = () => {
 
 
     return (
-        <>  <Nav />
+        <>
+            <Nav />
             <div className="w-full pt-20 flex flex-col mb-8 items-center bg-white ">
                 <div className=" w-[80%] p-6 h-auto flex flex-col  gap-6">
                     <h1 className="font-bold text-2xl">Information</h1>
                     <Divider />
                 </div>
                 <div className="w-[80%] ">
-                <PostModal isOpen={isModalOpen} onClose={handleCloseModal} formData={formData} />
+                    <PostModal isOpen={isModalOpen} onClose={handleCloseModal} formData={formData} />
 
                     <ul className="p-6 flex flex-col gap-3">
                         <li>
@@ -193,9 +194,9 @@ export const EventDetails = () => {
                         {/*  */}
 
                     </ul>
-                     <ul>
-                     <Divider sx={{width:'20%', height:'100%', border:"1px solid #E0E0E0"}} orientation="horizontal"/>
-                     </ul>
+                    <ul>
+                        <Divider sx={{ width: '20%', height: '100%', border: "1px solid #E0E0E0" }} orientation="horizontal" />
+                    </ul>
                     <ul className="p-6 flex flex-col gap-3">
                         <li>
                             <div className="w-full flex">

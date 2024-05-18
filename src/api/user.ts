@@ -126,9 +126,9 @@ export const userUploadPicture= async(id:string,img:string)=>{
     }
   }
 
-  export const payment = async(eventId:string,userId:string,seat:Seat[],amount:string)=>{
+  export const payment = async(eventId:string,userId:string,seat:Seat[],amount:string,postId: string)=>{
      try{
-         const response = await Api.post(userRoutes.payments,{eventId,userId,seat,amount})
+         const response = await Api.post(userRoutes.payments,{eventId,userId,seat,amount,postId})
          console.log(response,"j")
          return response.data
      }catch(error){
@@ -164,3 +164,5 @@ export const userUploadPicture= async(id:string,img:string)=>{
          throw error
     }
   }
+
+  

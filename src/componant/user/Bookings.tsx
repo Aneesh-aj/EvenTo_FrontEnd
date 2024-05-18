@@ -5,7 +5,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { BoookingList } from './BookingList';
+import { BookingList } from './BookingList';
 
 
 const Bookings = () => {
@@ -74,7 +74,7 @@ const Bookings = () => {
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
-          <BoookingList />
+          <BookingList />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
           History

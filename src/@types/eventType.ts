@@ -34,7 +34,7 @@ export interface eventFormData{
 }
 
 export interface Ievents{
-
+ _id:string,
   name:string,
   organizerId:string,
   eventCategory:{

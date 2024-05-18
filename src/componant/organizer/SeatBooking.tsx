@@ -17,6 +17,7 @@ export const SeatBooking = () => {
     const [seats, setSeats] = useState<Seat[][]>([]);
     const [selectedSeats, setSelectedSeats] = useState<Seat[]>([]);
     const [show, setShow] = useState<boolean>(false);
+    const [postId,setPostid] = useState<string>()
     const [event, setEvent] = useState<Ievents>()
 
     const navigate = useNavigate()
@@ -50,10 +51,16 @@ export const SeatBooking = () => {
 
         console.log("all seats ", allSeats);
         console.log(" iddddd", id)
-        setEvent(allSeats.eventSeat)
+        console.log(" there ar elittlee e",allSeats.eventSeat[0].eventDetails[0])
+        setEvent(allSeats.eventSeat[0].eventDetails[0])
+        setPostid(allSeats.eventSeat[0]._id)
+
+
+
 
         const groupedSeats: { [key: string]: Seat[] } = {};
-        allSeats.eventSeat.seatArrangement.forEach((seat: Seat) => {
+         console.log("  the eventss s",event)
+        allSeats.eventSeat[0].eventDetails[0].seatArrangement.forEach((seat: Seat) => {
             if (!groupedSeats[seat.row]) {
                 groupedSeats[seat.row] = [];
             }
@@ -67,6 +74,7 @@ export const SeatBooking = () => {
     }
     useEffect(() => {
         getSeat();
+        console.log("after the assigment",event)
     }, []);
 
     console.log(" the paymetns amoudn", event?.paymentAmount)
@@ -123,12 +131,12 @@ export const SeatBooking = () => {
             
         console.log(" it is before")
         // alert("jdjdj")
-        const response = await book(id as string, selectedSeats, currentUser.id)
+        const response = await book(event?._id as string, selectedSeats, currentUser.id)
         console.log(" the respnseeeeeeeee -----------------------", response)
         handleSeatSelection()
         if (response.success) {
             await loadStripe("pk_test_51PFyqWSEhUTiu13xKxIRFqzlwRSAvqHPNSJ0EfCCjE37wcSfKFBZmKiv2oJY1gnaSWPmKb4HgfpITlKqwZ70Amoo00Rwxor5D4")
-            const payments = await payment(id as string, currentUser.id, selectedSeats, event?.paymentAmount as string)
+            const payments = await payment(event?._id as string, currentUser.id, selectedSeats, event?.paymentAmount as string , postId as string)
             console.log(payments)
             // alert(" comes")
             window.location = payments
@@ -142,7 +150,6 @@ export const SeatBooking = () => {
     return (
         <>
             <div className="w-full flex flex-col gap-5 p-7 items-center h-screen">
-                {/* Seat booking header */}
                 <div className="w-full h-[60px] flex items-center p-5 bg-white rounded-md border-2">
                     <div className="w-7/12">
                         <h1 className="font-bold text-xl">Seat Booking</h1>

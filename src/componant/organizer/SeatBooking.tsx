@@ -216,12 +216,7 @@ export const SeatBooking = () => {
                             Confirm Booking
                         </button>
                         <div>
-                            {selectedSeats.map((seat: Seat, index: number) => (
-                                <div key={index}>
-                                    <p>Row: {seat.row}</p>
-                                    <p>Column: {seat.column}</p>
-                                </div>
-                            ))}
+                        
                         </div>
                     </div>
                 </div>

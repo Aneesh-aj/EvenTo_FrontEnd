@@ -135,6 +135,9 @@ const Nav: React.FC = () => {
                                 <li>
                                     <a href={`/organizer/profile/${currentUser.id}`} className="hover:text-gray-300">Profile</a>
                                 </li>
+                                  <li>
+                                     <a href={`/organizer/organizerEventPost/${currentUser.id}`}  className="hover:text-gray-300">EventPost</a>
+                                  </li>
                                 <li>
                                     <button onClick={organizerLogout} className="bg-blue-400 pt-1 pb-1 ps-3 pe-3 text-white rounded-md hover:bg-blue-300">logout</button>
                                 </li>

@@ -28,18 +28,19 @@ export const EventListing = () => {
         <div className="w-full h-[4rem] border-2 rounded-md p-5  bg-white">
           <h1 className="font-bold">All events</h1>
         </div>
-        <div className="w-full border-2 p-2  rounded-md mt-3 bg-white">
-          <ul className="w-full  flex  gap-3 ms-8  font-semibold  ">
-            <li className="w-1/12">Name</li>
-            <li className="w-2/12">email</li>
-            <li className="w-1/12">Type</li>
-            <li className="w-1/12">Category</li>
-            <li className="w-1/12">Amount</li>
-            <li className="w-1/12">Date</li>
-            <li className="w-1/12">Place</li>
-            <li className="w-1/12">Status</li>
-            <li className="w-1/12"></li>
-            <li className="w-1/12" ></li>
+        <div className="w-full border-2 p-3  rounded-md mt-3 bg-white">
+          <ul className="w-full  flex ms-2 gap-5   font-semibold  ">
+            <li className="w-1/12 text-center ">Name</li>
+            <li className="w-2/12 text-center">email</li>
+            <li className="w-1/12 text-center ">Type</li>
+            <li className="w-1/12 text-center  ">Category</li>
+          
+            <li className="w-1/12 text-center ">Date</li>
+            <li className="w-2/12 text-center ">Place</li>
+            <li className="w-2/12 text-center ">Status</li>
+            <li className="w-1/12  ">Action</li>
+
+        
           </ul>
         </div>
         <div className="w-full  h-auto flex   pt-4  flex-col gap-3">
@@ -55,16 +56,15 @@ export const EventListing = () => {
                     opacity: 1, // Start with opacity 1
                     transitionDelay: `${(index * 0.5) + 1}s`, // Apply delay based on index
                   }}
-                  className="w-full  border-t-2 flex gap-11 h-20 items-center shadow-md p-6 bg-white rounded-md"
+                  className="w-full  border-t-2 flex gap-11 bg-white h-20 items-center shadow-md  rounded-md"
                 >
                   <ul className="w-full flex justify-around">
-                    <li className="">{elem.name}</li>
-                    <li>{elem.email}</li>
-                    <li>{elem.eventType}</li>
-                    <li>{elem.eventCategory.category}</li>
-                    <li>{`${elem.totalAmount}/:Rs`}</li>
-                    <li>{new Date(elem.date).toLocaleDateString()}</li>
-                    <li>{elem?.eventCountry + "," + elem.eventState + " ," + elem.eventCity}</li>
+                    <li className="  w-1/12">{elem.name}</li>
+                    <li className="  w-2/12">{elem.email}</li>
+                    <li className=" w-1/12">{elem.eventType}</li>
+                    <li className=" w-1/12">{elem.eventCategory.category}</li>
+                    <li className="  w-1/12">{new Date(elem.date).toLocaleDateString()}</li>
+                    <li className="  w-2/12">{elem?.eventCountry + "," + elem.eventState + " ," + elem.eventCity}</li>
                     <li className="flex items-center">
                       {elem.status === "upcoming" && (
                         <>
@@ -86,16 +86,20 @@ export const EventListing = () => {
                       )}
                         {elem.status === "cancelled" && (
                         <>
-                          <span className="flex w-3 h-3 me-3 bg-red-300 rounded-full"></span>
+                          <span className="flex w-3 h-3 me-3 bg-red-600 rounded-full"></span>
                           <span>{elem.status}</span>
                         </>
                       )}
                     </li>
                     <li className="flex gap-1 items-center">
                       {
-                        elem.status && elem.status ==="upcoming" ?  <Button variant="contained"  >Edit</Button>:''
+                        elem.status && elem.status ==="upcoming"  ?  <Button variant="contained"  >Edit</Button>:<button className="w-[3.5rem] h-[2rem]"></button>
                       }
-                      <Button variant="contained" sx={{ bgcolor: 'red' }}>Delete</Button>
+                      {
+                       elem.status && elem.status ==="upcoming"   ?  <Button variant="contained" sx={{ bgcolor: 'red' }}>Cancel</Button>:<button className="w-[5.5rem] h-[2rem]"></button>
+
+                      }
+                      
                       <div onClick={(e)=>{navigate(`/organizer/eventDetails/${elem._id}`)}} >
                       <EastIcon/>
                       </div>

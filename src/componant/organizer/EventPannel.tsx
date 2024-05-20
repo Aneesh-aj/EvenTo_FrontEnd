@@ -5,6 +5,7 @@ import useGetUser from "../../hook/useGetUser"
 import EventCreationForm from "./EventCreationForm"
 import SeatCreating from "./SeatCreating"
 import { EventListing } from "./EventListing"
+import { EventSchedule } from "./EventSchedule"
 
 const EventPannel: React.FC = () => {
     const navigate = useNavigate()
@@ -65,7 +66,7 @@ const EventPannel: React.FC = () => {
                 {eventTrue && <><EventListing/></>}
                 {eventFormTrue && <EventCreationForm/>}
                 {/* {eventFormTrue && <SeatCreating/>} */}
-                {scheduleTrue && <>schedules true</>}
+                {scheduleTrue && <><EventSchedule/></>}
             </div>
         </>
     )

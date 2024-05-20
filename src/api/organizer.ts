@@ -199,3 +199,29 @@ export const getAlleventPost = async () => {
   }
 }
 
+export const getUpcomingEvent = async(id:string)=>{
+   try{
+      const response = await Api.get(organizerRoutes.getUpcomingEvent+`/${id}`)
+      return response.data
+   }catch(error){
+     throw error
+   }
+}
+
+export const changeEventStatus = async(status:string,eventId:string,organizerId:string)=>{
+  try{
+     const response = await Api.post(organizerRoutes.changeStatus,{eventStatus:status,eventId:eventId,organizerId:organizerId})
+     return response.data
+  }catch(error){
+     throw error
+  }
+}
+
+export const cancelEvent = async(eventId:string,organizerId:string)=>{
+  try{
+     const response = await Api.post(organizerRoutes.cancelEvent,{eventId:eventId,organizerId:organizerId})
+     return response.data
+  }catch(error){
+     throw error
+  }
+}

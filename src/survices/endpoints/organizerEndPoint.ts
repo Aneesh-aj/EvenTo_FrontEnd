@@ -17,7 +17,10 @@ const organizerRoutes={
     getAllEvents:"/organizer/getAllEvents",
     getEventDetails:'/organizer/eventDetails',
     postEvent:"/organizer/eventPost",
-    eventPosts :"/organizer/alleventPost"
+    eventPosts :"/organizer/alleventPost",
+    getUpcomingEvent:"/organizer/getUpcomingEvent",
+    changeStatus:"/organizer/changeStatus",
+    cancelEvent:"/organizer/cancel"
 }
 
 export default organizerRoutes

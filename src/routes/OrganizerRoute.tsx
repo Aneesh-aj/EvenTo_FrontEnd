@@ -7,6 +7,7 @@ import useGetUser from "../hook/useGetUser";
 import OrganizerDashboard from "../page/organizer/OrganizerPannel";
 import { EventDetails } from "../componant/organizer/EventDetails";
 import { OrganizerEventPost } from "../page/organizer/OrganizerEventPost";
+import { OrganizerEventPostDetails } from "../page/organizer/OrganizerEventPostDetails";
 // import Nice from "../componant/organizer/TabNavigater";
 // import { useEffect } from "react";
 // import { OrganizerPending } from "../page/organizer/OrganizerPending";
@@ -28,7 +29,7 @@ function OrganizerRoutes() {
                         <Route path="/message/:id" element={<OrganizerDashboard/>} />
                         <Route path="/eventDetails/:id" element={<EventDetails/>} />
                         <Route path="/organizerEventPost/:id" element={<OrganizerEventPost/>} />
-
+                        <Route path="/eventPostDetails/:id" element={<OrganizerEventPostDetails/>} />
                         <Route path="*" element={<ErrorPage />} />
                     </>
                 )}

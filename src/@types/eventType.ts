@@ -71,6 +71,7 @@ export interface Ievents{
 
 
 export interface IeventPost{
+  _id?:string,
   eventId:string,
   organizerId:string,
   image:string,

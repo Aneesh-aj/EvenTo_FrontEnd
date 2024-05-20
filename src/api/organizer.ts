@@ -1,7 +1,7 @@
 import Api from "../survices/axios"
 import organizerRoutes from "../survices/endpoints/organizerEndPoint"
 import { IorganizerFormData } from "../@types/organizer"
-import { eventFormData } from "../@types/eventType"
+import { IeventPost, eventFormData } from "../@types/eventType"
 
 
 
@@ -224,4 +224,24 @@ export const cancelEvent = async(eventId:string,organizerId:string)=>{
   }catch(error){
      throw error
   }
+}
+
+export const getEventPost = async (id:string) => {
+  try {
+    const response = await Api.get(organizerRoutes.getEventPostWithId+`/${id}`)
+    return response.data
+
+  } catch (error) {
+    throw error
+  }
+}
+
+export const updatePost = async(formData:IeventPost,id:string)=>{
+    try{
+        console.log("----------------------------------------------formdata-----",formData)
+        const response = await Api.post(organizerRoutes.updatePost,{formData:formData,id:id})
+        return response.data
+    }catch(error){
+       throw error
+    }
 }

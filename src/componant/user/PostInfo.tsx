@@ -26,7 +26,7 @@ export const PostInfo = () => {
     function navigation() {
         console.log(" cominnnn")
         if (data.event.eventBooking === "SeatArrangment") {
-             console.log("-------------data",data)
+            console.log("-------------data", data)
             navigate(`/user/seatBooking/${data.post._id}`)
         }
     }
@@ -98,86 +98,6 @@ export const PostInfo = () => {
                         ${data && data.event.paymentAmount}
                     </h3>
                 </div>
-
-                {/* <div className="w-full p-8">
-                    <ul className="p-6 flex flex-col gap-3"> 
-                        <li>
-                            <div className="w-full flex">
-                                <div className="w-32 font-semibold ">Organizer</div>
-                                <span>:</span>
-                                <div className="w-40 font-light ps-2">{data && data?.organizer?.name} </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="w-full flex">
-                                <div className="w-32 font-semibold  ">co-ordinator</div>
-                                <span>:</span>
-                                <div className="w-40 font-light  ps-2">{data && data?.event?.name}</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="w-full flex">
-                                <div className="w-32 font-semibold  ">category</div>
-                                <span>:</span>
-                                <div className="w-40 font-light  ps-2">{data && data?.event?.eventCategory?.category}</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="w-full flex">
-                                <div className="w-32 font-semibold  ">Phone number</div>
-                                <span>:</span>
-                                <div className="w-40 font-light  ps-2">{data && data.event.phoneNumber}</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="w-full flex">
-                                <div className="w-32 font-semibold  ">Location</div>
-                                <span>:</span>
-                                <div className="w-40 font-light  ps-2">{data && data.event.eventState + " ," + data.event.eventCity + " ," + data.event.eventCountry + " ," + data.event.location}</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="w-full flex">
-                                <div className="w-32  font-semibold ">Date and Time</div>
-                                <span>:</span>
-                                <div className="w-40 font-light   ps-2">  {data && data.event.date && data.event.startingTime && data.event.endingTime
-                                    ? `${formatDate(data.event.date)} from ${formatTime(data.event.startingTime)} to ${formatTime(data.event.endingTime)}`
-                                    : 'No event details available.'}</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="w-full flex">
-                                <div className="w-32 font-semibold  ">Entry</div>
-                                <span>:</span>
-                                <div className="w-40 font-light   ps-2">{data && data.event.eventBooking}</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="w-full flex">
-                                <div className="w-32 font-semibold  ">Pay.Method </div>
-                                <span>:</span>
-                                <div className="w-40 font-light   ps-2">{data && data.event.paymentMethod}</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="w-full flex">
-                                <div className="w-32 font-semibold  ">Cost </div>
-                                <span>:</span>
-                                <div className="w-40 font-light   ps-2">{data && data.event.paymentAmount}</div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div className="w-full p-8">
-                    <h1 className="font-bold text-2xl">About the Event</h1>
-                </div>
-                <Divider />
-                <div className="w-full h-[250px] p-8">
-                    <h1 className="font-bold text-xl p-3">{data && data.post.subTitle}</h1>
-                    <p className=" w-full h-full">{data && data.post.about}</p>
-                </div>
-                <div className="w-full flex justify-end pe-8 mb-10">
-                </div> */}
             </div>
             <div className="w-full flex gap-2 ">
                 <div className="w-7/12 h-72 bg-white border-2 p-6 rounded-md">
@@ -201,7 +121,7 @@ export const PostInfo = () => {
             <div className="w-full">
                 <h1 className="font-bold">You Might also like</h1>
             </div>
-            <UserEventListing></UserEventListing>
+            {/* <UserEventListing></UserEventListing> */}
         </>
     )
 }

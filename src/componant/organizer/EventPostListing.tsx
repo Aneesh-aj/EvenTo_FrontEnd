@@ -56,7 +56,7 @@ export const EventPostListing = () => {
 
                     </div>
                     <div className="w-full p-2 h-[5rem]">
-                        <p className="text-sm break-words">
+                        <p className="text-sm break-words overflow-hidden">
                             Lorratensjdfkhskdfhskdjfkhsdkfjhskdfhkshjdfkjshkdfhsjfkhsdim.
                         </p>
                     </div>

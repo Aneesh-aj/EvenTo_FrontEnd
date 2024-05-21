@@ -161,6 +161,19 @@ export const createEvent = async (data: any) => {
   }
 }
 
+export const updateEvent = async (data: any,eventId:string)=> {
+  try {
+    console.log(" data is before that  clalinggg", data)
+    data.date = data.date.toString()
+    data.endingTime = data.endingTime.toString()
+    data.startingTime = data.startingTime.toString()
+    const response = await Api.post(organizerRoutes.updateEvent, { data: data,eventId:eventId })
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
 export const getAllEvents = async (id: string) => {
   try {
     const response = await Api.get(organizerRoutes.getAllEvents + `/${id}`)
@@ -244,4 +257,13 @@ export const updatePost = async(formData:IeventPost,id:string)=>{
     }catch(error){
        throw error
     }
+}
+
+export const fetchAllBooking = async(eventId:string)=>{
+  try{
+     const response = await Api.get(organizerRoutes.getBooking+`/${eventId}`)
+     return response.data
+  }catch(error){
+     throw error
+  }
 }

@@ -3,14 +3,12 @@
 
 
 import { Chip, Divider } from "@mui/material"
-import bg from "../../assets/FE.jpg"
 import { useEffect, useState } from "react"
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { getPostDetails } from "../../api/user"
 import { useNavigate, useParams } from "react-router-dom"
 import Nav from "../../componant/common/Nav";
 import { EventPostEdit } from "../../componant/organizer/EventPostEdit";
-// import { UserEventListing } from "./UserEventListing";
 
 
 
@@ -22,7 +20,8 @@ export const OrganizerEventPostDetails = () => {
         title:"",
         postId:"",
         image:"",
-        about:""
+        about:"",
+        eventId:''
 
     })
 
@@ -37,7 +36,8 @@ export const OrganizerEventPostDetails = () => {
                 title:response.details.post.title,
                 postId:response.details.post._id,
                 image:response.details.post.image,
-                about:response.details.post.about
+                about:response.details.post.about,
+                eventId:response.details.event._id
             })
             setData(response.details)
         }
@@ -100,7 +100,7 @@ export const OrganizerEventPostDetails = () => {
                         <h1 className="font-bold  text-2xl ">{data && data.post.title}</h1>
                          <div className="flex gap-2">
                          <button onClick={handleOpenModal}    className="w-[5rem] h-[2rem] bg-blue-500 p2 text-white rounded-md">Edit</button>
-                        <button  className="w-[5rem] h-[2rem] bg-blue-500 p2 text-white rounded-md">Entrys</button>
+                        <button onClick={()=>navigate(`/organizer/entrys/${formData.eventId}`)} className="w-[5rem] h-[2rem] bg-blue-500 p2 text-white rounded-md">Entrys</button>
                          </div>
 
                     </div>

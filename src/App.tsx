@@ -7,9 +7,7 @@ import useGetUser from './hook/useGetUser';
 import Home from './page/Home';
 import ErrorPage from './componant/common/ErrorPage';
 import { Blocked } from './componant/common/Blocked';
-import { OrganizerPending } from './page/organizer/OrganizerPending';
 import { WaitingPage } from './componant/organizer/WaitingPage';
-// import OrganizerLogin from './page/organizer/OrganizerLogin';
 
 function App() {
   const user = useGetUser().role;

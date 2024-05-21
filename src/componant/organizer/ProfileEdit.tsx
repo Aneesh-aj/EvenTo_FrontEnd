@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Country, State, City } from 'country-state-city';
 import { Modal, Box, TextField, Button, FormControl, InputLabel, Select, MenuItem, FormHelperText, Autocomplete, Chip } from "@mui/material";
 import useGetUser from "../../hook/useGetUser";
-import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import { useAutocomplete, AutocompleteGetTagProps } from '@mui/base/useAutocomplete';
+import {  AutocompleteGetTagProps } from '@mui/base/useAutocomplete';
 import { styled } from '@mui/material/styles';
 import { autocompleteClasses } from '@mui/material/Autocomplete';
 import { Allcategory, organizerProfileEdit } from "../../api/organizer";
 import toast, { Toaster } from "react-hot-toast";
 
-const Root = styled('div')(
+ styled('div')(
     ({ theme }) => `
   color: ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.65)' : 'rgba(0,0,0,.85)'
         };
@@ -18,13 +17,13 @@ const Root = styled('div')(
 `,
 );
 
-const Label = styled('label')`
+  styled('label')`
   padding: 0 0 4px;
   line-height: 1.5;
   display: block;
 `;
 
-const InputWrapper = styled('div')(
+styled('div')(
     ({ theme }) => `
   width: 300px;
   border: 1px solid ${theme.palette.mode === 'dark' ? '#434343' : '#d9d9d9'};
@@ -74,7 +73,7 @@ function Tag(props: TagProps) {
     );
 }
 
-const StyledTag = styled(Tag)<TagProps>(
+ styled(Tag)<TagProps>(
     ({ theme }) => `
   display: flex;
   align-items: center;
@@ -112,7 +111,7 @@ const StyledTag = styled(Tag)<TagProps>(
 `,
 );
 
-const Listbox = styled('ul')(
+ styled('ul')(
     ({ theme }) => `
   width: 300px;
   margin: 2px 0 0;
@@ -158,13 +157,7 @@ const Listbox = styled('ul')(
   }
 `,
 );
-interface Category {
-    category: string;
-    id: string;
-    delete?: boolean,
-    active?: boolean
 
-}
 
 
 interface FormData {
@@ -381,8 +374,8 @@ const ProfileEdit: React.FC<Props> = ({ isOpen, onClose, organizerData }) => {
                     <Toaster position="top-right" reverseOrder={false}/> 
                         <TextField fullWidth label="Name" name="name" value={formData.name} onChange={(e) => handleChange(e as any)} />
                         {errors.name && <FormHelperText error>{errors.name}</FormHelperText>}
-                        <TextField fullWidth label="Email" name="email" value={formData.email} onChange={(e) => handleChange(e as any)} />
-                        {errors.email && <FormHelperText error>{errors.email}</FormHelperText>}
+                        {/* <TextField fullWidth label="Email" name="email" value={formData.email} onChange={(e) => handleChange(e as any)} />
+                        {errors.email && <FormHelperText error>{errors.email}</FormHelperText>} */}
                         <TextField fullWidth label="About" name="about" value={formData.about} onChange={(e) => handleChange(e as any)} />
                         {errors.about && <FormHelperText error>{errors.about}</FormHelperText>}
                         <TextField fullWidth label="Pincode" name="pinCode" value={formData.pinCode} onChange={(e) => handleChange(e as any)} />

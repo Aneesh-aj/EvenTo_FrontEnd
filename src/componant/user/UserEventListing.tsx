@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { motion } from "framer-motion";
 import { getAlleventPost } from '../../api/organizer';
-import {  getAllcategory, searchEventPost } from "../../api/user";
+import {  getAllcategory } from "../../api/user";
 import image from '../../assets/9318688.jpg';
 
 export const UserEventListing = () => {
@@ -48,8 +48,8 @@ export const UserEventListing = () => {
 
     const handleFilterChange = async(option: any) => {
         setFilterOption(option);
-        // Apply filter based on the selected option
-        const filteredEvents = events.filter((event:any) => event?.categoryId === option); // Adjust this line according to your actual filtering criteria
+     
+        const filteredEvents = events.filter((event:any) => event?.categoryId === option); 
         setSearchEvent(filteredEvents);
     };
 

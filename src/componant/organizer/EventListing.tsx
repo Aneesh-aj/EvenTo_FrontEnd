@@ -93,7 +93,7 @@ export const EventListing = () => {
                     </li>
                     <li className="flex gap-1 items-center">
                       {
-                        elem.status && elem.status ==="upcoming"  ?  <Button variant="contained"  >Edit</Button>:<button className="w-[3.5rem] h-[2rem]"></button>
+                        elem.status && elem.status ==="upcoming"  ?  <Button variant="contained" onClick={()=>navigate(`/organizer/eventEdit/${elem._id}`)}  >Edit</Button>:<button className="w-[3.5rem] h-[2rem]"></button>
                       }
                       {
                        elem.status && elem.status ==="upcoming"   ?  <Button variant="contained" sx={{ bgcolor: 'red' }}>Cancel</Button>:<button className="w-[5.5rem] h-[2rem]"></button>

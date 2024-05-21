@@ -16,18 +16,14 @@ export const SeatBooking = () => {
     const currentUser = useGetUser()
     const [seats, setSeats] = useState<Seat[][]>([]);
     const [selectedSeats, setSelectedSeats] = useState<Seat[]>([]);
-    const [show, setShow] = useState<boolean>(false);
     const [postId,setPostid] = useState<string>()
     const [event, setEvent] = useState<Ievents>()
-
-    const navigate = useNavigate()
 
 
     useEffect(() => {
 
         socket.on('seatSelected', ({ data }) => {
             console.log('Seat ------------selected:', data);
-
             getSeat()
         });
 
@@ -40,7 +36,6 @@ export const SeatBooking = () => {
 
 
     const handleSeatSelection = () => {
-        console.log("----++++++-----")
         socket.emit('selectSeat');
     };
 
@@ -70,7 +65,6 @@ export const SeatBooking = () => {
         const seatRows = Object.values(groupedSeats);
 
         setSeats(seatRows);
-        console.log("--------------------", seats);
     }
     useEffect(() => {
         getSeat();
@@ -120,7 +114,7 @@ export const SeatBooking = () => {
         if (selectedSeats.length == 0) return toast.error("please select seats")
 
             selectedSeats.map((ele: any) => {
-                const isSeatTaken = seats.map((elem: any) => {
+                seats.map((elem: any) => {
                     return elem.row === ele.row && elem.column === ele.column&&  ele.isSelected ?  toast.error("Seat is already taken"):''
 
                 });
@@ -129,8 +123,7 @@ export const SeatBooking = () => {
                  
             });
             
-        console.log(" it is before")
-        // alert("jdjdj")
+      
         const response = await book(event?._id as string, selectedSeats, currentUser.id)
         console.log(" the respnseeeeeeeee -----------------------", response)
         handleSeatSelection()
@@ -138,9 +131,7 @@ export const SeatBooking = () => {
             await loadStripe("pk_test_51PFyqWSEhUTiu13xKxIRFqzlwRSAvqHPNSJ0EfCCjE37wcSfKFBZmKiv2oJY1gnaSWPmKb4HgfpITlKqwZ70Amoo00Rwxor5D4")
             const payments = await payment(event?._id as string, currentUser.id, selectedSeats, event?.paymentAmount as string , postId as string)
             console.log(payments)
-            // alert(" comes")
             window.location = payments
-            //  navigate(payments)
         } else {
             toast.error("seat Already taken")
         }

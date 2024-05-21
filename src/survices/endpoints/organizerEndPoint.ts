@@ -22,7 +22,9 @@ const organizerRoutes={
     changeStatus:"/organizer/changeStatus",
     cancelEvent:"/organizer/cancel",
     getEventPostWithId:"/organizer/getOrganizerEventPost",
-    updatePost:"/organizer/updatePost"
+    updatePost:"/organizer/updatePost",
+    getBooking:"/organizer/geAllbookings",
+    updateEvent:"/organizer/updateEvent"
 }
 
 export default organizerRoutes

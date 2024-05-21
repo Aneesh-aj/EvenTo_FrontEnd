@@ -49,7 +49,7 @@ const OrganizerProfile: React.FC = () => {
             console.log("getting the url", url);
 
             setProfile(url);
-            const result = await uploadProfilePicture(id, url);
+            await uploadProfilePicture(id, url);
         }
     }
 
@@ -57,7 +57,6 @@ const OrganizerProfile: React.FC = () => {
     useEffect(() => {
         async function getInfo() {
             const organizer = await findbyId(id);
-            console.log(" finded data from the orgnaizer-----------------------", organizer.organizer.profileImage)
             setOrganizer(organizer.organizer)
             const country = await Country.getCountryByCode(organizer.organizer.address[0].country)
             const state = await State.getStateByCode(organizer.organizer.address[0].state)
@@ -66,7 +65,7 @@ const OrganizerProfile: React.FC = () => {
                 state: state?.name || undefined,
                 city: organizer.organizer.address[0].city,
                 pin: organizer.organizer.address[0].pincode
-            }); console.log("getting the data====>", organizer.organizer.backgroundImage);
+            }); 
             setBackground(organizer?.organizer.backgroundImage);
             setProfile(organizer?.organizer.profileImage);
         }
@@ -81,11 +80,8 @@ const OrganizerProfile: React.FC = () => {
         setIsModalOpen(false);
     };
 
-    const handleSubmitModal = (formData: any) => {
-        // Handle form submission logic here, e.g., send data to backend
-        console.log("Form data:", formData);
-        handleCloseModal(); // Close the modal after submission
-    };
+
+   
 
 
 
@@ -96,10 +92,9 @@ const OrganizerProfile: React.FC = () => {
                 <div className="  w-full  xl:w-7/12">
                     <div className="w-full rounded-lg shadow-md border-2 mt-20 h-auto bg-white">
                         <div className="w-full rounded-lg object-contain  relative shadow bg-white h-32 xl:h-48 flex  items-end  ">
-                            {/* <AddPhotoAlternateIcon className=" "/> */}
-                            <button className="top-2 end-2  absolute text-white" onClick={(e) => {
+                            <button className="top-2 end-2  absolute text-white" onClick={() => {
                                 imageRef.current?.click()
-                                console.log(imageRef)
+                                
                             }
                             }> <AddPhotoAlternateIcon sx={{ color: "black" }} /></button>
                             <input type="file" className="hidden " onChange={(e) => changing(e)} ref={imageRef} />

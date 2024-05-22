@@ -116,8 +116,8 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
 
 
   async function handler(e: React.FormEvent) {
-    e.preventDefault()
-
+    e.preventDefault();
+     alert(" calling outside the function")
     formData.append("name", ownerName);
     formData.append("email", email);
     formData.append("phoneNumber", phoneNumber);
@@ -128,7 +128,7 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
     formData.append("country", selectedCountry || "");
     formData.append("state", selectedState || "");
     formData.append("city", selectedCity || "");
-    formData.append("otp", otp)
+    formData.append("otp", otp);
 
     try {
       const ownerIdUrls: any = await UploadImage(ownerId);
@@ -139,7 +139,7 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
       formData.append('ownerId', ownerIdUrls); // Assuming you want the first URL
       formData.append('companyLicense', licenseUrls);
       formData.append('companyInsurance', insuranceUrls);
-      formData.append('bankPassbook', passbookUrls)
+      formData.append('bankPassbook', passbookUrls);
 
       const convertedData: IorganizerFormData = {
         name: formData.get('name') as string,
@@ -159,126 +159,123 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
         bankPassbook: formData.get('bankPassbook') as string
       };
       try {
-        setLoading(true)
-        const result = await organizerSignup(convertedData)
-        console.log(" the reuslt of the registeration", result)
+        setLoading(true);
+        const result = await organizerSignup(convertedData);
+        console.log("the result of the registration", result);
         if (result.success) {
-          toast.success(result.message)
+          toast.success(result.message);
           dispatch(setUser({
             role: result.role,
             name: result.organizer.name,
             email: result.organizer.email,
             id: result.organizer._id,
-            blocked:result.organizer.blocked,
-            approve:false
+            blocked: result.organizer.blocked,
+            approve: false
+          }));
 
-          }))
-
-          setLoading(false)
-          navigate('/organizer/pending')
+          setLoading(false);
+          navigate('/organizer/pending');
         } else {
-          toast.error(result.response.data.message)
+          toast.error(result.response.data.message);
         }
       } catch (error) {
-        throw error
+        throw error;
       }
     } catch (error) {
-      alert(error)
+      alert(error);
     }
-
   }
-  //validating  the otp
 
+  // Validating the OTP
   async function otpValidation(e: React.FormEvent) {
-    e.preventDefault
-    let newErrors = { ...errors }
-    setLoading(true)
+    e.preventDefault();
+    let newErrors = { ...errors };
+    setLoading(true);
 
     if (!otp.trim()) {
       newErrors.otp = 'OTP is required.';
-      console.log("on the first Error")
-      setErrors(newErrors)
-      setLoading(false)
-      return
+      setErrors(newErrors);
+      setLoading(false);
+      return;
     } else if (!isValidOTP(otp)) {
       newErrors.otp = 'Invalid OTP (should be 4 digits).';
-      console.log("on the sedoncd error")
-      setLoading(false)
-      setErrors(newErrors)
-      return
+      setErrors(newErrors);
+      setLoading(false);
+      return;
     } else {
       newErrors.otp = '';
-      setErrors(newErrors)
+      setErrors(newErrors);
 
-      const response = await verifyOtp(email, otp)
-      console.log("thre resonps", response)
-      setLoading(false)
+      const response = await verifyOtp(email, otp);
+      console.log("the response", response);
+      setLoading(false);
       if (response.success) {
-        toast.success(response.message)
-        handler(e)
+        toast.success(response.message);
+        alert(" calling in the function")
+        await handler(e);
+      } else if (response.success === false) {
+        toast.error(response.message);
       } else {
-        toast.error(response.response.data.message)
+        toast.error("OTP expired!!");
       }
     }
-    console.log("after the checking")
   }
 
-
   const validationOne = () => {
-    let Newerrors = { ...errors };
+    let newErrors = { ...errors };
 
     // Validate owner name (no numbers or special characters allowed)
     if (!ownerName.trim()) {
-      Newerrors.ownerName = 'Owner name is required.';
+      newErrors.ownerName = 'Owner name is required.';
     } else if (!isValidName(ownerName)) {
-      Newerrors.ownerName = 'Owner name should only contain letters.';
+      newErrors.ownerName = 'Owner name should only contain letters.';
     } else {
-      Newerrors.ownerName = '';
+      newErrors.ownerName = '';
     }
 
     // Validate email
     if (!email.trim()) {
-      Newerrors.email = 'Email is required.';
+      newErrors.email = 'Email is required.';
     } else if (!isValidEmail(email)) {
-      Newerrors.email = 'Invalid email address.';
+      newErrors.email = 'Invalid email address.';
     } else {
-      Newerrors.email = ""
+      newErrors.email = "";
     }
 
     // Validate phone number
     if (!phoneNumber.trim()) {
-      Newerrors.phoneNumber = 'Phone number is required.';
+      newErrors.phoneNumber = 'Phone number is required.';
     } else if (!isValidPhoneNumber(phoneNumber)) {
-      Newerrors.phoneNumber = 'Invalid phone number (should be 10 digits).';
+      newErrors.phoneNumber = 'Invalid phone number (should be 10 digits).';
     } else {
-      Newerrors.phoneNumber = ""
+      newErrors.phoneNumber = "";
     }
 
     // Validate password
     if (!password.trim()) {
-      Newerrors.password = 'Password is required.';
+      newErrors.password = 'Password is required.';
     } else {
-      Newerrors.password = ""
+      newErrors.password = "";
     }
 
     // Validate confirm password
     if (!Cpassword.trim()) {
-      Newerrors.Cpassword = 'Confirm Password is required.';
+      newErrors.Cpassword = 'Confirm Password is required.';
     } else if (Cpassword !== password) {
-      Newerrors.Cpassword = 'Passwords do not match.';
+      newErrors.Cpassword = 'Passwords do not match.';
     } else {
-      Newerrors.Cpassword = ""
+      newErrors.Cpassword = "";
     }
 
-    console.log("all eerros", Newerrors)
+    console.log("all errors", newErrors);
 
-    if (Object.values(Newerrors).every((value) => value === "")) {
+    if (Object.values(newErrors).every((value) => value === "")) {
       console.log("entering");
       setPartOne(false);
       setPartTwo(true);
     }
-    console.log("after")
-    setErrors(Newerrors)
+    console.log("after");
+    setErrors(newErrors);
   };
 
   const isValidPincode = (pincode: string): boolean => {
@@ -287,110 +284,108 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
     return pincodeRegex.test(pincode);
   };
 
-
-
   const validationTwo = async (e: React.FormEvent) => {
-    setLoading(true)
-    e.preventDefault()
-    let allerror = { ...errors };
+    setLoading(true);
+    e.preventDefault();
+    let allError = { ...errors };
 
     // Validate building
     if (!building.trim()) {
-      allerror.building = 'Building/floor is required.';
+      allError.building = 'Building/floor is required.';
     } else {
-      allerror.building = ''
+      allError.building = '';
     }
 
     // Validate pincode
     if (!pincode.trim()) {
-      allerror.pincode = 'Pincode is required'
+      allError.pincode = 'Pincode is required';
     } else if (!isValidPincode(pincode)) {
-      allerror.pincode = 'Invalid pincode (should be 6 digits).';
+      allError.pincode = 'Invalid pincode (should be 6 digits).';
     } else {
-      allerror.pincode = ''
+      allError.pincode = '';
     }
 
     if (!selectedCity) {
-      allerror.city = 'select a city.'
+      allError.city = 'Select a city.';
     } else {
-      allerror.city = ""
+      allError.city = "";
     }
 
     if (!selectedCountry) {
-      allerror.country = 'Select a country'
+      allError.country = 'Select a country';
     } else {
-      allerror.country = ""
+      allError.country = "";
     }
     if (!selectedState) {
-      errors.state = "Select a state."
+      allError.state = 'Select a state.';
     }
 
     // Validate owner id
     if (!ownerId) {
-      allerror.ownerId = 'Owner id card is required.';
+      allError.ownerId = 'Owner id card is required.';
     } else {
-      allerror.ownerId = '';
+      allError.ownerId = '';
     }
 
     // Validate license
     if (!license) {
-      allerror.license = 'Company license is required.';
+      allError.license = 'Company license is required.';
     } else {
-      allerror.license = ""
+      allError.license = "";
     }
 
     // Validate insurance
     if (!insurance) {
-      allerror.insurance = 'Company insurance is required.';
+      allError.insurance = 'Company insurance is required.';
     } else {
-      allerror.insurance = ""
+      allError.insurance = "";
     }
 
     if (!passbook) {
-      allerror.passbook = 'Bank passbook is required.';
+      allError.passbook = 'Bank passbook is required.';
     } else {
-      allerror.passbook = ""
+      allError.passbook = "";
     }
 
     console.log("before");
-    console.log("second all errors", errors)
+    console.log("second all errors", errors);
 
     // Check if there are no errors
-    if (Object.values(allerror).every((value) => value === "")) {
+    if (Object.values(allError).every((value) => value === "")) {
       try {
-        const result = await otpSenting(email, ownerName)
-        console.log(" the result", result)
+        const result = await otpSenting(email, ownerName);
+        console.log("the result", result);
         if (result.status === 200) {
-          toast.success(result.data.message)
+          toast.success(result.data.message);
           setPartTwo(false);
-          setShowotp(true)
+          setShowotp(true);
         } else {
-          toast.error(result.response.data.message)
+          toast.error(result.response.data.message);
         }
       } catch (error) {
-        throw error
+        throw error;
       }
     }
     console.log("after");
-    setLoading(false)
-    setErrors(allerror)
+    setLoading(false);
+    setErrors(allError);
   };
 
- 
-  const resendotp= async()=>{
-       const otp = await resendOtp(email)
-       if(otp.status==200){
-           toast.success("otp resended to your mail")
-       }else{
-           toast.error("failed to resend")
-       }
-  }
+  const resendOtpHandler = async () => {
+     alert(" calling")
+    const otpResponse = await resendOtp(email);
+    if (otpResponse.status === 200) {
+      toast.success("OTP resent to your email.");
+    } else {
+      toast.error("Failed to resend OTP.");
+    }
+  };
 
 
 
   return (
     <div className='h-auto overflow-y-scroll bg-[#f0f2f0] w-full flex justify-center custom-scrollbar'>
-      <div className="md:w-8/12 lg:w-6/12 xl:w-5/12 mx-auto my-10 bg-white p-6 md:p-12 rounded-xl shadow shadow-slate-300">
+      <div className="md:w-8/12 lg:w-6/12 xl:w-5/12 mx-auto my-10 bg-white p-6 md:p-12 rounded-xl shadow-md shadow-slate-300">
         <div className='flex justify-center '>
           <Toaster position="top-right" reverseOrder={false} />
           <h1 className="text-4xl font-medium pb-4">Register</h1>
@@ -640,7 +635,7 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
 
                 </label>
 
-                <button disabled={loading} onClick={(e) => otpValidation(e)} className={loading ? 'w-full disabled:submit py-3 font-medium text-white bg-indigo-400 hover:bg-indigo-300 rounded-lg border-indigo-300 hover:shadow inline-flex space-x-2 items-center justify-center' : "w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"}>
+                <button disabled={loading} onClick={(e) => otpValidation(e)} className={loading ? 'w-full disabled:submit py-3 font-medium text-white bg-indigo-400 hover:bg-indigo-300 rounded-lg border-indigo-200 hover:shadow inline-flex space-x-2 items-center justify-center' : "w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
@@ -657,7 +652,7 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
                   </svg>
                   <span>{loading ? "Loading" : "Register"}</span>
                 </button>
-                <div className="text-sm text-slate-500 mt-4">Didn't receive code? <p className="font-medium text-indigo-500 hover:text-indigo-600" onClick={ resendotp}>Resend</p></div>
+                <div className="text-sm text-slate-500 mt-4">Didn't receive code? <p className="font-medium text-indigo-500 hover:text-indigo-600" onClick={()=>resendOtpHandler()}>Resend</p></div>
 
               </div>
 

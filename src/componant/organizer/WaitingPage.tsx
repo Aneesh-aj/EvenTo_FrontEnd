@@ -7,12 +7,14 @@ import { useDispatch, useSelector } from "react-redux"
 import { currentUser } from "../../@types/allTypes"
 import { setApproval, setUser } from "../../redux/userSlice"
 import useGetUser from "../../hook/useGetUser"
+import { clearUser } from "../../utils/clearUser"
 
 export const WaitingPage = () => {
     const [isApproved,setApprove]= useState<boolean>()
     const navigate = useNavigate()
     const user = useSelector((state:{user:currentUser})=>state.user)
     const dispatch = useDispatch()
+    // clearUser(dispatch)
     const currentUser = useGetUser()
     useEffect(()=>{
       async function callingFunction(){

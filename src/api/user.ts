@@ -165,4 +165,24 @@ export const userUploadPicture= async(id:string,img:string)=>{
     }
   }
 
+
+  export const  updatePassword= async(user:any)=>{
+        try{
+            const response = await Api.post(userRoutes.updatePassword,{email:user.email,password:user.password})
+            return response.data
+        }catch(error){
+            throw error
+        }
+  }
+
+  export const otpSenting = async (email: string, name: string) => {
+    try {
+      const response = await Api.post(userRoutes.otpSenting, { email: email, name: name })
+      console.log("the result ", response)
+      return response.data
+    } catch (error: any) {
+      return error
+    }
+  }
+
   

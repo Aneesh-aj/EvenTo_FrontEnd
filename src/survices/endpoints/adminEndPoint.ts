@@ -4,7 +4,8 @@ const adminRoutes = {
     changeUserStatus:'/admin/changeUserStatus',
     getAllrequests:"/admin/Requests",
     getAllCategory:"/admin/category",
-    editCategorys:"/admin/editCategory"
+    editCategorys:"/admin/editCategory",
+    login:"/admin/login"
 }
 
 export default adminRoutes;

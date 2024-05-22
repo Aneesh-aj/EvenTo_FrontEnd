@@ -178,6 +178,7 @@ interface Props {
     isOpen: boolean;
     onClose: () => void;
     organizerData: any;
+    
 }
 
 
@@ -359,7 +360,7 @@ const ProfileEdit: React.FC<Props> = ({ isOpen, onClose, organizerData }) => {
             const result = await organizerProfileEdit(currentUser?.id, formData)
              toast.success(result.message)
             console.log(result)
-
+            //  window.location.reload()
             onClose()
         }
 

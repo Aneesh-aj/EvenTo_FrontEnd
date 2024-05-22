@@ -15,6 +15,8 @@ const userRoutes={
     searchQuery:"/user/searchQuery",
     getCategory:"/user/allcategory",
     bookings:"/user/allbooking",
+    updatePassword:"/user/changepassword",
+    otpSenting:"/user/sentotp"
 }
 
 export default userRoutes

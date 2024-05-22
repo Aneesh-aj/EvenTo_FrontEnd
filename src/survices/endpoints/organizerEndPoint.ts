@@ -25,6 +25,7 @@ const organizerRoutes={
     updatePost:"/organizer/updatePost",
     getBooking:"/organizer/geAllbookings",
     updateEvent:"/organizer/updateEvent"
+    
 }
 
 export default organizerRoutes

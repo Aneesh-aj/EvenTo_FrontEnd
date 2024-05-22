@@ -6,6 +6,8 @@ import Api from '../../survices/axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { currentUser } from '../../@types/allTypes';
 import { setUser } from '../../redux/userSlice';
+import { adminLogin } from '../../api/admin';
+import toast, { Toaster } from 'react-hot-toast';
 const AdminLogin: React.FC = () => {
 
 
@@ -20,24 +22,25 @@ const AdminLogin: React.FC = () => {
     try {
       console.log("entring")
       e.preventDefault()
-      const res = await Api.post('/admin/login', { email: email, password: password }, {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
+      const data = await adminLogin(email as string,password as string)
 
-      const data = await res.data
       console.log(data, "from the frontend !!!");
-
-      if (data) {
-         dispatch(setUser({
-           role:data?.admin.role,
-           name:"admin",
-           email:data?.admin.email,
-           id:data?.admin._id
-         }))
-        navigate("/admin/Requests")
-      }
+       if(data.success){
+         if (data) {
+           toast.success(data.message)
+           setTimeout( async()=>{
+             dispatch(setUser({
+               role:data?.admin.role,
+               name:"admin",
+               email:data?.admin.email,
+               id:data?.admin._id
+              }))
+             navigate("/admin/Requests")
+           },2000)
+         }
+       }else{
+          toast.error(data.message)
+       }
     } catch (error) {
       console.log("ERror: ", error);
 
@@ -48,7 +51,7 @@ const AdminLogin: React.FC = () => {
   return (
     <div className='h-screen overflow-y-scroll bg-[#f0f2f0] w-full flex justify-center custom-scrollbar'>
 
-      <div className="  xl:w-5/12 mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300">
+      <div className=" w-8/12 xl:w-5/12 mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300">
         <div className='flex  justify-center '>
           <h1 className="text-4xl font-medium pb-4">Login</h1>
         </div>
@@ -56,12 +59,13 @@ const AdminLogin: React.FC = () => {
           <p className="text-slate-500">Hi, Welcome back 👋</p>
         </div>
         <div className="my-5">
-          <button className="w-full text-center py-3 my-3 border flex space-x-2 items-center justify-center border-slate-200 rounded-lg text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow transition duration-150">
+          {/* <button className="w-full text-center py-3 my-3 border flex space-x-2 items-center justify-center border-slate-200 rounded-lg text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow transition duration-150">
             <img src="https://www.svgrepo.com/show/355037/google.svg" className="w-6 h-6" alt="" /> <span>Login with Google</span>
-          </button>
+          </button> */}
         </div>
 
         <form action="" onSubmit={handler} className="my-10">
+          <Toaster></Toaster>
           <div className="flex flex-col space-y-5">
             <label htmlFor="email">
               <p className="font-medium text-slate-700 pb-2">Email address</p>

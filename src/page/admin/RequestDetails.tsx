@@ -45,7 +45,7 @@ const RequestDetails: React.FC = () => {
     return (
         <div className="h-screen overflow-y-scroll bg-[#e8e8e8] w-full flex justify-center custom-scrollbar">
             <div className="w-11/12 h-96 mt-3 flex flex-col items-center ">
-                <div className="rounded-md bg-white shadow-md w-full h-11 flex flex-row items-center">
+                <div className="rounded-md bg-white p-4 font-bold shadow-md w-full h-11 flex flex-row items-center">
                     {details?.name}
                 </div>
                 <Toaster position="top-right"
@@ -76,7 +76,7 @@ const RequestDetails: React.FC = () => {
                         </div>
                         <div className="flex mt-3">
                             <div className="w-4/12">
-                                <p className="font-sans font-semibold">Owner name</p>
+                                <p className="font-sans font-semibold">Country</p>
                             </div>
                             <div className="w-3">:</div>
                             <div className="w-8/12">
@@ -154,8 +154,8 @@ const RequestDetails: React.FC = () => {
                     <div className="flex gap-3 p-4 w-full justify-end">
                           {
                             details&& details?.approved ===false&& <>
-                                                <button className="rounded-sm text-white w-20 ps-3 pe-3 pt-1 pb-1 bg-blue-600" onClick={Approve}>Approve</button>
-                        <button className="rounded-sm text-white shadow-md w-20 ps-3 pe-3 pt-1 pb-1 bg-red-500" onClick={Reject}>Reject</button>
+                                                <button className="rounded-md text-white w-20 ps-3 pe-3 pt-1 pb-1 bg-blue-600" onClick={Approve}>Approve</button>
+                        <button className="rounded-md text-white shadow-md w-20 ps-3 pe-3 pt-1 pb-1 bg-red-500" onClick={Reject}>Reject</button>
                             </>
                           }
                     </div>

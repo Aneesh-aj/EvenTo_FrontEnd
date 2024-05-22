@@ -29,7 +29,7 @@ export const otpSenting = async (email: string, name: string) => {
 export const verifyOtp = async (email: string, otp: string) => {
   try {
     const response = await Api.post(organizerRoutes.verifyOtp, { email: email, otp: otp })
-    console.log(" ther response", response)
+    console.log(" ther response", response.data)
     return response.data
   } catch (error) {
     return error

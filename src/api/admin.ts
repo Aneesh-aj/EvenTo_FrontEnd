@@ -28,3 +28,12 @@ export const allRequests = async()=>{
          throw error
     }
  }
+
+ export const adminLogin = async(email:string,password:string)=>{
+     try{
+        const response = await Api.post(adminRoutes.login,{email:email,password:password})
+        return response.data
+     }catch(error){
+        throw error
+     }
+ }

@@ -21,8 +21,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/auth/*" element={ user&& user !=="requestPending" ? (<Navigate to={"/"} />) : (<AuthRoute />)} />
           <Route path="/admin/*" element={user === "admin" ? <AdminRoutes /> : <Navigate to={"/auth/adminlogin"} />} />
-          <Route path='/pending' element={user ==="requestPending" ? <WaitingPage/> : <Navigate to={"/"}/> }  />
-         
+          <Route path='/pending' element={user ==="requestPending" ? <WaitingPage/> : <Navigate to={"/"}/> }  /> 
           {
             currentUser && currentUser.blocked === false && <>
               <Route path="/user/*" element={user === "user" ? <UserRoute /> : <Navigate to={"/"} />} />

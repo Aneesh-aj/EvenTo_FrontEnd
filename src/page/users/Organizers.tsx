@@ -19,9 +19,6 @@ const Organizers: React.FC = () => {
         async function getOrganizer() {
            try{
             const result = await allOrganizers()
-
-            console.log(" the reuslt of the api : - ", result.allOrganizer[0].address[0].country)
-
             for (let i = 0; i < result.allOrganizer.length - 1; i++) {
                 const country = await Country.getCountryByCode(result.allOrganizer[i].address[0].country)
                 const state = await State.getStateByCode(result.allOrganizer[i].address[0].state)
@@ -30,7 +27,6 @@ const Organizers: React.FC = () => {
                 result.allOrganizer[i].address[0].state = state?.name
 
             }
-            console.log(" after the reuslt  ------------------------------>", result)
             setAllorganizer(result.allOrganizer)
            }catch(error){
                 toast.error("Token expired !! Login again")

@@ -11,36 +11,25 @@ import ForgotPassword from "../page/users/ForgotPassword"
 
 function CommonRoutes() {
     const currentUser = useGetUser()
-     console.log(" currect userss" , currentUser)
+    console.log(" currect userss", currentUser)
     return (
         <>
             <Routes>
-                 
-                   
-                        
-                        <Route path="/adminLogin" element={ currentUser.role? <Navigate to={"/"} />:<AdminLogin/>} />
+                <Route path="/adminLogin" element={currentUser.role ? <Navigate to={"/"} /> : <AdminLogin />} />
+                <Route path="/organizerLogin" element={<OrganizerLogin />} />
+                <Route path="/userSignup" element={currentUser && currentUser.role ? <Navigate to={"/"} /> : <Signup />} />
+                <Route path="/userLogin" element={currentUser && currentUser.role ? <Navigate to={"/"} /> : <Login />} />
+                <Route path="/otp/:email" element={currentUser && currentUser.role ? <Navigate to={"/"} /> : <OtpForm />} />
+                <Route path="/organizerRegister" element={currentUser && currentUser.role ? <Navigate to={"/"} /> : <OrganizerRegistration />} />
+                <Route path="/user/forgotpassword" element={currentUser && currentUser.role ? <Navigate to={"/"} /> : <ForgotPassword />} />
+                <Route path="/organizerLogin" element={currentUser && currentUser.approve === true ? <OrganizerLogin /> : <Navigate to={"/"} />} />
+                {
+                    currentUser && currentUser.role === "requestPending" && currentUser.approve === false && <>
+                        <Navigate to={'/pending'}></Navigate>
+                    </>
 
-                        <Route path="/organizerLogin" element={ <OrganizerLogin/>} />
-                        <Route path="/userSignup" element={currentUser&&currentUser.role ? <Navigate to={"/"} /> :<Signup />} />
-                        <Route path="/userLogin" element={currentUser&&currentUser.role ? <Navigate to={"/"} /> :<Login />} />
-                        <Route path="/otp/:email" element={currentUser&&currentUser.role ? <Navigate to={"/"} /> :<OtpForm/>} />
-                        <Route path="/organizerRegister" element={currentUser && currentUser.role ? <Navigate to={"/"} /> :<OrganizerRegistration/>} />
-                        <Route path="/user/forgotpassword" element={currentUser && currentUser.role ? <Navigate to={"/"} /> :<ForgotPassword/>} />
-                    
-                               <Route path="/organizerLogin" element={currentUser&&currentUser.approve === true ?<OrganizerLogin/>: <Navigate to={"/"} /> } />
-                 
-                    {
-                        currentUser&&currentUser.role === "requestPending" &&currentUser.approve === false && <>
-                                    <Navigate to={'/pending'}></Navigate> 
-                             </>
-                         
-                        }
-                        <Route path="*" element={<ErrorPage/>} />
-                 
-              
-                         
-                    {/* <Route path="/adminlogin" element={< AdminLogin/>} /> */}
-
+                }
+                <Route path="*" element={<ErrorPage />} />
             </Routes>
         </>
     )

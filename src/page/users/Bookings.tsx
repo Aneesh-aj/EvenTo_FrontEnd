@@ -12,14 +12,10 @@ import { BookingHistory } from '../../componant/user/BookingHistory';
 const Bookings = () => {
 
   const [value, setValue] = useState(0);
-
   const handleChange = (event: any, newValue: any) => {
     console.log(" events", event)
     setValue(newValue);
   };
-
-
-
 
   const a11yProps = (index: any) => {
     return {
@@ -81,9 +77,6 @@ const Bookings = () => {
            <BookingHistory/>
         </CustomTabPanel>
       </Box>
-
-
-
     </>
   );
 };

@@ -1,5 +1,4 @@
 import Nav from "../../componant/common/Nav"
-import { SideBar } from "../../componant/common/SideBar"
 import { PostInfo } from "../../componant/user/PostInfo"
 
 

@@ -13,6 +13,7 @@ import '../../index.css';
 import image from '../../assets/business-management-illustration-set-characters-planning-work-tasks-managing-inbox-emails_566886-5785.jpg';
 import { otpSenting, updatePassword } from '../../api/user';
 
+
 const ForgotPassword: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [emailPart, setEmailPart] = useState<boolean>(true);

@@ -1,8 +1,6 @@
 import Nav from "../../componant/common/Nav"
 import { PostInfo } from "../../componant/user/PostInfo"
 
-
-
 export const PostDetails = ()=>{
     return(
         <>

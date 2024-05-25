@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { currentUser } from "../@types/allTypes";
 import Nav from "../componant/common/Nav";
@@ -11,10 +11,13 @@ import banner2 from "../assets/pexels-teddy-yang-2263436.jpg"
 import banner3 from "../assets/FE.jpg"
 import userBanner from "../assets/360_F_120282530_gMCruc8XX2mwf5YtODLV2O1TGHzu4CAb.jpg"
 import organizerBanner from "../assets/header-image.jpg"
+// import { clearUser } from "../utils/clearUser";
 
 const Home: React.FC = () => {
   const currentUser = useSelector((state: currentUser) => state)
+  // const dispatch = useDispatch()
   console.log(" redux  ", currentUser)
+  // clearUser(dispatch)
 
 
   return (

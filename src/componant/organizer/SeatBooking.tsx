@@ -18,7 +18,7 @@ export const SeatBooking = () => {
     const [selectedSeats, setSelectedSeats] = useState<Seat[]>([]);
     const [postId,setPostid] = useState<string>()
     const [event, setEvent] = useState<Ievents>()
-
+    console.log(" devnet",event)
 
     useEffect(() => {
 

@@ -105,6 +105,9 @@ const Nav: React.FC = () => {
                                 <li>
                                     <a href={`/user/profile/${currentUser.id}`} className="hover:text-gray-300">profile</a>
                                 </li>
+                                <li>
+                                   <a href={`/user/posts`} className="hover:text-gray-300">posts</a>
+                                </li>
                             
                                 <li>
                                     <Button onClick={logingOut} variant="outlined">Logout</Button>

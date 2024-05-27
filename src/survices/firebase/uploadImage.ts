@@ -77,5 +77,18 @@ export const eventPostImageUploead = async (image:File):Promise <any>=>{
     }
 }
 
+export const sentImageUpload = async(image:File):Promise <any>=>{
+    console.log(" the image  from the upload" , image)
+    const imageRef = ref(firebaseDB,`/chat/image/${v4()+image.name}`)
+    if(image){
+        try{
+            await uploadBytes(imageRef,image)
+            const downloeadUrl = await getDownloadURL(imageRef)
+            return downloeadUrl
+        }catch(error){
+            throw error
+        }
+    }
+}
 
 export default UploadImage

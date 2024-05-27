@@ -50,7 +50,9 @@ export const UserEventListing = () => {
         setFilterOption(option);
      
         const filteredEvents = events.filter((event:any) => event?.categoryId === option); 
-        setSearchEvent(filteredEvents);
+        console.log(" the option ",option)
+        console.log(" th all eventss",events)
+        option=="all" ? setSearchEvent(events) :setSearchEvent(filteredEvents);
     };
 
     return (
@@ -66,7 +68,7 @@ export const UserEventListing = () => {
                 <div className='w-[13rem] flex gap-5 '>
                     <h1 className='font-bold'>Filter</h1>
                     <select value={filterOption} onChange={(e) => handleFilterChange(e.target.value)}>
-                        <option value="">All</option>
+                        <option value="all">All</option>
                         {category && category.map((ele: any) => (
                             <option key={ele._id} value={ele._id}>{ele.category}</option>
                         ))}

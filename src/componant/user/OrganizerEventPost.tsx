@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react"
 import bg from "../../assets/3902762.jpg"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { getEventPost } from "../../api/organizer"
+import image from "../../assets/9318688.jpg"
 import useGetUser from "../../hook/useGetUser"
 
-export const EventPostListing = () => {
+export const OrganizerEventPosts = () => {
     const [eventPosts,setEventPosts] = useState([])
     const navigate = useNavigate()
-    const currentUser = useGetUser()
+    const {id} = useParams()
      
      useEffect(()=>{
         async function fetchAllpost(){
-               const response = await getEventPost(currentUser.id)
+               const response = await getEventPost(id as string)
                console.log(" -----------____________------",response)
                setEventPosts(response.eventPost)
         }
@@ -22,7 +23,7 @@ export const EventPostListing = () => {
     return (
         <>
             <div className="w-full ">
-                <div className="w-full bg-white border-2 p-2 rounded-md shadow-xl">
+                <div className="w-full bg-white border-2 p-3 rounded-md shadow-xl">
                     <h1 className="font-bold">Your Events</h1>
                 </div>
                 {
@@ -42,11 +43,17 @@ export const EventPostListing = () => {
                                     </p>
                                 </div>
                                 <div className="w-full p-2 flex justify-center">
-                                    <button onClick={()=>navigate(`/organizer/eventPostDetails/${ele._id}`)} className="w-8/12 h-[2rem] text-sm rounded-2xl text-white bg-violet-600">more...</button>
+                                    <button onClick={()=>navigate(`/user/postDetails/${ele._id}`)} className="w-8/12 h-[2rem] text-sm rounded-2xl text-white bg-violet-600">more...</button>
                                 </div>
                             </div>
                         )
                     })
+                }{
+                   eventPosts.length ==0 && <>
+                       <div className="w-full bg-red-100 h-[13rem] mt-8">
+                           <img src={image} className="w-full h-full" alt="" />
+                       </div>
+                   </>
                 }
             </div>
 

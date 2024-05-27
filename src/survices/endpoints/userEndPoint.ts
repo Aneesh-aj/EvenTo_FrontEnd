@@ -16,7 +16,9 @@ const userRoutes={
     getCategory:"/user/allcategory",
     bookings:"/user/allbooking",
     updatePassword:"/user/changepassword",
-    otpSenting:"/user/sentotp"
+    otpSenting:"/user/sentotp",
+    sendMessage:'/user/sendMessage',
+    getChat:"/user/getChat"
 }
 
 export default userRoutes

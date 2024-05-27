@@ -13,7 +13,7 @@ export const SideBar=()=>{
     const navigate = useNavigate()
 
     return(
-        <div className="w-2/12 mt-9 flex gap-2 flex-col">
+        <div className="w-2/12 h-fit mt-9 flex gap-2 flex-col">
         <Card className="-lg h-[11rem] bg-white  ">
             <div className="w-full pt-5 h-4/6 p-3 flex justify-center">
                 <div style={{ backgroundImage: `url(${bg})`, backgroundSize: 'cover', backgroundPosition: "center" }} className="rounded-full bg-green-500 w-[40%] ">
@@ -24,7 +24,7 @@ export const SideBar=()=>{
                 <span className="  p-0 font-bold">{currentUser.name}</span>
             </div>
         </Card>
-        <Card className="w-full h-[800px]  bg-white  ">
+        <Card className="w-full h-fit  bg-white  ">
             <ul className="flex flex-col gap-3  ">
                 <li className="flex h-[5rem] " onClick={(e)=>navigate("/user/events")}>
                     <div className="w-6/12 h-full flex items-center justify-center">

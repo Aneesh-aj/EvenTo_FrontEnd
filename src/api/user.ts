@@ -197,7 +197,20 @@ export const userUploadPicture= async(id:string,img:string)=>{
   export const getChat= async(senterId:string,receiverId:string)=>{
     try{ 
 
-        const response = await Api.get(userRoutes.getChat)
+        const response = await Api.post(userRoutes.getChat,{senterId:senterId,receiverId:receiverId})
+        return response.data
+    }catch(error){
+        return error
+    }
+  }
+
+
+  export const sentRequest = async(data:any)=>{
+    try{
+        data.date = data.date.toString()
+        data.endingTime = data.endingTime.toString()
+        data.startingTime = data.startingTime.toString()
+        const response = await Api.post(userRoutes.requestSend,{data:data})
         return response.data
     }catch(error){
         return error

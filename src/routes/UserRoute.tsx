@@ -9,8 +9,9 @@ import { SeatBooking } from "../componant/organizer/SeatBooking"
 import MovieTicket from "../page/users/Bookings"
 import SuccessCard from "../componant/user/successCard"
 import { Posts } from "../componant/user/Posts"
-import { Chat } from "../componant/user/chat/Chat"
+import { Chat } from "../componant/common/chat/Chat"
 import OrganizerProfile from "../page/users/OrganizerProfile"
+import RequestPage from "../page/users/RequestPage"
 
 function UserRoute() {
     return (
@@ -29,6 +30,7 @@ function UserRoute() {
 
             <Route path="/message/:id" element={<Chat/>} />
             <Route path="/organizerProfile/:id" element={<OrganizerProfile/>} />
+            <Route path="/requestPage/:id" element={<RequestPage/>} />
             <Route path="/*" element={<ErrorPage/>} />
         </Routes>
     )

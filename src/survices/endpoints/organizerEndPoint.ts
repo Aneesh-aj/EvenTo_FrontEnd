@@ -24,7 +24,11 @@ const organizerRoutes={
     getEventPostWithId:"/organizer/getOrganizerEventPost",
     updatePost:"/organizer/updatePost",
     getBooking:"/organizer/geAllbookings",
-    updateEvent:"/organizer/updateEvent"
+    updateEvent:"/organizer/updateEvent",
+    getAllRequests:"/organizer/getRequests",
+    getRequestDetails:"/organizer/getRequestDetails",
+    approveRequest:"/organizer/approveRequest",
+    rejectRequest:"/organizer/rejectRequest"
     
 }
 

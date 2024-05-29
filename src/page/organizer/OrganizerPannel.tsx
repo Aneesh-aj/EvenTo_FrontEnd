@@ -5,6 +5,8 @@ import { Avatar } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useGetUser from '../../hook/useGetUser';
 import EventPannel from '../../componant/organizer/EventPannel';
+import { EventRequests } from './EventRequests';
+import { Chat } from '../../componant/common/chat/Chat';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -48,9 +50,7 @@ export default function OrganizerPannel() {
     if (path.startsWith(`/organizer/requests`)) {
       return 2;
     }
-    if (path.startsWith(`/organizer/message`)) {
-      return 3;
-    }
+
     return -1; // If no matching prefix, return a default or error index
   };
 
@@ -65,9 +65,6 @@ export default function OrganizerPannel() {
         break;
       case 2:
         navigate(`/organizer/requests/${currentUser.id}`);
-        break;
-      case 3:
-        navigate(`/organizer/message/${currentUser.id}`);
         break;
       default:
         break;
@@ -101,10 +98,10 @@ export default function OrganizerPannel() {
               sx={{ backgroundColor: '', width: '100%', display: 'flex', gap: '' }}
               aria-label="basic tabs example"
             >
-              <Tab sx={{ marginLeft: '7rem' }} label="Dashboard" />
-              <Tab sx={{ marginLeft: '9rem' }} label="Events" />
-              <Tab sx={{ marginLeft: '9rem' }} label="Requests" />
-              <Tab sx={{ marginLeft: '9rem' }} label="Message" />
+              <Tab sx={{ marginLeft: '10%' }} label="Dashboard" />
+              <Tab sx={{ marginLeft: '20%' }} label="Events" />
+              <Tab sx={{ marginLeft: '20%' }} label="Requests" />
+          
             </Tabs>
           </div>
         </Box>
@@ -115,11 +112,11 @@ export default function OrganizerPannel() {
              <EventPannel />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-             Requests Content
+             <EventRequests/>
         </CustomTabPanel>
-        <CustomTabPanel value={value} index={3}>
-               Message Content
-        </CustomTabPanel>
+        {/* <CustomTabPanel value={value} index={3}>
+              <Chat/>
+        </CustomTabPanel> */}
       </Box>
     </>
   );

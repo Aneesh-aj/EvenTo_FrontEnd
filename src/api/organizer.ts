@@ -267,3 +267,41 @@ export const fetchAllBooking = async(eventId:string)=>{
      throw error
   }
 }
+
+
+export const getRequest=async (id:string)=>{
+   try{
+      const response = await Api.get(organizerRoutes.getAllRequests+`/${id}`)
+      return response.data
+   }catch(error){
+     throw error
+   }
+}
+
+export const getRequestDetails = async(id:string)=>{
+  try{
+      const response = await Api.get(organizerRoutes.getRequestDetails+`/${id}`)
+      return response.data
+  }catch(error){
+     throw error
+  }
+}
+
+
+export const ApproveRequest = async(id:string)=>{
+  try{
+      const response = await Api.post(organizerRoutes.approveRequest,{id:id})
+      return response.data
+  }catch(error){
+     throw error
+  }
+}
+
+export const RejectRequest = async(id:string)=>{
+  try{
+    const response = await Api.post(organizerRoutes.rejectRequest,{id:id})
+    return response.data
+  }catch(error){
+     throw error
+  }
+}

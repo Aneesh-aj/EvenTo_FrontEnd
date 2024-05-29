@@ -135,6 +135,9 @@ const Nav: React.FC = () => {
                                 <li>
                                     <a href={`/organizer/dashboard/${currentUser.id}`} className="hover:text-gray-300">Events</a>
                                 </li>
+                                 <li>
+                                    <a href={`/organizer/message`}  className="hover:text-gray-300">message</a>
+                                 </li>
                                 <li>
                                     <a href={`/organizer/profile/${currentUser.id}`} className="hover:text-gray-300">Profile</a>
                                 </li>

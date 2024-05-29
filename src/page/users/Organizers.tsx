@@ -60,32 +60,37 @@ const Organizers: React.FC = () => {
                             allorganizer && allorganizer.map((items: any) => {
                                 return (
 
-                                    <Link key={items._id} to={`/user/organizerProfile/${items._id}`}>
-                                        <Card
 
+                                    <>
+                                        <Card
                                             sx={{
                                                 boxShadow: "1px 3px 8px 1px 1px rgba(0, 0, 0, 0.1)",
                                                 "&:hover": {
                                                     boxShadow: "1px 2px 2px 2px  rgba(0, 0, 0, 0.2)",
                                                 },
                                             }}
+                                            className="w-full border-t border-t-gray-200 bg-white rounded-md ps-5 pe-5 flex items-center h-[5rem] justify-between"
+                                        >
+                                            <Link key={items._id} to={`/user/organizerProfile/${items._id}`} className=" w-[80%]">
+                                                <div className="w-full border-t border-t-gray-200 bg-white rounded-md ps-5 pe-5 flex items-center h-[5rem] justify-between">
+                                                    <div className="rounded-full border-2 h-[3rem] w-[3rem] bg-red-500" style={{ backgroundImage: `url(${items?.profileImage})`, backgroundSize: 'cover', backgroundPosition: "center" }} />
+                                                    <div>
+                                                        <h1>{items.name}</h1>
+                                                    </div>
+                                                    <div>
+                                                        <p>
+                                                            {items?.address[0]?.country}, {items.address[0].state}, {items.address[0].city}
+                                                        </p>
+                                                    </div>
 
-                                            className="w-full border-t border-t-gray-200  bg-white rounded-md  ps-5 pe-5 flex items-center h-[5rem] justify-between">
-                                            <div className="rounded-full border-2 h-[3rem] w-[3rem] bg-red-500" style={{ backgroundImage: `url(${items?.profileImage})`, backgroundSize: 'cover', backgroundPosition: "center" }}>
-                                            </div>
-                                            <div className="">
-                                                <h1>{items.name}</h1>
-                                            </div>
+                                                </div>
+                                            </Link>
                                             <div>
-                                                <p className="">
-                                                    {items?.address[0]?.country},{items.address[0].state},{items.address[0].city}
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <button className="w-[5rem] h-[2rem] bg-blue-500 text-white rounded-lg">Request</button>
+                                                <button className="w-[5rem] h-[2rem] bg-blue-500 text-white rounded-lg" onClick={() => navigate(`/user/requestPage/${items._id}`)}>Request</button>
                                             </div>
                                         </Card>
-                                    </Link>
+
+                                    </>
                                 )
                             })
                         }

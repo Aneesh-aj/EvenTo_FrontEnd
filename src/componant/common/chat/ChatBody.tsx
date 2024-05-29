@@ -15,19 +15,21 @@ const messages = [
 
 function ChatBody() {
   const [message, setMessage] = useState<string>('');
-  const [chat,setChat] = useState([])
+  const [chat, setChat] = useState([])
   const [file, setFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const senter = useGetUser();
   const { id } = useParams();
 
 
-  useEffect(()=>{
-      async function fetchChat(){
-        const userChat = await getChat(senter.id,id as string)
-      }
-      fetchChat()
-  },chat)
+  useEffect(() => {
+    async function fetchChat() {
+      const userChat = await getChat(senter.id, id as string)
+      console.log(" userchat -------------------------", userChat.chat)
+      setChat(userChat.chat[0].messages)
+    }
+    fetchChat()
+  }, [])
 
   useEffect(() => {
     return () => {
@@ -45,13 +47,11 @@ function ChatBody() {
       if (file) {
         console.log("File:", file);
         const imageUrl = await sentImageUpload(file)
-        const sented = await sendMessage(senter.id,id as string,message,imageUrl)
-      }else{
-        const sented = await sendMessage(senter.id,id as string,message,'')
+        const sented = await sendMessage(senter.id, id as string, message, imageUrl)
+      } else {
+        const sented = await sendMessage(senter.id, id as string, message, '')
 
       }
-
-
       setMessage('');
       setFile(null);
       setImagePreview(null);
@@ -93,10 +93,18 @@ function ChatBody() {
           backgroundBlendMode: 'luminosity',
         }}
       >
-        {messages.map((msg) => (
-          <div key={msg.id} className="mb-4">
-            <div className="bg-white p-2 rounded-lg shadow">{msg.text}</div>
-          </div>
+        {chat && chat.map((msg: any) => (
+          msg.senterId === id ?
+            (
+              <div className="mb-4 flex justify-start">
+                <div className="bg-white p-2 w-[50%] rounded-lg shadow">{msg.message}</div>
+              </div>
+            ) :
+            (
+              <div className="mb-4 flex justify-end">
+                <div className="bg-white p-2 w-[50%] rounded-lg shadow">{msg.message}</div>
+              </div>
+            )
         ))}
       </div>
       {imagePreview && (

@@ -18,7 +18,8 @@ const userRoutes={
     updatePassword:"/user/changepassword",
     otpSenting:"/user/sentotp",
     sendMessage:'/user/sendMessage',
-    getChat:"/user/getChat"
+    getChat:"/user/getChat",
+    requestSend:"/user/sendRequest"
 }
 
 export default userRoutes

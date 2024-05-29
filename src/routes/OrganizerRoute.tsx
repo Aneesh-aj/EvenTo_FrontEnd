@@ -10,6 +10,8 @@ import { OrganizerEventPost } from "../page/organizer/OrganizerEventPost";
 import { OrganizerEventPostDetails } from "../page/organizer/OrganizerEventPostDetails";
 import { EventEntryList } from "../page/organizer/EventEntryList";
 import EventEdit from "../page/organizer/EventEdit";
+import { Chat } from "../componant/common/chat/Chat";
+import { RequestDetails } from "../componant/organizer/RequestDetails";
 
 function OrganizerRoutes() {
     const role = useGetUser().role;
@@ -25,12 +27,14 @@ function OrganizerRoutes() {
                         <Route path="/Dashboard/:id" element={<OrganizerDashboard/>} />
                         <Route path="/events/:id" element={<OrganizerDashboard/>} />
                         <Route path="/requests/:id" element={<OrganizerDashboard/>} />
-                        <Route path="/message/:id" element={<OrganizerDashboard/>} />
+                        <Route path="/message" element={<Chat/>} />
+                        <Route path="/message/:id" element={<Chat/>} />
                         <Route path="/eventDetails/:id" element={<EventDetails/>} />
                         <Route path="/organizerEventPost/:id" element={<OrganizerEventPost/>} />
                         <Route path="/eventPostDetails/:id" element={<OrganizerEventPostDetails/>} />
                         <Route path="/eventEdit/:id" element={<EventEdit/>} />
                         <Route path="/entrys/:id" element={<EventEntryList/>} />
+                        <Route path="/requestDetails/:id" element={<RequestDetails/>} />
                         <Route path="*" element={<ErrorPage />} />
                     </>
                 )}

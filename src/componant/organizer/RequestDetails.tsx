@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ApproveRequest, RejectRequest, getRequestDetails, geteventDetails } from "../../api/organizer";
 import { Ievents } from "../../@types/eventType";
+import toast from "react-hot-toast";
 
 
 export const RequestDetails = () => {
@@ -50,12 +51,24 @@ export const RequestDetails = () => {
     return strTime;
   };
 
-  const Approve = async(id:string) => {
-      const approved = await ApproveRequest(id)
+  const Approve = async (id: string) => {
+    const approved = await ApproveRequest(id)
+    if (approved.success) {
+      toast.success(approved.message)
+    } else {
+      toast.error(approved.message)
+
+    }
   };
 
-  const Reject = async(id:string) => {
-     const rejected = await RejectRequest(id)
+  const Reject = async (id: string) => {
+    const rejected = await RejectRequest(id)
+    if (rejected.success) {
+      toast.success(rejected.message)
+
+    } else {
+      toast.error(rejected.message)
+    }
   };
 
 
@@ -64,8 +77,11 @@ export const RequestDetails = () => {
       <Nav />
       <Container sx={{ pt: 12, pb: 8 }}>
         <Paper elevation={3} sx={{ p: 4, mb: 8 }}>
-          <Typography variant="h4" fontWeight="bold" gutterBottom>
-            Event Details
+          <Typography variant="h4" fontWeight="bold" className="flex justify-between" gutterBottom>
+            <h1>    Event Details</h1>
+            <Typography>
+              <button className="w-[6rem] h-[2rem] bg-blue-600 rounded-md text-white" onClick={() => navigate(`/organizer/message/${details?._id}`)}>Message</button>
+            </Typography>
           </Typography>
           <Divider sx={{ mb: 2 }} />
           <Grid container spacing={2}>
@@ -207,21 +223,21 @@ export const RequestDetails = () => {
 
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
           {details && details.status === "Approved" && (
-            <Button variant="contained" color="primary" onClick={()=>navigate(`/organizer/requestEventCreation/${id}`)}>
+            <Button variant="contained" color="primary" onClick={() => navigate(`/organizer/requestEventCreation/${id}`)}>
               Create Event
             </Button>
           )}
           {details && details.status === "pending" && (
             <>
-            <div className="flex gap-2">
+              <div className="flex gap-2">
 
-              <Button variant="contained" color="error" onClick={()=>Reject(id as string)}>
-                Reject
-              </Button>
-              <Button variant="contained" color="primary" onClick={()=>Approve(id as string)}>
-                Approve
-              </Button>
-            </div>
+                <Button variant="contained" color="error" onClick={() => Reject(id as string)}>
+                  Reject
+                </Button>
+                <Button variant="contained" color="primary" onClick={() => Approve(id as string)}>
+                  Approve
+                </Button>
+              </div>
             </>
           )}
         </Box>

@@ -35,4 +35,5 @@ export interface Iorganizer {
     profileImage?:string,
     about?:string,
     eventCategory?:[],
+    
 }

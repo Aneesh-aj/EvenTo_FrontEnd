@@ -49,7 +49,8 @@ export const EventRequestListing= () => {
             events && events.map((elem: any, index) => {
               count++
               return (
-                <div
+                  elem.status === "pending" ? 
+                  <div
                   key={index}
                   style={{
                     transition: "opacity 1s linear",
@@ -95,6 +96,7 @@ export const EventRequestListing= () => {
                     </li>
                   </ul>
                 </div>
+                : null
 
               )
             })

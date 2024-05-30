@@ -28,7 +28,9 @@ const organizerRoutes={
     getAllRequests:"/organizer/getRequests",
     getRequestDetails:"/organizer/getRequestDetails",
     approveRequest:"/organizer/approveRequest",
-    rejectRequest:"/organizer/rejectRequest"
+    rejectRequest:"/organizer/rejectRequest",
+    requestEventCreat:"/organizer/requestEventCreation",
+    getUserChat:"/organizer/chatList"
     
 }
 

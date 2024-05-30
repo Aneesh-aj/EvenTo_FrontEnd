@@ -4,7 +4,7 @@ import useGetUser from "../../hook/useGetUser"
 import { Box, Button, Card } from "@mui/material"
 import EastIcon from '@mui/icons-material/East';
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 
 export const EventSchedule = () => {
@@ -49,6 +49,7 @@ export const EventSchedule = () => {
             if (events.success) {
 
                 setEvents(events.events)
+                toast.success("successfully cancelled")
             } else {
                 toast.error(events.message)
             }
@@ -62,6 +63,7 @@ export const EventSchedule = () => {
             <div className=" w-full h-[800px]">
                 <div className="w-full h-[4rem] border-2 rounded-md p-5  bg-white">
                     <h1 className="font-bold">Scheduled Events</h1>
+                    <Toaster/>
                 </div>
                 <div className="w-full border-2 p-3  rounded-md mt-3 bg-white">
                     <ul className="w-full  flex ms-2 gap-5   font-semibold  ">

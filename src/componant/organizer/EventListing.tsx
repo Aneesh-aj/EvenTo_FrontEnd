@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
-import { getAllEvents } from "../../api/organizer"
+import { cancelEvent, getAllEvents } from "../../api/organizer"
 import useGetUser from "../../hook/useGetUser"
 import { Box, Button, Card } from "@mui/material"
 import EastIcon from '@mui/icons-material/East';
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 
 export const EventListing = () => {
@@ -19,6 +20,20 @@ export const EventListing = () => {
     getEvents()
   }, [])
 
+  async function cancelEvents(eventId:string){
+    try{
+        const events = await cancelEvent(eventId,currentUser.id)
+        if (events.success) {
+
+            setEvents(events.events)
+        } else {
+            toast.error(events.message)
+        }
+    }catch(error){
+        throw error
+    }
+}
+
 
   let count = 0;
 
@@ -27,6 +42,7 @@ export const EventListing = () => {
       <div className=" w-full h-[800px]">
         <div className="w-full h-[4rem] border-2 rounded-md p-5  bg-white">
           <h1 className="font-bold">All events</h1>
+          <Toaster/>
         </div>
         <div className="w-full border-2 p-3  rounded-md mt-3 bg-white">
           <ul className="w-full  flex ms-2 gap-5   font-semibold  ">
@@ -34,18 +50,18 @@ export const EventListing = () => {
             <li className="w-2/12 text-center">email</li>
             <li className="w-1/12 text-center ">Type</li>
             <li className="w-1/12 text-center  ">Category</li>
-          
+
             <li className="w-1/12 text-center ">Date</li>
             <li className="w-2/12 text-center ">Place</li>
             <li className="w-2/12 text-center ">Status</li>
             <li className="w-1/12  ">Action</li>
 
-        
+
           </ul>
         </div>
         <div className="w-full  h-auto flex   pt-4  flex-col gap-3">
           {
-           
+
             events && events.map((elem: any, index) => {
               count++
               return (
@@ -78,13 +94,13 @@ export const EventListing = () => {
                           <span>{elem.status}</span>
                         </>
                       )}
-                        {elem.status === "completed" && (
+                      {elem.status === "completed" && (
                         <>
                           <span className="flex w-3 h-3 me-3 bg-green-300 rounded-full"></span>
                           <span>{elem.status}</span>
                         </>
                       )}
-                        {elem.status === "cancelled" && (
+                      {elem.status === "cancelled" && (
                         <>
                           <span className="flex w-3 h-3 me-3 bg-red-600 rounded-full"></span>
                           <span>{elem.status}</span>
@@ -93,15 +109,14 @@ export const EventListing = () => {
                     </li>
                     <li className="flex gap-1 items-center">
                       {
-                        elem.status && elem.status ==="upcoming"  ?  <Button variant="contained" onClick={()=>navigate(`/organizer/eventEdit/${elem._id}`)}  >Edit</Button>:<button className="w-[3.5rem] h-[2rem]"></button>
+                        elem.status && elem.status === "upcoming" ? <Button variant="contained" onClick={() => navigate(`/organizer/eventEdit/${elem._id}`)}  >Edit</Button> : <button className="w-[3.5rem] h-[2rem]"></button>
                       }
                       {
-                       elem.status && elem.status ==="upcoming"   ?  <Button variant="contained" sx={{ bgcolor: 'red' }}>Cancel</Button>:<button className="w-[5.5rem] h-[2rem]"></button>
-
+                        elem.status && elem.status === "upcoming" ? <Button variant="contained" sx={{ bgcolor: 'red' }} onClick={() => cancelEvents(elem._id)}>Cancel</Button> : <button className="w-[5.5rem] h-[2rem] "></button>
                       }
-                      
-                      <div onClick={(e)=>{navigate(`/organizer/eventDetails/${elem._id}`)}} >
-                      <EastIcon/>
+
+                      <div onClick={(e) => { navigate(`/organizer/eventDetails/${elem._id}`) }} >
+                        <EastIcon />
                       </div>
                     </li>
                   </ul>

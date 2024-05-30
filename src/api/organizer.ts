@@ -305,3 +305,25 @@ export const RejectRequest = async(id:string)=>{
      throw error
   }
 }
+
+export const requestCreateEvent = async (data: any,id:string) => {
+  try {
+    console.log(" data is before that  clalinggg", data)
+    data.date = data.date.toString()
+    data.endingTime = data.endingTime.toString()
+    data.startingTime = data.startingTime.toString()
+    const response = await Api.post(organizerRoutes.requestEventCreat, { data: data,id:id })
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+export const getChatUsers = async(id:string)=>{
+  try{
+     const response = await Api.get(organizerRoutes.getUserChat+`/${id}`)
+     return response.data
+  }catch(error){
+     throw error
+  }
+}

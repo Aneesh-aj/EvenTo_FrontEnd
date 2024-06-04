@@ -9,6 +9,7 @@ import { currentUser } from "../../@types/allTypes";
 import ProfileEdit from "../../componant/organizer/ProfileEdit";
 import { Country, State } from "country-state-city";
 import { EventPostListing } from "../../componant/organizer/EventPostListing";
+import bg from "../../assets/unknownProfile.jpeg"
 
 const OrganizerProfile: React.FC = () => {
     const imageRef = useRef<HTMLInputElement>(null);
@@ -85,11 +86,11 @@ const OrganizerProfile: React.FC = () => {
                                 <AddPhotoAlternateIcon sx={{ color: "black" }} />
                             </button>
                             <input type="file" className="hidden" onChange={changing} ref={imageRef} />
-                            <img src={backgroundUrl} className="w-full h-full rounded-md" alt="" />
+                            <img src={backgroundUrl} className="w-full h-full bg-gray-100 rounded-md" alt="" />
                             <div
-                                className="rounded-full w-28 h-28 xl:w-32 xl:h-32 bg-black absolute translate-y-16 translate-x-5 xl:translate-x-8"
+                                className="rounded-full border-2 w-28 h-28 xl:w-32 xl:h-32 bg-black absolute translate-y-16 translate-x-5 xl:translate-x-8"
                                 style={{
-                                    backgroundImage: `url(${profile})`,
+                                    backgroundImage: `url(${profile || bg})`,
                                     backgroundSize: "cover",
                                     backgroundPosition: "center",
                                 }}
@@ -135,7 +136,7 @@ const OrganizerProfile: React.FC = () => {
                         <h1>posts</h1>
                     </div>
                 </div>
-                <div className="w-2/12 p-2 h-[700px]">
+                <div className="w-2/12 p-2 mt-2 h-[700px]">
                     <EventPostListing />
                 </div>
             </div>

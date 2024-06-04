@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import bg from "../../../assets/whatappBackround1.webp";
-import image from "../../../assets/FE.jpg";
 import useGetUser from '../../../hook/useGetUser';
 import { useParams } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
@@ -12,11 +11,12 @@ import { Socket } from 'socket.io-client';
 function ChatBody({ socket }: { socket: Socket }) {
   const [message, setMessage] = useState<string>('');
   const [chat, setChat] = useState<any>({});
-  const [user,setUser] = useState<any>({})
+  const [user, setUser] = useState<any>({})
   const [file, setFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [resiveData,setRasiveData] = useState()
+  const [resiveData, setRasiveData] = useState()
   const senter = useGetUser();
+  const messageInput = useRef<HTMLInputElement>(null);
   const { id } = useParams();
 
   useEffect(() => {
@@ -24,8 +24,10 @@ function ChatBody({ socket }: { socket: Socket }) {
       try {
         const userChat = await getChat(senter.id, id as string);
         console.log("User chat----------------------:", userChat);
-        setUser(userChat.user)
+        setUser(userChat.user);
         setChat(userChat.chat);
+        
+        socket.emit('joinRoom', { senderId: senter.id, receiverId: id });
       } catch (error) {
         console.error("Error fetching chat:", error);
       }
@@ -42,19 +44,21 @@ function ChatBody({ socket }: { socket: Socket }) {
       }
     };
   }, [imagePreview]);
- 
+
   async function send() {
     try {
       if (!message.trim() && !file) return;
 
       console.log("Message:", message);
-      socket.emit("sendData", { senterId: senter.id, receiverId: id, message, imageUrl: "" })
+      setMessage("");
+      const messages = message;
+      socket.emit("sendData", { senderId: senter.id, receiverId: id, message: messages, imageUrl: "" });
       if (file) {
         console.log("File:", file);
         const imageUrl = await sentImageUpload(file);
-        await sendMessage(senter.id, id as string, message, imageUrl);
+        await sendMessage(senter.id, id as string, messages, imageUrl);
       } else {
-        await sendMessage(senter.id, id as string, message, '');
+        await sendMessage(senter.id, id as string, messages, '');
       }
 
       setMessage('');
@@ -77,20 +81,31 @@ function ChatBody({ socket }: { socket: Socket }) {
     setImagePreview(null);
   }
 
-useMemo(()=>{
+  useMemo(() => {
+    console.log({ ...chat });
+    const obj = { ...chat };
+    obj?.messages?.push(resiveData);
+    setChat(obj);
 
-  console.log({ ...chat })
-  const obj = { ...chat }
-  obj?.messages?.push(resiveData)
-  setChat(obj)
-  
-},[resiveData])
+    console.log("the setted chat............", chat);
+  }, [resiveData]);
 
+  useEffect(() => {
+    socket.on("resiveData", (data) => {
+      console.log(data, "===========a===============");
+      setRasiveData(data);
+    });
 
-socket.on("resiveData", (data) => {
-    console.log(data, "===========a===============");
-    setRasiveData(data)
-  })
+    return () => {
+      socket.off("resiveData");
+    };
+  }, [socket]);
+
+  useEffect(() => {
+    if (message === '' && messageInput.current) {
+      messageInput.current.value = '';
+    }
+  }, [message]);
 
   return (
     <div className="w-2/3 flex flex-col text-gray-800 relative">
@@ -98,16 +113,13 @@ socket.on("resiveData", (data) => {
         <>
           <div className="p-4 border-b bg-white flex justify-between items-center shadow-md z-10 relative">
             <div className="flex items-center space-x-3">
-            
-                <div className="w-10 h-10 bg-gray-300 rounded-full overflow-hidden">
-                  <img src={user?.profileImage} className="w-full h-full object-cover" alt="" />
-                </div>
-                <div>{user?.name}</div>
-          
+              <div className="w-10 h-10 bg-gray-300 rounded-full overflow-hidden">
+                <img src={user?.profileImage} className="w-full h-full object-cover" alt="" />
+              </div>
+              <div>{user?.name}</div>
             </div>
           </div>
-          <div
-            className={`flex-1 overflow-y-auto p-4 transition-all duration-300 ${imagePreview ? 'backdrop-blur-md' : ''}`}
+          <div className={`flex-1 overflow-y-auto p-4 transition-all flex-col-reverse duration-300 ${imagePreview ? 'backdrop-blur-md' : ''}`}
             style={{
               backgroundImage: `url(${bg})`,
               backgroundSize: 'contain',
@@ -115,14 +127,17 @@ socket.on("resiveData", (data) => {
               backgroundBlendMode: 'luminosity',
             }}
           >
-            {chat && chat.messages && chat.messages.length > 0 && chat.messages.map((msg: any) => (
-              <div key={msg._id} className={`mb-4 flex justify-${msg.senderId === id ? 'start' : 'end'}`}>
-                <div className="bg-white p-2 w-[50%] rounded-lg shadow">{msg.message}</div>
+            {chat && chat.messages && chat.messages.map((msg: any) => (
+              <div key={msg._id} className={`mb-4 h-auto flex justify-${msg.senderId === senter.id ? 'end' : 'start'}`}>
+                <div className="bg-white p-3 h-auto w-[50%] flex-wrap rounded-lg shadow">
+                  <p className='break-words overflow-hidden h-auto'>{msg.message}</p>
+                </div>
               </div>
             ))}
           </div>
+
           {imagePreview && (
-            <div className="absolute inset-0 flex  justify-center items-center backdrop-blur-md bg-opacity-80 -z-1">
+            <div className="absolute inset-0 flex justify-center items-center backdrop-blur-md bg-opacity-80 -z-1">
               <div className='w-[80%] relative h-[70%] flex justify-center items-center'>
                 <img src={imagePreview} alt="Preview" className="w-full h-full relative rounded-lg shadow" />
                 <CloseIcon
@@ -146,6 +161,7 @@ socket.on("resiveData", (data) => {
             />
             <input
               type="text"
+              ref={messageInput}
               placeholder="Type a message"
               className="w-full p-2 rounded bg-gray-100 text-gray-800"
               value={message}
@@ -157,8 +173,8 @@ socket.on("resiveData", (data) => {
         </>
       )}
       {!id && (
-        <div className='w-full  h-screen object-contain flex justify-center items-center'>
-          <div className='w-[80%] h-[80%] '>
+        <div className='w-full h-screen object-contain flex justify-center items-center'>
+          <div className='w-[80%] h-[80%]'>
             <img src={backbround} className='w-full h-full' alt="Background" />
           </div>
         </div>

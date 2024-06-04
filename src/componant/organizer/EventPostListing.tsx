@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import bg from "../../assets/3902762.jpg"
 import { useNavigate } from "react-router-dom"
 import { getEventPost } from "../../api/organizer"
+import image from "../../assets/9318688.jpg"
 import useGetUser from "../../hook/useGetUser"
 
 export const EventPostListing = () => {
@@ -47,7 +48,13 @@ export const EventPostListing = () => {
                             </div>
                         )
                     })
-                }
+                }{
+                    eventPosts.length ==0 && <>
+                        <div className="w-full bg-red-100 h-[13rem] mt-8">
+                            <img src={image} className="w-full h-full" alt="" />
+                        </div>
+                    </>
+                 }
             </div>
 
 

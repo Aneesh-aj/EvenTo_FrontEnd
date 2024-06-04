@@ -5,6 +5,7 @@ import { findbyId, uploadBackground, uploadProfilePicture } from "../../api/orga
 import Chip from '@mui/material/Chip';
 import { Country, State } from "country-state-city";
 import { EventPostListing } from "../../componant/organizer/EventPostListing";
+import bg from "../../assets/unknownProfile.jpeg"
 import { useNavigate, useParams } from "react-router-dom";
 import { OrganizerEventPosts } from "../../componant/user/OrganizerEventPost";
 
@@ -50,15 +51,15 @@ const OrganizerProfile: React.FC = () => {
         <>
             <Nav />
             <div className='h-auto bg-white w-full flex p-2 flex-row justify-center items-center'>
-                <div className="w-full xl:w-7/12">
-                    <div className="w-full rounded-lg shadow-md border-2 mt-20 h-auto bg-white">
+                <div className="w-full h-auto  xl:w-7/12 ">
+                    <div className="w-full rounded-lg shadow-md border-2 mt-20 h-auto ">
                         <div className="w-full rounded-lg object-contain relative shadow bg-white h-32 xl:h-48 flex items-end">
 
-                            <img src={backgroundUrl} className="w-full h-full rounded-md" alt="" />
+                            <img src={backgroundUrl} className="w-full h-full rounded-md bg-gray-100" alt="" />
                             <div
                                 className="rounded-full w-28 h-28 xl:w-32 xl:h-32 bg-black absolute translate-y-16 translate-x-5 xl:translate-x-8"
                                 style={{
-                                    backgroundImage: `url(${profile})`,
+                                    backgroundImage: `url(${profile || bg})`,
                                     backgroundSize: "cover",
                                     backgroundPosition: "center",
                                 }}
@@ -94,11 +95,11 @@ const OrganizerProfile: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="w-full xl:w-7/12 bg-white h-44 mt-2">
+                    <div className="w-full xl:w-12/12  h-44 mt-2">
                         <h1>posts</h1>
                     </div>
                 </div>
-                <div className="w-2/12 ps-2 h-[700px]">
+                <div className="w-2/12 ps-2   h-[730px]">
                     <OrganizerEventPosts />
                 </div>
             </div>

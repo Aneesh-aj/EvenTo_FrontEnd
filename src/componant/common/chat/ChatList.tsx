@@ -59,7 +59,7 @@ function ChatList() {
                   </div>
                ))
             ) : (
-               <div className='w-full h-[400px] bg-red-300'>
+               <div className='w-full h-[400px]'>
                     <img src={bg} alt="" />
                  </div>
             )}

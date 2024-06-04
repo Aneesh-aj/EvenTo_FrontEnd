@@ -22,7 +22,7 @@ export const OrganizerEventPosts = () => {
 
     return (
         <>
-            <div className="w-full ">
+            <div className="w-full h-full ">
                 <div className="w-full bg-white border-2 p-3 rounded-md shadow-xl">
                     <h1 className="font-bold">Your Events</h1>
                 </div>

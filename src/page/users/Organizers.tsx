@@ -8,6 +8,7 @@ import { SideBar } from "../../componant/common/SideBar";
 import { Card } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import bg from "../../assets/unknownProfile.jpeg"
 
 
 
@@ -55,45 +56,68 @@ const Organizers: React.FC = () => {
                     <div className="w-full h-[60px] flex items-center">
                         <h1 className="font-bold ps-6">Filter</h1>
                     </div>
-                    <div className="w-full ps-6 pe-6 flex flex-col gap-3">
-                        {
-                            allorganizer && allorganizer.map((items: any) => {
-                                return (
+                    <div className="w-full h-auto bg-red-100  flex flex-wrap gap-3">
+                        {allorganizer &&
+                            allorganizer.map((items: any) => (
+                                <Card
+                                    key={items._id}
+                                    sx={{
+                                        boxShadow: "1px 3px 8px 1px rgba(0, 0, 0, 0.2)",
+                                        "&:hover": {
+                                            boxShadow: "1px 2px 2px 2px rgba(0, 0, 0, 0.3)",
+                                        },
+                                    }}
+                                    className="w-full  md:w-1/5 lg:w-1/5 h-[22rem]  border-t border-t-gray-200  rounded-md  flex flex-col justify-between items-center"
+                                >
+                                    <div className="w-full rounded-lg object-contain relative shadow  h-24 xl:h-24 bg-red-100 flex items-end">
 
-
-                                    <>
-                                        <Card
-                                            sx={{
-                                                boxShadow: "1px 3px 8px 1px 1px rgba(0, 0, 0, 0.1)",
-                                                "&:hover": {
-                                                    boxShadow: "1px 2px 2px 2px  rgba(0, 0, 0, 0.2)",
-                                                },
+                                        <img src={items.backgroundImage|| bg} className="w-full h-full rounded-md" alt="" />
+                                        <div
+                                            className="rounded-full border-2 w-20 h-20 xl:w-16  xl:h-16 bg-black absolute translate-y-8 translate-x-2 xl:translate-x-4"
+                                            style={{
+                                                backgroundImage: `url(${items.profileImage || bg})`,
+                                                backgroundSize: "cover",
+                                                backgroundPosition: "center",
                                             }}
-                                            className="w-full border-t border-t-gray-200 bg-white rounded-md ps-5 pe-5 flex items-center h-[5rem] justify-between"
                                         >
-                                            <Link key={items._id} to={`/user/organizerProfile/${items._id}`} className=" w-[80%]">
-                                                <div className="w-full border-t border-t-gray-200 bg-white rounded-md ps-5 pe-5 flex items-center h-[5rem] justify-between">
-                                                    <div className="rounded-full border-2 h-[3rem] w-[3rem] bg-red-500" style={{ backgroundImage: `url(${items?.profileImage})`, backgroundSize: 'cover', backgroundPosition: "center" }} />
-                                                    <div>
-                                                        <h1>{items.name}</h1>
-                                                    </div>
-                                                    <div>
-                                                        <p>
-                                                            {items?.address[0]?.country}, {items.address[0].state}, {items.address[0].city}
-                                                        </p>
-                                                    </div>
-
-                                                </div>
-                                            </Link>
-                                            <div>
-                                                <button className="w-[5rem] h-[2rem] bg-blue-500 text-white rounded-lg" onClick={() => navigate(`/user/requestPage/${items._id}`)}>Request</button>
+                                        </div>
+                                    </div>
+                                    <Link to={`/user/organizerProfile/${items._id}`} className="w-full h-full ">
+                                        <div className="w-full h-auto pt-2 ps-2 pe-2   border-t-gray-200  rounded-md flex flex-col items-center  justify-between">
+                                            {/* <div
+                                                className="rounded-full border-2 h-[4rem] w-[4rem] bg-red-500"
+                                                style={{
+                                                    backgroundImage: `url(${items?.profileImage})`,
+                                                    backgroundSize: 'cover',
+                                                    backgroundPosition: "center",
+                                                }}
+                                            /> */}
+                                            <div className="w-full mt-4  p-3 flex justify-center">
+                                                <h1 className="font-extrabold text-xl p-1">{items.name}</h1>
                                             </div>
-                                        </Card>
-
-                                    </>
-                                )
-                            })
-                        }
+                                            <div className="h-[6rem]  w-full  ">
+                                                <p className="h-full ps-1 pe-1 overflow-hidden font-serif">
+                                                    {items?.about ? items.about:" No About "}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                    <div className=" w-full mt-4 mb-4 flex justify-evenly  ">
+                                        <button
+                                            className="w-[5rem] h-[2rem] bg-blue-500 text-white rounded-lg"
+                                            onClick={() => navigate(`/user/requestPage/${items._id}`)}
+                                        >
+                                            Request
+                                        </button>
+                                        <button
+                                            className="w-[5rem] h-[2rem] bg-blue-500 text-white rounded-lg"
+                                            onClick={() => navigate(`/user/message/${items._id}`)}
+                                        >
+                                            Message
+                                        </button>
+                                    </div>
+                                </Card>
+                            ))}
                     </div>
 
                 </div>

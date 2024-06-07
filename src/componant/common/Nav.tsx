@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import useGetUser from "../../hook/useGetUser";
 import { logout } from "../../api/user";
 import { useDispatch } from "react-redux";
@@ -10,202 +10,113 @@ import { Button } from "@mui/material";
 
 const Nav: React.FC = () => {
     const role = useGetUser().role;
-    const currentUser = useGetUser()
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const [path, setPath] = useState<boolean>(true);
-    
+    const currentUser = useGetUser();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [isOpen, setIsOpen] = useState(false);
 
-    
-    async function logingOut (){
-       const response = await logout()
-       if(response.sucess){
-          dispatch(setUser({role:"",name:"",email:"",id:""}))
-          toast.success(response.message)
-          navigate("/")
-       }else{
-           toast.error("unable to log out")
-       }
-    }
-    async function organizerLogout(){
-        const response = await orgLout()
-        console.log(" whahah",response)
+    const handleToggle = () => setIsOpen(!isOpen);
+
+    async function logingOut() {
+        const response = await logout();
      
-          if(response.success){
-            dispatch(setUser({role:"",name:"",email:"",id:""}))
-          toast.success(response.message)
-              navigate("/")
-           
-          }else{
-             toast.error("enable to logout")
-          }
+            dispatch(setUser({ role: "", name: "", email: "", id: "" }));
+            toast.success(" user Logout successfully!!!");
+            navigate("/");
+        
     }
-    async function organizerLogoutReq(){
-        const response = await orgLout()
-        console.log(" whahah",response)
-          if(response.success){
-            dispatch(setUser({role:"",name:"",email:"",id:""}))
-          toast.success(response.message)
-          navigate("/")
-          }else{
-             toast.error("enable to logout")
-          }
-    }
-     function adminLogout(){
-        dispatch(setUser({role:"",name:"",email:"",id:""}))
-        // toast.success(response.message)
-        navigate("/")
-    }
-    
-    return (
-        <>  {!role&&path && <>
-            <div className="bg-white fixed w-full text-black p-4 border shadow-lg rounded-2xl">
-            <Toaster position="top-right" reverseOrder={false}/>  
 
-                <div className="container mx-auto flex justify-between items-center">
-                    <h1 className="text-2xl  font-bold">EvenTo</h1>
-                    <nav>
-                        <ul className="flex space-x-4">
-                            <li>
-                                <a href="/" className="hover:text-gray-300">Home</a>
-                            </li>
-                            <li>
-                                <a href=""></a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-gray-300">Events</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-gray-300">About</a>
-                            </li>
-                        
+    async function organizerLogout() {
+        const response = await orgLout();
+        dispatch(setUser({ role: "", name: "", email: "", id: "" }));
+        toast.success("Logged out successfully");
+        navigate("/");
+    }
+
+    async function organizerLogoutReq() {
+        const response = await orgLout();
+        if (response.success) {
+            dispatch(setUser({ role: "", name: "", email: "", id: "" }));
+            toast.success(response.message);
+            navigate("/");
+        } else {
+            toast.error("Unable to log out");
+        }
+    }
+
+    function adminLogout() {
+        dispatch(setUser({ role: "", name: "", email: "", id: "" }));
+        navigate("/");
+    }
+
+    return (
+        <>
+            <div className="bg-white fixed w-full text-black p-4 border shadow-lg z-30">
+                <Toaster position="top-right" reverseOrder={false} />
+                <div className="container mx-auto flex flex-col xl:flex-row justify-between items-center ">
+                    <div className="w-full xl:w-[100%] flex  ">
+                        <h1 className="text-2xl w-[50%] font-extrabold ">EvenTo</h1>
+                        <div className="md:hidden w-[50%]  flex justify-end">
+                            <button onClick={handleToggle} className="text-black focus:outline-none">
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <nav className={`${isOpen ? 'block' : 'hidden'} md:flex md:items-center  w-full md:w-auto `}>
+                        <ul className="flex w-full flex-col md:flex-row  md:space-x-4 mt-4 md:mt-0 md:ml-auto ">
+                            {!role && (
+                                <>
+                                    <li className=" xl:border-t-0 border-t-2  rounded-sm  w-full flex justify-center"><a href="/" className="hover:text-gray-500 block py-2 md:py-0">Home</a></li>
+                                    <li  className=" xl:border-b-0 w-full  flex justify-center"><a href="#" className="hover:text-gray-500 block py-2 md:py-0">Events</a></li>
+                                    <li  className=" w-full flex justify-center"><a href="#" className="hover:text-gray-500 block py-2 md:py-0">About</a></li>
+                                    <li  className=" xl:border-b-0 w-full  flex justify-center"><a href="#"  className="hover:text-gray-500 block py-2 md:py-0"></a></li>
+
+                                    <li className=" xl:border-b-0 w-full  flex justify-center  gap-3"><button onClick={()=>navigate('/auth/userLogin')} className="block w-[50%] xl:hidden bg-blue-400 pt-1 pb-1 px-3 text-white rounded-md hover:bg-blue-300 md:inline-block mt-2 md:mt-0">Login </button>
+                                    <button onClick={()=>navigate('/auth/userSignup')} className="block xl:hidden w-[50%] bg-blue-400 pt-1 pb-1 px-3 text-white rounded-md hover:bg-blue-300 md:inline-block mt-2 md:mt-0">Signup</button>
+                                    </li>
+
+                                </>
+                            )}
+                            {role === "user" && (
+                                <>
+                                    <li  className="border-t-2 xl:border-b-0 w-full flex justify-center"><a href="/" className="hover:text-gray-500 block py-2 md:py-0">Home</a></li>
+                                    <li  className=" xl:border-b-0 w-full flex justify-center"><a href="/user/booking" className="hover:text-gray-500 block py-2 md:py-0">Booking</a></li>
+                                    <li  className=" xl:border-b-0 w-full flex justify-center"><a href="/user/events" className="hover:text-gray-500 block py-2 md:py-0">Events</a></li>
+                                    <li  className=" xl:border-b-0 w-full flex justify-center"><a href={`/user/profile/${currentUser.id}`} className="hover:text-gray-500 block py-2 md:py-0">Profile</a></li>
+                                    <li  className=" xl:border-b-0 w-full flex justify-center"><a href={`/user/posts`} className="hover:text-gray-500 block py-2 md:py-0">Posts</a></li>
+                                    <li  className="xl:border-b-0 w-full flex justify-center"><button onClick={logingOut}  className=" w-[80%] xl:w-full shadow-md bg-blue-400 pt-1 pb-1 px-3 text-white rounded-md hover:bg-blue-300 md:inline-block mt-2 md:mt-0">Logout</button></li>
+                                </>
+                            )}
+                            {role === "organizer" && (
+                                <>
+                                    <li><a href={`/organizer/dashboard/${currentUser.id}`} className="hover:text-gray-500 block py-2 md:py-0">Events</a></li>
+                                    <li><a href={`/organizer/message`} className="hover:text-gray-500 block py-2 md:py-0">Message</a></li>
+                                    <li><a href={`/organizer/profile/${currentUser.id}`} className="hover:text-gray-500 block py-2 md:py-0">Profile</a></li>
+                                    <li><a href={`/organizer/organizerEventPost/${currentUser.id}`} className="hover:text-gray-500 block py-2 md:py-0">EventPost</a></li>
+                                    <li><button onClick={organizerLogout} className="  bg-blue-400 pt-1 pb-1 px-3 text-white rounded-md hover:bg-blue-300 block md:inline-block mt-2 md:mt-0">Logout</button></li>
+                                </>
+                            )}
+                            {role === "admin" && (
+                                <>
+                                    <li><a href="/admin/organizers" className="hover:text-gray-500 block py-2 md:py-0">Organizers</a></li>
+                                    <li><a href="/admin/users" className="hover:text-gray-500 block py-2 md:py-0">Users</a></li>
+                                    <li><a href="/admin/request" className="hover:text-gray-500 block py-2 md:py-0">Request</a></li>
+                                    <li><a href="/admin/category" className="hover:text-gray-500 block py-2 md:py-0">Category</a></li>
+                                    <li><button onClick={adminLogout} className="bg-blue-400 pt-1 pb-1 px-3 text-white rounded-md hover:bg-blue-300 block md:inline-block mt-2 md:mt-0">Logout</button></li>
+                                </>
+                            )}
+                            {role === "requestPending" && (
+                                <>
+                                    <li><a href="/pending" className="hover:text-gray-500 block py-2 md:py-0">Event</a></li>
+                                    <li><button onClick={organizerLogoutReq} className="bg-blue-400 pt-1 pb-1 px-3 text-white rounded-md hover:bg-blue-300 block md:inline-block mt-2 md:mt-0">Logout</button></li>
+                                </>
+                            )}
                         </ul>
                     </nav>
                 </div>
             </div>
-
-        </>}
-            {role === "user" && <>
-                <div className="bg-[#fffef6] bg-opacity-80 backdrop-filter backdrop-blur-lg  w-full text-black p-4 border z-10 shadow-lg fixed">
-                <Toaster position="top-right" reverseOrder={false}/>  
-
-                    <div className="container mx-auto flex justify-between items-center">
-                        <h1 className="text-2xl  font-bold">EvenTo</h1>
-                        <nav>
-                            <ul className="flex space-x-4">
-                                <li>
-                                    <a href="/" className="hover:text-gray-300">Home</a>
-                                </li>
-                                <li>
-                                    <a href="/user/booking" className="hover:text-gray-300">booking</a>
-                                </li>
-                                <li>
-                                    <a href="/user/posts" className="hover:text:gray-300">Events</a>
-                                </li>
-                                <li>
-                                    <a href="/user/events" className="hover:text:gray-300">Events</a>
-                                </li>
-                                <li>
-                                    <a href={`/user/profile/${currentUser.id}`} className="hover:text-gray-300">profile</a>
-                                </li>
-                                <li>
-                                   <a href={`/user/posts`} className="hover:text-gray-300">posts</a>
-                                </li>
-                            
-                                <li>
-                                    <Button onClick={logingOut} variant="outlined">Logout</Button>
-
-                                    {/* <button  className="bg-blue-400 pt-1 pb-1 ps-3 pe-3 text-white rounded-md hover:bg-blue-300">logout</button> */}
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </>
-
-            }
-             {role === "organizer" && <>
-                <div className="bg-white fixed z-30 w-full text-black p-4 border rounded shadow-lg">
-                    <div className="container mx-auto flex justify-between items-center">
-                    <Toaster position="top-right" reverseOrder={false}/>  
-                        <h1 className="text-2xl  font-bold"><a href="/">EvenTo</a></h1>
-                        <nav>
-                            <ul className="flex space-x-4">
-                                <li>
-
-                                    {/* <a href="#" className="hover:text-gray-300">{role}</a> */}
-                                </li>
-                                <li>
-                                    <a href={`/organizer/dashboard/${currentUser.id}`} className="hover:text-gray-300">Events</a>
-                                </li>
-                                 <li>
-                                    <a href={`/organizer/message`}  className="hover:text-gray-300">message</a>
-                                 </li>
-                                <li>
-                                    <a href={`/organizer/profile/${currentUser.id}`} className="hover:text-gray-300">Profile</a>
-                                </li>
-                                  <li>
-                                     <a href={`/organizer/organizerEventPost/${currentUser.id}`}  className="hover:text-gray-300">EventPost</a>
-                                  </li>
-                                <li>
-                                    <button onClick={organizerLogout} className="bg-blue-400 pt-1 pb-1 ps-3 pe-3 text-white rounded-md hover:bg-blue-300">logout</button>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </>
-
-            }{role=="requestPending"&&
-                <>
-                  <div className="bg-white fixed w-full text-black p-4 border shadow-lg">
-                    <div className="container mx-auto flex justify-between items-center">
-                    <Toaster position="top-right" reverseOrder={false}/>  
-                        <h1 className="text-2xl  font-bold">EvenTo</h1>
-                        <nav>
-                            <ul className="flex space-x-4">
-                              
-                                <li>
-                                    <a href="/pending" className="hover:text-gray-300">Event</a>
-                                </li>
-                                <li>
-                                    <button onClick={organizerLogoutReq} className="bg-blue-400 pt-1 pb-1 ps-3 pe-3 text-white rounded-md hover:bg-blue-300">logout</button>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                </>
-            }
-             {role === "admin" && <>
-                <div className="bg-white fixed w-full text-black p-4 border shadow-lg">
-                    <div className="container mx-auto flex justify-between items-center">
-                        <h1 className="text-2xl  font-bold">EvenTo</h1>
-                        <nav>
-                            <ul className="flex space-x-4">
-                                <li>
-                                    <a href="/admin/organizers" className="hover:text-gray-300">organizer</a>
-                                </li>
-                                <li>
-                                    <a href="/admin/users" className="hover:text-gray-300">Users</a>
-                                </li>
-                                <li>
-                                    <a href="/admin/request" className="hover:text-gray-300">request</a>
-                                </li>
-                                <li>
-                                    <a href="/admin/category" className="hover:text-gray-300">category</a>
-                                </li>
-                                <li>
-                                    <button onClick={adminLogout} className="bg-blue-400 pt-1 pb-1 ps-3 pe-3 text-white rounded-md hover:bg-blue-300">logout</button>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </>
-
-            }
-
         </>
     );
 }

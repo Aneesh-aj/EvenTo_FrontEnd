@@ -56,7 +56,7 @@ const Organizers: React.FC = () => {
                     <div className="w-full h-[60px] flex items-center">
                         <h1 className="font-bold ps-6">Filter</h1>
                     </div>
-                    <div className="w-full h-auto bg-red-100  flex flex-wrap gap-3">
+                    <div className="w-full h-auto  flex flex-wrap gap-3">
                         {allorganizer &&
                             allorganizer.map((items: any) => (
                                 <Card

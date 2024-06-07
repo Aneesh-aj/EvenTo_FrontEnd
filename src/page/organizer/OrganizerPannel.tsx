@@ -7,6 +7,7 @@ import useGetUser from '../../hook/useGetUser';
 import EventPannel from '../../componant/organizer/EventPannel';
 import { EventRequests } from './EventRequests';
 import { Chat } from '../../componant/common/chat/Chat';
+import { OrganizerDashboard } from './OrganizerDashboard';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -29,7 +30,7 @@ function CustomTabPanel(props: TabPanelProps) {
   );
 }
 
-export default function OrganizerPannel() {
+export default function OrganizerPannel(){
   const location = useLocation();
   const navigate = useNavigate();
   const currentUser = useGetUser();
@@ -106,7 +107,7 @@ export default function OrganizerPannel() {
           </div>
         </Box>
         <CustomTabPanel value={value} index={0}>
-            Dashboard Content
+            <OrganizerDashboard/>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
              <EventPannel />

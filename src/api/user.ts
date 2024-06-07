@@ -217,4 +217,13 @@ export const userUploadPicture= async(id:string,img:string)=>{
     }
   }
 
+  export const getAllPost = async()=>{
+    try{
+      const response = await Api.get(userRoutes.getPosts)
+      return response.data
+    }catch(error){
+        throw error
+    }
+  }
+
   

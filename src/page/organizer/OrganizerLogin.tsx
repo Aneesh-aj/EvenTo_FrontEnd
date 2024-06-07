@@ -28,13 +28,14 @@ const OrganizerLogin: React.FC = () => {
     }
     const { register, handleSubmit, formState: { errors } } = useForm()
     const handleFormSubmit = async (data: any) => {
+       try{
         setLoading(true)
         const user = {
             email: data.email || "",
             password: data.password || ""
         }
         const result = await organizerLogin(user.email,user.password)
-        console.log(result)
+        console.log("0-------",result)
         setLoading(false)
 
         if (result.organizer) {
@@ -51,6 +52,10 @@ const OrganizerLogin: React.FC = () => {
         } else {
             toast.error(result.response.data.message)
         }
+       }catch(error:any){
+            setLoading(false)
+            toast.error(error.message)
+       }
     }
 
     return (
@@ -114,7 +119,7 @@ const OrganizerLogin: React.FC = () => {
                                 <div>
                                 </div>
                                 <div>
-                                    <a href="#" className="font-medium text-indigo-600">Forgot Password?</a>
+                                    <a href="/auth/forgotpassword" className="font-medium text-indigo-600">Forgot Password?</a>
                                 </div>
                             </div>
                             <button type='submit' disabled={loading} className={loading ? "w-full py-3 font-medium text-white bg-indigo-400 hover:bg-indigo-300 rounded-lg border-indigo-300 hover:shadow inline-flex space-x-2 items-center justify-center" : "w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"}>

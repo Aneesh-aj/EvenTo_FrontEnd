@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import bg from "../../../assets/whatappBackround1.webp";
 import useGetUser from '../../../hook/useGetUser';
 import { useParams } from 'react-router-dom';
@@ -11,27 +11,25 @@ import { Socket } from 'socket.io-client';
 function ChatBody({ socket }: { socket: Socket }) {
   const [message, setMessage] = useState<string>('');
   const [chat, setChat] = useState<any>({});
-  const [user, setUser] = useState<any>({})
+  const [user, setUser] = useState<any>({});
   const [file, setFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [resiveData, setRasiveData] = useState()
   const senter = useGetUser();
   const messageInput = useRef<HTMLInputElement>(null);
   const { id } = useParams();
 
-  useEffect(() => {
-    async function fetchChat() {
-      try {
-        const userChat = await getChat(senter.id, id as string);
-        console.log("User chat----------------------:", userChat);
-        setUser(userChat.user);
-        setChat(userChat.chat);
-        
-        socket.emit('joinRoom', { senderId: senter.id, receiverId: id });
-      } catch (error) {
-        console.error("Error fetching chat:", error);
-      }
+  async function fetchChat() {
+    try {
+      const userChat = await getChat(senter.id, id as string);
+      setUser(userChat.user);
+      setChat(userChat.chat);
+      socket.emit('joinRoom', { senderId: senter.id, receiverId: id });
+    } catch (error) {
+      console.error("Error fetching chat:", error);
     }
+  }
+
+  useEffect(() => {
     if (id) {
       fetchChat();
     }
@@ -49,15 +47,25 @@ function ChatBody({ socket }: { socket: Socket }) {
     try {
       if (!message.trim() && !file) return;
 
-      console.log("Message:", message);
-      setMessage("");
       const messages = message;
-      socket.emit("sendData", { senderId: senter.id, receiverId: id, message: messages, imageUrl: "" });
+      let newMessage = {
+        _id: new Date().getTime().toString(), // temporary id
+        senderId: senter.id,
+        receiverId: id,
+        message: messages,
+        media: '',
+        createdAt: new Date().toISOString()
+      };
+      
+      setMessage("")
+      setImagePreview(null)
       if (file) {
-        console.log("File:", file);
         const imageUrl = await sentImageUpload(file);
+        newMessage.media = imageUrl;
+        socket.emit("sendData", { ...newMessage, media: imageUrl });
         await sendMessage(senter.id, id as string, messages, imageUrl);
       } else {
+        socket.emit("sendData", { ...newMessage, media: "" });
         await sendMessage(senter.id, id as string, messages, '');
       }
 
@@ -81,19 +89,19 @@ function ChatBody({ socket }: { socket: Socket }) {
     setImagePreview(null);
   }
 
-  useMemo(() => {
-    console.log({ ...chat });
-    const obj = { ...chat };
-    obj?.messages?.push(resiveData);
-    setChat(obj);
-
-    console.log("the setted chat............", chat);
-  }, [resiveData]);
-
   useEffect(() => {
     socket.on("resiveData", (data) => {
-      console.log(data, "===========a===============");
-      setRasiveData(data);
+      setChat((prevChat: any) => {
+        // Check if the message is already in the chat
+        const messageExists = prevChat.messages.some((msg: any) => msg._id === data._id);
+        if (messageExists) {
+          return prevChat;
+        }
+        return {
+          ...prevChat,
+          messages: [...prevChat.messages, data]
+        };
+      });
     });
 
     return () => {
@@ -101,15 +109,20 @@ function ChatBody({ socket }: { socket: Socket }) {
     };
   }, [socket]);
 
-  useEffect(() => {
-    if (message === '' && messageInput.current) {
-      messageInput.current.value = '';
-    }
-  }, [message]);
+  const formatTime = (timestamp: any) => {
+    const date = new Date(timestamp);
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    const strMinutes = minutes < 10 ? '0' + minutes : minutes;
+    return `${hours}:${strMinutes} ${ampm}`;
+  };
 
   return (
     <div className="w-2/3 flex flex-col text-gray-800 relative">
-      {id && (
+      {id ? (
         <>
           <div className="p-4 border-b bg-white flex justify-between items-center shadow-md z-10 relative">
             <div className="flex items-center space-x-3">
@@ -128,9 +141,31 @@ function ChatBody({ socket }: { socket: Socket }) {
             }}
           >
             {chat && chat.messages && chat.messages.map((msg: any) => (
-              <div key={msg._id} className={`mb-4 h-auto flex justify-${msg.senderId === senter.id ? 'end' : 'start'}`}>
-                <div className="bg-white p-3 h-auto w-[50%] flex-wrap rounded-lg shadow">
-                  <p className='break-words overflow-hidden h-auto'>{msg.message}</p>
+              <div
+                key={msg._id}
+                className={`mb-4 h-auto flex justify-${msg.senderId === senter.id ? 'end' : 'start'}`}
+              >
+                <div
+                  className={`p-2 h-auto w-[50%] flex rounded-lg shadow ${msg.senderId === senter.id ? 'bg-[#DCF8C6]' : 'bg-white'
+                    }`}
+                >
+                  {msg.media ? (
+                    <div className="w-full h-[180px] flex flex-col">
+                      <img src={msg.media} className='w-full h-[170px]' alt="" />
+                      <div className='w-full flex justify-end mt-1 '>
+                        <p className='text-[11px] w-[10%] text-[#878787 bg-fuchsia-600]'>{formatTime(msg.createdAt)}</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="w-full flex flex-col">
+                      <p className='break-words overflow-hidden w-full text-[14px] text-[#303030]'>
+                        {msg.message}
+                      </p>
+                      <div className='w-full flex justify-end mt-1 '>
+                        <p className='text-[11px] w-[10%] text-[#878787 bg-fuchsia-600]'>{formatTime(msg.createdAt)}</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -157,12 +192,14 @@ function ChatBody({ socket }: { socket: Socket }) {
               type="file"
               className="hidden"
               id="fileInput"
+              accept="image/*"
               onChange={handleFileChange}
             />
             <input
               type="text"
               ref={messageInput}
               placeholder="Type a message"
+              accept="image/*"
               className="w-full p-2 rounded bg-gray-100 text-gray-800"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
@@ -171,8 +208,7 @@ function ChatBody({ socket }: { socket: Socket }) {
             <button className="p-2 bg-blue-500 text-white rounded" onClick={send}>Send</button>
           </div>
         </>
-      )}
-      {!id && (
+      ) : (
         <div className='w-full h-screen object-contain flex justify-center items-center'>
           <div className='w-[80%] h-[80%]'>
             <img src={backbround} className='w-full h-full' alt="Background" />

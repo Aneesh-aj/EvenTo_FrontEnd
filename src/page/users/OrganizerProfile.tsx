@@ -1,17 +1,23 @@
 import React, { useEffect, useState, useRef } from "react";
 import Nav from "../../componant/common/Nav";
 
-import { findbyId, uploadBackground, uploadProfilePicture } from "../../api/organizer";
+import { findbyId, getPost, uploadBackground, uploadProfilePicture } from "../../api/organizer";
 import Chip from '@mui/material/Chip';
 import { Country, State } from "country-state-city";
+import image from "../../assets/9318688.jpg"
 import { EventPostListing } from "../../componant/organizer/EventPostListing";
 import bg from "../../assets/unknownProfile.jpeg"
+import ShareIcon from '@mui/icons-material/Share';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useNavigate, useParams } from "react-router-dom";
 import { OrganizerEventPosts } from "../../componant/user/OrganizerEventPost";
+import { Divider } from "@mui/material";
 
 const OrganizerProfile: React.FC = () => {
     const imageRef = useRef<HTMLInputElement>(null);
     const profileIMG = useRef<HTMLInputElement>(null);
+    const [posts, setPosts] = useState([])
+
     const [backgroundUrl, setBackground] = useState<any>();
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [organizerData, setOrganizer] = useState<any>();
@@ -25,6 +31,7 @@ const OrganizerProfile: React.FC = () => {
     const [profile, setProfile] = useState<any>();
     const [shouldRefetch, setShouldRefetch] = useState<boolean>(false);
     const { id } = useParams()
+    const liked = true
 
 
     useEffect(() => {
@@ -41,6 +48,9 @@ const OrganizerProfile: React.FC = () => {
             });
             setBackground(organizer?.organizer.backgroundImage);
             setProfile(organizer?.organizer.profileImage);
+            const allposts = await getPost(id as string)
+            console.log(" the all psotsss", allposts)
+            setPosts(allposts.posts)
         }
         getInfo();
     }, [id, shouldRefetch]);
@@ -96,7 +106,48 @@ const OrganizerProfile: React.FC = () => {
                         </div>
                     </div>
                     <div className="w-full xl:w-12/12  h-44 mt-2">
-                        <h1>posts</h1>
+                    {
+                            posts.length ? posts.map((ele: any) => {
+                             
+                                return (
+                                    <>
+                                        <Divider variant="middle" />
+                                        <div className="w-full h-auto p-4 flex flex-col gap-4">
+                                            <div className="w-full h-14 flex items-center ">
+                                                <div className="w-[50%] h-full flex items-center gap-4">
+                                                    <div className="w-14 h-14 bg-yellow-300 rounded-full">
+                                                        <img src={organizerData?.profileImage} className="h-full w-full rounded-full" alt="" />
+                                                    </div>
+                                                    <h1 className="font-bold text-lg">{organizerData?.name}</h1>
+                                                </div>
+                                                <div className="w-[50%] h-full flex gap-3 justify-end ">
+                                             
+                                                </div>
+                                            </div>
+                                            <div className="w-full p-2">
+                                                <p className="font-serif pe-8">{ele?.description}</p>
+                                            </div>
+                                            <div className="w-full h-[21rem] bg-blue-100">
+                                                <img src={ele?.postImage} className="w-full h-full rounded-md" alt="" />
+                                            </div>
+                                            <div className="w-full h-10 flex gap-4">
+                                                <FavoriteIcon sx={{ stroke: 'black', color: `${liked ? 'red' : 'white'}`, boxShadow: '3px', width: '2rem', height: '100%' }} />
+                                                {/* <CommentIcon  sx={{stroke:'black',color:"black",boxShadow:'3px',width:'2rem',height:'100%'}} /> */}
+                                                <ShareIcon sx={{ stroke: 'black', color: "black", boxShadow: '3px', width: '2rem', height: '100%' }} />
+                                            </div>
+                                        </div>
+                                    </>
+                                )
+                            }) :
+                                (
+                                    <div className="w-full h-[400px] flex justify-center">
+                                        <div className="w-[50%] h-[100%]">
+                                            <img src={image} className="w-full h-full" alt="" />
+                                        </div>
+                                    </div>
+                                )
+                        }
+
                     </div>
                 </div>
                 <div className="w-2/12 ps-2   h-[730px]">

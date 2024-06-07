@@ -2,6 +2,7 @@ import Api from "../survices/axios"
 import organizerRoutes from "../survices/endpoints/organizerEndPoint"
 import { IorganizerFormData } from "../@types/organizer"
 import { IeventPost, eventFormData } from "../@types/eventType"
+import { post } from "../@types/post"
 
 
 
@@ -61,7 +62,7 @@ export const organizerLogin = async (email: string, password: string) => {
     const response = await Api.post(organizerRoutes.organizerLogin, { email, password })
     return response.data
   } catch (error) {
-    throw error
+    return error
   }
 }
 
@@ -174,9 +175,9 @@ export const updateEvent = async (data: any,eventId:string)=> {
   }
 }
 
-export const getAllEvents = async (id: string) => {
+export const getAllEvents = async (id: string,limit:number,offset:number) => {
   try {
-    const response = await Api.get(organizerRoutes.getAllEvents + `/${id}`)
+    const response = await Api.get(organizerRoutes.getAllEvents + `/${id}?limit=${limit}&&offset=${offset}`)
     return response.data
   } catch (error) {
     throw error
@@ -212,9 +213,10 @@ export const getAlleventPost = async () => {
   }
 }
 
-export const getUpcomingEvent = async(id:string)=>{
+export const getUpcomingEvent = async(id:string,limit:number,offset:number)=>{
    try{
-      const response = await Api.get(organizerRoutes.getUpcomingEvent+`/${id}`)
+      console.log(" call coming ",limit , offset)
+      const response = await Api.get(organizerRoutes.getUpcomingEvent+`/${id}?limit=${limit}&&offset=${offset}`)
       return response.data
    }catch(error){
      throw error
@@ -323,6 +325,45 @@ export const getChatUsers = async(id:string)=>{
   try{
      const response = await Api.get(organizerRoutes.getUserChat+`/${id}`)
      return response.data
+  }catch(error){
+     throw error
+  }
+}
+
+export const postCreation = async(data:post)=>{
+  try{
+       const response = await Api.post(organizerRoutes.postCreate,{data:data})
+       return response.data
+  }catch(error){
+    throw error
+  }
+}
+
+export const postUpdate = async(postId:string,data:post)=>{
+  try{
+     
+       
+       const response = await Api.post(organizerRoutes.postUpdate,{postId:postId,data:data})
+       return response.data
+  }catch(error){
+    throw error
+  }
+}
+
+export const postDelete = async(postId:string)=>{
+  try{
+       const response = await Api.post(organizerRoutes.postDelete+`/${postId}`)
+       return response.data
+  }catch(error){
+    throw error
+  }
+}
+
+export const getPost = async(organizerId:string)=>{
+  try{
+      const response = await Api.get(organizerRoutes.getPosts+`/${organizerId}`)
+      console.log("  and then ",response)
+      return response.data
   }catch(error){
      throw error
   }

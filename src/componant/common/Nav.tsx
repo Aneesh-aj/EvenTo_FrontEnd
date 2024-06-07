@@ -100,6 +100,9 @@ const Nav: React.FC = () => {
                                     <a href="/user/booking" className="hover:text-gray-300">booking</a>
                                 </li>
                                 <li>
+                                    <a href="/user/posts" className="hover:text:gray-300">Events</a>
+                                </li>
+                                <li>
                                     <a href="/user/events" className="hover:text:gray-300">Events</a>
                                 </li>
                                 <li>

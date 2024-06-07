@@ -59,7 +59,7 @@ const Home: React.FC = () => {
           </div>
 
           <div className="doctor_Card w-100 flex flex-col items-center justify-center">
-            <h1 className="font-semibold text-black text-xl">We Providing the best medical services.</h1>
+            <h1 className="font-semibold text-black text-xl">We Providing the best event services.</h1>
 
             <div className="flex w-full  p-2 xl:flex-wrap justify-center items-center gap-1 xl:gap-3  my-12">
               <div className="card flex justify-center items-end pb-5 w-full sm:w-30 md:w-96 lg:w-44 xl:w-48 h-48 xl:h-56 bg-slate-500 rounded-md" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(${banner1})`, backgroundSize: 'cover', backgroundPosition: 'center' }} >

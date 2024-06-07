@@ -327,12 +327,10 @@ const ProfileEdit: React.FC<Props> = ({ isOpen, onClose, organizerData }) => {
             validationErrors.phoneNumber = "Phone Number must be 10 digits";
         }
 
-        // Country validation
         if (!formData.country) {
             validationErrors.country = "Country is required";
         }
 
-        // State validation
         if (!formData.state) {
             validationErrors.state = "State is required";
         }
@@ -365,13 +363,17 @@ const ProfileEdit: React.FC<Props> = ({ isOpen, onClose, organizerData }) => {
         }
 
     };
+
 ;
 
     return (
-        <Modal open={isOpen} onClose={onClose} className="">
-            <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", bgcolor: "background.paper", boxShadow: 24, p: 5, width: 500, overflowY: 'auto', maxHeight: '90vh' }}>
+        <Modal open={isOpen} onClose={onClose}  sx={{borderRadius:'5px',}}>
+            <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",borderRadius:'5px', bgcolor: "background.paper", boxShadow: 24, p: 2, width: 600, overflowY: 'auto', maxHeight: '90vh' }}>
+                 <div className="w-full p-4 flex justify-end">
+                      <CloseIcon  onClick={onClose}></CloseIcon>
+                 </div>
                 <form onSubmit={handleSubmit} className="">
-                    <div className="flex gap-3 flex-col scroll-m-2  ">
+                    <div className="flex gap-3 flex-col scroll-m-2 p-6 ">
                     <Toaster position="top-right" reverseOrder={false}/> 
                         <TextField fullWidth label="Name" name="name" value={formData.name} onChange={(e) => handleChange(e as any)} />
                         {errors.name && <FormHelperText error>{errors.name}</FormHelperText>}

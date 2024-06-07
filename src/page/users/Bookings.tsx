@@ -66,8 +66,8 @@ const Bookings = () => {
             onChange={handleChange}
             aria-label="basic tabs example"
           >
-            <Tab label="History" sx={{ minWidth: '50%' }} disableRipple  {...a11yProps(0)} />
-            <Tab label="Upcoming" sx={{ minWidth: '50%' }} disableRipple  {...a11yProps(1)} />
+            <Tab label="upcoming" sx={{ minWidth: '50%' }} disableRipple  {...a11yProps(0)} />
+            <Tab label="history" sx={{ minWidth: '50%' }} disableRipple  {...a11yProps(1)} />
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>

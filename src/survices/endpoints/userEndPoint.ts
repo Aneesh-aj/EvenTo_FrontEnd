@@ -19,7 +19,8 @@ const userRoutes={
     otpSenting:"/user/sentotp",
     sendMessage:'/user/sendMessage',
     getChat:"/user/getChat",
-    requestSend:"/user/sendRequest"
+    requestSend:"/user/sendRequest",
+    getPosts:"/user/posts"
 }
 
 export default userRoutes

@@ -5,6 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { allRequests } from "../../api/admin";
 import { clearUser } from "../../utils/clearUser";
 import { useDispatch } from "react-redux";
+import image from "../../assets/3156814.jpg"
 const AdminRequest: React.FC = () => {
   const [requests, setRequests] = useState<any[] | null>(null);
   const [isAccepted, setIsAccepted] = useState<boolean>(false);
@@ -60,13 +61,13 @@ const AdminRequest: React.FC = () => {
           </div>
         </div>
 
-        <div className="rounded-md bg-white mb-1 shadow-md mt-1 w-11/12 h-9 flex border p-4 items-center">
+        <div className="rounded-md bg-white mb-1 shadow-md mt-1 w-11/12 h-9 flex border p-6 items-center">
           <div className="w-4/12 flex justify-center">Owner name</div>
           <div className="w-4/12 flex justify-center">Email</div>
           <div className="w-4/12 flex justify-center">phoneNumber</div>
           <div className="w-4/12 flex justify-center"></div>
         </div>
-        {requests &&
+        {requests?.length ?
           requests.map((request) => (
             (isAccepted ? request.approved : !request.approved) ? (
               <div
@@ -85,7 +86,15 @@ const AdminRequest: React.FC = () => {
                 </div>
               </div>
             ) : null
-          ))}
+          )):
+          (
+            <div className="w-full h-auto bg-red-600">
+                <div className="w-[50%] h-[400px]">
+                      <img src={image} className="w-full h-full" alt="" />
+                </div>
+            </div>
+          )
+          }
       </div>
     </>
   );

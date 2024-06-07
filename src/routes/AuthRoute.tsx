@@ -8,6 +8,7 @@ import AdminLogin from "../page/admin/AdminLogin"
 import OrganizerLogin from "../page/organizer/OrganizerLogin"
 import useGetUser from "../hook/useGetUser"
 import ForgotPassword from "../page/users/ForgotPassword"
+import OrganizerForgotPassword from "../page/organizer/OragnizerForgotPasswrod"
 
 function CommonRoutes() {
     const currentUser = useGetUser()
@@ -22,6 +23,8 @@ function CommonRoutes() {
                 <Route path="/otp/:email" element={currentUser && currentUser.role ? <Navigate to={"/"} /> : <OtpForm />} />
                 <Route path="/organizerRegister" element={currentUser && currentUser.role ? <Navigate to={"/"} /> : <OrganizerRegistration />} />
                 <Route path="/user/forgotpassword" element={currentUser && currentUser.role ? <Navigate to={"/"} /> : <ForgotPassword />} />
+                <Route path="/forgotpassword" element={<OrganizerForgotPassword/>} />
+
                 <Route path="/organizerLogin" element={currentUser && currentUser.approve === true ? <OrganizerLogin /> : <Navigate to={"/"} />} />
                 {
                     currentUser && currentUser.role === "requestPending" && currentUser.approve === false && <>

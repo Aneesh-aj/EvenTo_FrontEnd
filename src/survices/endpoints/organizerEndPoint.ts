@@ -30,7 +30,11 @@ const organizerRoutes={
     approveRequest:"/organizer/approveRequest",
     rejectRequest:"/organizer/rejectRequest",
     requestEventCreat:"/organizer/requestEventCreation",
-    getUserChat:"/organizer/chatList"
+    getUserChat:"/organizer/chatList",
+    postCreate:"/organizer/postCreate",
+    postUpdate:"/organizer/postUpdate",
+    postDelete:"/organizer/deletePost",
+    getPosts:"/organizer/getPosts"
     
 }
 

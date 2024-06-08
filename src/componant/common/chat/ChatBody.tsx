@@ -120,16 +120,19 @@ function ChatBody({ socket }: { socket: Socket }) {
     return `${hours}:${strMinutes} ${ampm}`;
   };
 
+  const isHiddenOnMobile = id ? 'block ' : 'hidden md:block';
+
+
   return (
-    <div className="w-2/3 flex flex-col text-gray-800 relative">
+    <div className={`w-full md:w-2/3 flex flex-col text-gray-800 relative ${isHiddenOnMobile}`} >
       {id ? (
         <>
-          <div className="p-4 border-b bg-white flex justify-between items-center shadow-md z-10 relative">
+          <div className="p-4 fixed border-b bg-white w-full flex justify-between items-center shadow-md z-10 ">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-gray-300 rounded-full overflow-hidden">
                 <img src={user?.profileImage} className="w-full h-full object-cover" alt="" />
               </div>
-              <div>{user?.name}</div>
+              <div className='font-semibold'>{user?.name}</div>
             </div>
           </div>
           <div className={`flex-1 overflow-y-auto p-4 transition-all flex-col-reverse duration-300 ${imagePreview ? 'backdrop-blur-md' : ''}`}
@@ -184,7 +187,7 @@ function ChatBody({ socket }: { socket: Socket }) {
               </div>
             </div>
           )}
-          <div className="p-3 bg-white border border-t border-gray-200 flex items-center space-x-2 shadow-2xl z-10 relative">
+          <div className="p-3 bg-white w-full bottom-0 fixed border border-t border-gray-200 flex items-center space-x-2 shadow-2xl z-10 ">
             <label htmlFor="fileInput" className="p-2 bg-gray-100 rounded cursor-pointer">
               📎
             </label>

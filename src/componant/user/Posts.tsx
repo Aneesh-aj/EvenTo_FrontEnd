@@ -27,9 +27,9 @@ export const Posts = () => {
     return (
         <>
             <Nav />
-            <div className="w-full flex gap-3 h-auto pt-12 ps-10 pe-10">
+            <div className="w-full flex gap-3 h-auto pt-12 bg-red-100   xl:ps-10 pe-2 xl:pe-10">
                 <SideBar />
-                <div className="w-[60%] h-auto bg-white mt-10 ps-6 pt-3 pe-6 rounded-md border-2 overflow-y-auto " style={{ maxHeight: '100vh' }}>
+                <div className="x-full xl:w-[60%] h-auto bg-white mt-10 ps-0 xl:ps-6 pt-3 pe-2 xl:pe-6 rounded-md border-2 overflow-y-auto " style={{ maxHeight: '100vh' }}>
 
                     {
                         posts.length ? posts.map((ele: any) => {
@@ -38,7 +38,7 @@ export const Posts = () => {
 
                                     <div className="w-full h-auto p-4 flex flex-col gap-4">
                                         <div className="w-full h-14 flex items-center ">
-                                            <div className="w-[50%] h-full flex items-center gap-4" onClick={()=>navigate(`/user/organizerProfile/${ele.organizerId._id}`)}>
+                                            <div className="w-[60%] xl:w-[50%] h-full flex items-center gap-4" onClick={()=>navigate(`/user/organizerProfile/${ele.organizerId._id}`)}>
                                                 <div className="w-14 h-14 bg-yellow-300 rounded-full">
                                                     <img src={ele?.organizerId.profileImage} className="h-full w-full rounded-full" alt="" />
                                                 </div>
@@ -74,7 +74,7 @@ export const Posts = () => {
                     }
 
                 </div>
-                <div className="w-[20%] pt-10">
+                <div className="w-[20%] pt-10 hidden xl:block">
                     <div className="w-full bg-white rounded-md border-2 shadow-sm p-2">
                         <h1 className="font-bold">suggetions</h1>
                     </div>

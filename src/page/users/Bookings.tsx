@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { BookingList } from '../../componant/user/BookingList';
 import { BookingHistory } from '../../componant/user/BookingHistory';
+import { BottumBar } from '../../componant/common/BottumBar';
 
 
 const Bookings = () => {
@@ -74,9 +75,12 @@ const Bookings = () => {
           <BookingList />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-           <BookingHistory/>
+          <BookingHistory />
         </CustomTabPanel>
       </Box>
+      <div className="w-full flex justify-center">
+        <BottumBar />
+      </div>
     </>
   );
 };

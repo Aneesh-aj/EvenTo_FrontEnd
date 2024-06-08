@@ -9,6 +9,7 @@ import { Card } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import bg from "../../assets/unknownProfile.jpeg";
+import { BottumBar } from "../../componant/common/BottumBar";
 
 const Organizers: React.FC = () => {
     const [allorganizer, setAllorganizer] = useState([]);
@@ -28,7 +29,7 @@ const Organizers: React.FC = () => {
                 setAllorganizer(result.allOrganizer);
             } catch (error) {
                 toast.error("Token expired !! Login again");
-                navigate("/aut/userLogin");
+                navigate("/auth/userLogin");
             }
         }
         getOrganizer();
@@ -106,6 +107,9 @@ const Organizers: React.FC = () => {
                         ))}
                     </div>
                 </div>
+            </div>
+            <div className="w-full flex justify-center">
+                <BottumBar />
             </div>
         </>
     );

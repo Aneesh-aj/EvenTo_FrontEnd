@@ -12,6 +12,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useNavigate, useParams } from "react-router-dom";
 import { OrganizerEventPosts } from "../../componant/user/OrganizerEventPost";
 import { Divider } from "@mui/material";
+import { BottumBar } from "../../componant/common/BottumBar";
 
 const OrganizerProfile: React.FC = () => {
     const imageRef = useRef<HTMLInputElement>(null);
@@ -90,7 +91,7 @@ const OrganizerProfile: React.FC = () => {
                                     <p className="ps-3 xl:ps-9 xl:font-serif text-sm xl:text-lg">{regions.pin}, {organizerData?.email}, {organizerData?.phoneNumber}</p>
                                 </div>
                                 <div className="flex pt-5 gap-1 h-full m-1 w-6/12 flex-row-reverse xl:pe-9 flex-wrap">
-                                    {organizerData && organizerData.eventCategory.map((elem:any, key:any) => (
+                                    {organizerData && organizerData.eventCategory.map((elem: any, key: any) => (
                                         <Chip label={elem?.category} key={key} />
                                     ))}
                                 </div>
@@ -100,7 +101,7 @@ const OrganizerProfile: React.FC = () => {
                                 <p className="pt-3 pe-5 text-sm xl:text-lg xl:font-serif">{organizerData?.about}</p>
                             </div>
                             <div className="w-full xl:ps-4">
-                                <button className=" w-[45%] xl:w-[5rem] m-4 h-[2rem] bg-blue-500 rounded-md text-white" onClick={()=>navigate(`/user/requestPage/${id}`)}>Request</button>
+                                <button className=" w-[45%] xl:w-[5rem] m-4 h-[2rem] bg-blue-500 rounded-md text-white" onClick={() => navigate(`/user/requestPage/${id}`)}>Request</button>
                                 <button className="w-[45%] xl:w-[5rem] h-[2rem] bg-blue-500 rounded-md text-white" onClick={() => navigate(`/user/message/${id}`)}>message</button>
                             </div>
                         </div>
@@ -153,6 +154,9 @@ const OrganizerProfile: React.FC = () => {
                 <div className="hidden xl:block  w-2/12 ps-2   h-[730px]">
                     <OrganizerEventPosts />
                 </div>
+            </div>
+            <div className="w-full flex justify-center">
+                <BottumBar />
             </div>
         </>
     );

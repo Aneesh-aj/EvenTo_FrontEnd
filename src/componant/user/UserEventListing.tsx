@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { motion } from "framer-motion";
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 import { getAlleventPost } from '../../api/organizer';
 import { getAllcategory } from "../../api/user";
 import image from '../../assets/9318688.jpg';
@@ -12,20 +14,26 @@ export const UserEventListing = () => {
     const [events, setEvents] = useState([]);
     const [searchEvent, setSearchEvent] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const [category, setCategory] = useState([])
+    const [category, setCategory] = useState([]);
     const [filterOption, setFilterOption] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         const fetchPosts = async () => {
+            setLoading(true);
+            setError(false);
             try {
                 const response = await getAlleventPost();
-                const allcategory = await getAllcategory()
-                console.log(" all categorys", allcategory, response)
-                setCategory(allcategory.category)
+                const allcategory = await getAllcategory();
+                setCategory(allcategory.category);
                 setEvents(response.posts);
                 setSearchEvent(response.posts);
             } catch (error) {
                 console.error('Error fetching event posts:', error);
+                setError(true);
+            } finally {
+                setLoading(false);
             }
         };
         fetchPosts();
@@ -50,34 +58,48 @@ export const UserEventListing = () => {
         setFilterOption(option);
 
         const filteredEvents = events.filter((event: any) => event?.categoryId === option);
-        console.log(" the option ", option)
-        console.log(" th all eventss", events)
-        option == "all" ? setSearchEvent(events) : setSearchEvent(filteredEvents);
+        option === "all" ? setSearchEvent(events) : setSearchEvent(filteredEvents);
     };
 
     return (
         <>
-            <div className='w-full  h-[4rem] flex flex-col xl:flex-row gap-3 bg-white justify-between items-center'>
-                <div className='w-full xl:w-[30%] flex justify-between p-2 '>
+            <div className='w-full h-[4rem] flex flex-col xl:flex-row gap-3 bg-white justify-between items-center'>
+                <div className='w-full xl:w-[30%] flex justify-between p-2'>
                     <h1 className="font-bold">Events</h1>
-                <div className='w-[13rem] flex gap-5  '>
-                    <h1 className='font-bold'>Filter</h1>
-                    <select value={filterOption} className='border-2 border-black rounded-md' onChange={(e) => handleFilterChange(e.target.value)}>
-                        <option value="all">All</option>
-                        {category && category.map((ele: any) => (
-                            <option key={ele._id} value={ele._id}>{ele.category}</option>
-                        ))}
-                    </select>
-
+                    <div className='w-[13rem] flex gap-5'>
+                        <h1 className='font-bold'>Filter</h1>
+                        <select value={filterOption} className='border-2 border-black rounded-md' onChange={(e) => handleFilterChange(e.target.value)}>
+                            <option value="all">All</option>
+                            {category && category.map((ele: any) => (
+                                <option key={ele._id} value={ele._id}>{ele.category}</option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
-                </div>
-                <div className='h-[2rem] flex gap-2 '>
+                <div className='h-[2rem] flex gap-2'>
                     <input type="text" className='rounded-md h-[2rem] ps-2 border-2 border-black' value={searchQuery} onChange={handleInputChange} />
                     <button className='bg-blue-400 h-[2rem] rounded-md w-[5rem] text-white' onClick={() => handleSearch(searchQuery)}>Search</button>
                 </div>
             </div>
-            <div className="w-full xl:m-2 p-2 h-auto ">
-                {searchEvent.length > 0 ? (
+            <div className="w-full xl:m-2 p-2 h-auto">
+                {loading ? (
+                    <div className="grid gap-3 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+                        {[...Array(8)].map((_, index) => (
+                            <Card key={index} className='shadow-md' sx={{ width: '100%', height: 'auto', border: 'none', boxShadow: 'none', borderRadius: '10px' }}>
+                                <Skeleton height={330} />
+                                <CardContent sx={{ bgcolor: 'transparent', display: 'flex', flexDirection: 'column', gap: 1, borderRadius: '10px', margin: 0, padding: 0 }}>
+                                    <Skeleton width="80%" height={30} />
+                                    <Skeleton width="60%" height={20} />
+                                    <Skeleton width="40%" height={20} />
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                ) : error ? (
+                    <section className="w-full flex object-cover justify-center h-[500px]">
+                        <img src={image} alt="Error" />
+                    </section>
+                ) : searchEvent.length > 0 ? (
                     <motion.section
                         variants={{
                             hidden: { opacity: 0 },
@@ -90,9 +112,9 @@ export const UserEventListing = () => {
                         }}
                         initial="hidden"
                         animate="show"
-                        className="grid  gap-3 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+                        className="grid gap-3 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
                     >
-                        {searchEvent.map((ele:any) => (
+                        {searchEvent.map((ele: any) => (
                             <motion.div key={ele._id} variants={{ hidden: { opacity: 0 }, show: { opacity: 1 } }} className="flex justify-center">
                                 <Card
                                     onClick={() => {
@@ -123,13 +145,12 @@ export const UserEventListing = () => {
                                         sx={{
                                             bgcolor: 'transparent',
                                             display: 'flex',
-                                            height:'auto',
+                                            height: 'auto',
                                             flexDirection: 'column',
                                             gap: 1,
                                             borderRadius: '10px',
                                             margin: 0,
                                             padding: 0,
-                                            
                                         }}
                                     >
                                         <Typography gutterBottom variant="h5" sx={{ fontSize: '23px', fontWeight: 'bold' }} component="div">
@@ -156,7 +177,7 @@ export const UserEventListing = () => {
                     </motion.section>
                 ) : (
                     <section className="w-full flex object-cover justify-center h-[500px]">
-                        <img src={image} alt="" />
+                        <img src={image} alt="No events found" />
                     </section>
                 )}
             </div>

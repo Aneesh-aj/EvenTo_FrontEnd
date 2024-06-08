@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { currentUser } from "../@types/allTypes";
@@ -12,10 +12,42 @@ import banner3 from "../assets/FE.jpg";
 import userBanner from "../assets/360_F_120282530_gMCruc8XX2mwf5YtODLV2O1TGHzu4CAb.jpg";
 import organizerBanner from "../assets/header-image.jpg";
 import { BottumBar } from "../componant/common/BottumBar";
+import ScrollReveal from 'scrollreveal';
+
 
 const Home: React.FC = () => {
   const currentUser = useSelector((state: currentUser) => state);
   console.log(" redux  ", currentUser);
+
+  useEffect(()=>{
+    ScrollReveal().reveal('.scrollUp', {
+      delay: 200,  
+      distance: '20px', 
+      origin: 'bottom', 
+      easing: 'ease-in-out', 
+      duration: 1000, 
+      reset: true, 
+    });
+
+    ScrollReveal().reveal('.scrollLeft',{
+      delay: 200,  
+      distance: '20px', 
+      origin: 'left', 
+      easing: 'ease-in-out', 
+      duration: 1000, 
+      reset: true, 
+    })
+
+
+    ScrollReveal().reveal('.scrollRight',{
+      delay: 200,  
+      distance: '20px', 
+      origin: 'right', 
+      easing: 'ease-in-out', 
+      duration: 1000, 
+      reset: true, 
+    })
+  },[])
 
   return (
     <>
@@ -25,10 +57,10 @@ const Home: React.FC = () => {
           <div className="flex flex-col lg:flex-row m-[3%] justify-center">
             <div className="flex items-center sm:w-full md:mt-[-90px] justify-center">
               <div className="lg:w-[570px] sm:w-full">
-                <h1 className="text-[26px] pb-4 pt-4 xl:text-[46px] leading-[46px] text-slate-900 font-[800] md:leading-[70px]">
+                <h1 className="text-[26px] pb-4 pt-4 xl:text-[46px] leading-[46px] text-slate-900 font-[800] md:leading-[70px] scrollUp">
                   We help you live your best life.
                 </h1>
-                <p className="pb-6">
+                <p className="pb-6 scrollUp">
                   Our platform connects you with Event management professionals,
                   ensuring that you receive the latest updates of Events standard.
                   Your well-being is our priority, and we're here to support you on your journey to optimal health.
@@ -37,30 +69,30 @@ const Home: React.FC = () => {
             </div>
             <div className="flex w-full gap-x-4">
               <div className="flex h-80 w-full gap-1 object-contain md:ps-12 content-center relative">
-                <img className="h-[95%] w-[60%] md:w-[40%] rounded-md" src={asset} alt="" />
+                <img className="h-[95%] w-[60%] md:w-[40%] rounded-md scrollLeft" src={asset} alt="" />
                 <div className="w-full gap-y-1 flex flex-col">
-                  <img className="h-[48%] sm:w-[50%] md:[60%] mt-3 rounded-md" src={asset2} alt="" />
-                  <img className="h-[40%] w-[70%] md:w-[40%] rounded-md" src={asset3} height={100} alt="" />
+                  <img className="h-[48%] sm:w-[50%] md:[60%] mt-3 rounded-md scrollRight" src={asset2} alt="" />
+                  <img className="h-[40%] w-[70%] md:w-[40%] rounded-md scrollRight" src={asset3} height={100} alt="" />
                 </div>
               </div>
             </div>
           </div>
 
           <div className="doctor_Card w-100 flex flex-col items-center justify-center">
-            <h1 className="font-semibold text-black text-xl">We Providing the best event services.</h1>
+            <h1 className="font-semibold text-black text-xl scrollUp">We Providing the best event services.</h1>
             <div className="flex w-full p-2 xl:flex-wrap justify-center items-center gap-1 xl:gap-3 my-12">
-              <div className="card flex justify-center items-end pb-5 w-full sm:w-30 md:w-96 lg:w-44 xl:w-48 h-48 xl:h-56 bg-slate-500 rounded-md" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(${banner1})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+              <div className="card scrollLeft flex justify-center items-end pb-5 w-full sm:w-30 md:w-96 lg:w-44 xl:w-48 h-48 xl:h-56 bg-slate-500 rounded-md" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(${banner1})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                 <h1 className="text-white font-semibold text-sm md:text-base">Wedding</h1>
               </div>
-              <div className="card flex justify-center items-end pb-5 w-full sm:w-30 md:w-44 lg:w-44 xl:w-48 h-56 xl:h-64 bg-slate-500 rounded-md" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(${banner2})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+              <div className="  card scrollUp flex justify-center items-end pb-5 w-full sm:w-30 md:w-44 lg:w-44 xl:w-48 h-56 xl:h-64 bg-slate-500 rounded-md" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(${banner2})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                 <h1 className="text-white font-semibold text-[13px] md:text-base">Public Fest</h1>
               </div>
-              <div className="card flex justify-center items-end pb-5 w-full sm:w-30 md:w-44 lg:w-44 xl:w-48 h-48 xl:h-56 rounded-md" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(${banner3})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+              <div className=" card  scrollRight flex justify-center items-end pb-5 w-full sm:w-30 md:w-44 lg:w-44 xl:w-48 h-48 xl:h-56 rounded-md" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(${banner3})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                 <h1 className="text-white font-semibold text-sm md:text-base">Private Party</h1>
               </div>
             </div>
 
-            <div className="text-center w-full sm:w-1/2 p-2">
+            <div className="text-center w-full sm:w-1/2 p-2 scrollUp">
               Our dedicated team strives to ensure a superior and personalized healthcare experience,
               leveraging the latest technology to facilitate virtual consultations with skilled doctors.
               With a steadfast focus on patient well-being, we aim to redefine the landscape of healthcare delivery
@@ -69,11 +101,11 @@ const Home: React.FC = () => {
             </div>
 
             <div className="flex flex-col items-center sm:flex-row md:flex-row justify-center mt-9 gap-x-10 w-full">
-              <div className="w-[80%] sm:w-1/3 patient_bg bg-slate-600 rounded-md h-52 flex justify-center items-end" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(${userBanner})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+              <div className="w-[80%] scrollLeft sm:w-1/3 patient_bg bg-slate-600 rounded-md h-52 flex justify-center items-end" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(${userBanner})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                 <Link to='/auth/userSignup'><button className="bg-blue-500 rounded-full p-1 px-2 font-semibold mb-2 text-white">Join as user</button></Link>
               </div>
 
-              <div className="w-[80%] mt-1 sm:w-1/3 doctor_bg bg-slate-600 rounded-md h-52 flex justify-center items-end" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(${organizerBanner})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+              <div className="w-[80%] scrollRight mt-1 sm:w-1/3 doctor_bg bg-slate-600 rounded-md h-52 flex justify-center items-end" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(${organizerBanner})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                 <Link to='/auth/organizerRegister'>
                   <button className="bg-blue-500 rounded-full p-1 px-2 font-semibold mb-2 text-white">Join as Organizer</button>
                 </Link>
@@ -83,7 +115,7 @@ const Home: React.FC = () => {
         </div>
       </section>
       <div className="w-full flex justify-center">
-      <BottumBar />
+        <BottumBar />
       </div>
     </>
   );

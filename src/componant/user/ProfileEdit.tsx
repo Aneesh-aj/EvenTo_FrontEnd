@@ -151,7 +151,7 @@ const EditProfileModal: React.FC<Props> = ({ isOpen, onClose,userData}) => {
 
     return (
         <Modal open={isOpen} onClose={onClose}>
-            <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", bgcolor: "background.paper", boxShadow: 24, p: 5, width: 500 }}>
+            <Box  sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", bgcolor: "background.paper", boxShadow: 24, p: 5 }} className="w-[80%] xl:w-[40%] rounded-md">
                 <form onSubmit={handleSubmit}>
                     <div className="flex gap-3 flex-col scroll-m-2">
                         <TextField fullWidth label="Name" name="name" value={formData.name} onChange={(e) => handleChange(e as any)} />
@@ -220,7 +220,3 @@ export default EditProfileModal;
 
 
 
-function setUsers(result: any) {
-    throw new Error("Function not implemented.");
-}
-// (e)=>handleChange(e as any)

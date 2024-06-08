@@ -88,24 +88,23 @@ export const ProfilePage: React.FC = () => {
             <Nav />
             <div className="w-full flex flex-col xl:flex-row    justify-center h-auto  bg-gray-300-600">
                 <div className="w-full  xl:w-6/12   p-2 flex flex-col mt-20   gap-2 rounded-xl">
-                    <Box className="w-full h-auto p-6  gap-3 flex flex-col border-2  xl:pt-6 bg-white rounded-md  justify-center items-center   xl:justify-start  xl:items-start xl:ps-10 ">
+                    <Box className="w-full h-auto p-6  gap-3 flex flex-col border-2  xl:pt-6 bg-white shadow-md rounded-md  justify-center items-center   xl:justify-start  xl:items-start xl:ps-10 ">
                         <div className=" w-full flex items-center justify-center xl:justify-start gap-3 flex-col xl:flex-row">
                             <Avatar className="relative" alt="Remy Sharp" sx={{ width: 130, height: 130 }} src={profile} />
                             <h1 className="font-bold text-xl xl:text-3xl">{userData && userData.user.name}</h1>
 
                         </div>
-                        <button className="w-[6rem] h-[2rem] xl:ms-5 rounded-md bg-blue-500 text-white " onClick={(e) => { profileIMG.current?.click() }}>change
+                        <button className="w-[6rem] h-[2rem] xl:ms-5 rounded-md shadow-lg bg-blue-500 text-white " onClick={(e) => { profileIMG.current?.click() }}>change
                             <span><LoopSharpIcon sx={{ width: 18, height: 15 }} /></span>
                             <input type="file" className="hidden" ref={profileIMG} onChange={(e) => changingProfile(e)} />
 
                         </button>
                     </Box>
 
-                    <Box className="w-full h-80 bg-white rounded-md border-2  ">
+                    <Box className="w-full h-80 bg-white rounded-md border-2 shadow-lg ">
                         <div className="w-full p-3 flex justify-end gap-2">
-                            <button className="w-[5rem] h-[2rem] rounded-md bg-blue-500 text-white" onClick={handleOpenModal}>Edit</button>
+                            <button className="w-[5rem] h-[2rem] rounded-md shadow-md bg-blue-500 text-white" onClick={handleOpenModal}>Edit</button>
                             <EditProfileModal isOpen={isModalOpen} onClose={handleCloseModal} userData={userData} />
-                            {/* <button className="w-[8rem] h-[2rem] rounded-md bg-blue-500 text-white" >Add address</button> */}
                         </div>
                         <ul className="p-6 flex flex-col gap-3">
 

@@ -52,15 +52,15 @@ const Home: React.FC = () => {
   return (
     <>
       <Nav />
-      <section className="b-[50px] bg-white w-full pt-[60px] mb-[5rem]">
-        <div className="container">
-          <div className="flex flex-col lg:flex-row m-[3%] justify-center">
-            <div className="flex items-center sm:w-full md:mt-[-90px] justify-center">
-              <div className="lg:w-[570px] sm:w-full">
+      <div className=" w-full pt-[60px] mb-[5rem]  ">
+        <div className="container ">
+          <div className="flex  flex-col lg:flex-row p-3 justify-center ">
+            <div className="flex items-center sm:w-full md:mt-[-90px] justify-center ">
+              <div className="lg:w-[570px] w-full  sm:w-full">
                 <h1 className="text-[26px] pb-4 pt-4 xl:text-[46px] leading-[46px] text-slate-900 font-[800] md:leading-[70px] scrollUp">
                   We help you live your best life.
                 </h1>
-                <p className="pb-6 scrollUp">
+                <p className="pb-6 scrollUp ">
                   Our platform connects you with Event management professionals,
                   ensuring that you receive the latest updates of Events standard.
                   Your well-being is our priority, and we're here to support you on your journey to optimal health.
@@ -77,7 +77,6 @@ const Home: React.FC = () => {
               </div>
             </div>
           </div>
-
           <div className="doctor_Card w-100 flex flex-col items-center justify-center">
             <h1 className="font-semibold text-black text-xl scrollUp">We Providing the best event services.</h1>
             <div className="flex w-full p-2 xl:flex-wrap justify-center items-center gap-1 xl:gap-3 my-12">
@@ -113,7 +112,7 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </div>
       <div className="w-full flex justify-center">
         <BottumBar />
       </div>

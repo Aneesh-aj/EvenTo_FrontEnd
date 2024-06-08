@@ -15,6 +15,7 @@ function ChatBody({ socket }: { socket: Socket }) {
   const [file, setFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const senter = useGetUser();
+  const scrollRef: any = useRef()
   const messageInput = useRef<HTMLInputElement>(null);
   const { id } = useParams();
 
@@ -34,6 +35,11 @@ function ChatBody({ socket }: { socket: Socket }) {
       fetchChat();
     }
   }, [id, senter.id]);
+
+  useEffect(() => {
+    scrollRef?.current?.scrollIntoView({ behavior: "smooth" });
+
+  }, [chat])
 
   useEffect(() => {
     return () => {
@@ -56,7 +62,7 @@ function ChatBody({ socket }: { socket: Socket }) {
         media: '',
         createdAt: new Date().toISOString()
       };
-      
+
       setMessage("")
       setImagePreview(null)
       if (file) {
@@ -135,7 +141,7 @@ function ChatBody({ socket }: { socket: Socket }) {
               <div className='font-semibold'>{user?.name}</div>
             </div>
           </div>
-          <div className={`flex-1 overflow-y-auto p-4 transition-all flex-col-reverse duration-300 ${imagePreview ? 'backdrop-blur-md' : ''}`}
+          <div className={`flex-1 overflow-y-auto p-2 xl:p-4 pt-20 pb-20 xl:pb-20 transition-all flex-col-reverse duration-300 ${imagePreview ? 'backdrop-blur-md' : ''}`}
             style={{
               backgroundImage: `url(${bg})`,
               backgroundSize: 'contain',
@@ -143,36 +149,59 @@ function ChatBody({ socket }: { socket: Socket }) {
               backgroundBlendMode: 'luminosity',
             }}
           >
-            {chat && chat.messages && chat.messages.map((msg: any) => (
-              <div
-                key={msg._id}
-                className={`mb-4 h-auto flex justify-${msg.senderId === senter.id ? 'end' : 'start'}`}
-              >
-                <div
-                  className={`p-2 h-auto w-[50%] flex rounded-lg shadow ${msg.senderId === senter.id ? 'bg-[#DCF8C6]' : 'bg-white'
-                    }`}
-                >
-                  {msg.media ? (
-                    <div className="w-full h-[180px] flex flex-col">
-                      <img src={msg.media} className='w-full h-[170px]' alt="" />
-                      <div className='w-full flex justify-end mt-1 '>
-                        <p className='text-[11px] w-[10%] text-[#878787 bg-fuchsia-600]'>{formatTime(msg.createdAt)}</p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="w-full flex flex-col">
-                      <p className='break-words overflow-hidden w-full text-[14px] text-[#303030]'>
-                        {msg.message}
-                      </p>
-                      <div className='w-full flex justify-end mt-1 '>
-                        <p className='text-[11px] w-[10%] text-[#878787 bg-fuchsia-600]'>{formatTime(msg.createdAt)}</p>
-                      </div>
+            {chat && chat.messages && chat.messages.map((msg: any, index: number) => {
+             const isFirstMessage = index === 0;
+             const currentDate = new Date(msg.createdAt).toLocaleDateString();
+             const prevDate = isFirstMessage ? null : new Date(chat.messages[index - 1].createdAt).toLocaleDateString();
+             const today = new Date().toLocaleDateString();
+             const yesterday = new Date()
+             yesterday.setDate(yesterday.getDate()-1)
+             
+             console.log(" the yersday",yesterday)
+
+              return (
+                <React.Fragment key={msg._id}>
+                  {!isFirstMessage && currentDate !== prevDate && (
+                    <div className="text-center text-gray-500 w-full h-[4rem]  mt-4 mb-2 flex justify-center items-center">
+                        <div>
+                        <h1 className='w-[7rem] h-[50%] rounded-lg border-2 shadow-md font-medium text-gray-600 bg-white text-center items-center '>
+                         {currentDate === today ? 'Today' : (currentDate === new Date(yesterday).toLocaleDateString() ? 'Yesterday' : currentDate)}
+                        </h1>
+                        </div>
                     </div>
                   )}
-                </div>
-              </div>
-            ))}
+
+                  <div ref={scrollRef}
+                    key={msg._id}
+                    className={`mb-4 h-auto flex justify-${msg.senderId === senter.id ? 'end' : 'start'}`}
+                  >
+                    <div
+                      className={`p-3 h-auto w-[50%] flex  shadow ${msg.senderId === senter.id ? 'bg-[#DCF8C6] rounded-s-2xl xl:rounded-s-2xl rounded-b-3xl xl:rounded-b-3xl' : 'bg-white rounded-e-2xl xl:rounded-e-2xl rounded-b-3xl xl:rounded-b-2xl'
+                        }`}
+                    >
+                      {msg.media ? (
+                        <div className="w-full h-[180px] flex flex-col">
+                          <img src={msg.media} className='w-full h-[170px]' alt="" />
+                          <div className='w-full flex justify-end mt-1 '>
+                            <p className='text-[11px] w-[30%] xl:w-[10%] text-[#878787 bg-fuchsia-600]'>{formatTime(msg.createdAt)}</p>
+                          </div>
+                        </div>                      ) : (
+                        <div className="w-full flex flex-col">
+                          <p className='break-words overflow-hidden w-full text-[14px] text-[#303030]'>
+                            {msg.message}
+                          </p>
+                          <div className='w-full flex justify-end mt-1 '>
+                            <p className='text-[11px] w-[30%] xl:w-[10%] text-[#878787 bg-fuchsia-600]'>{formatTime(msg.createdAt)}</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </React.Fragment>
+              );
+            })}
           </div>
+          
 
           {imagePreview && (
             <div className="absolute inset-0 flex justify-center items-center backdrop-blur-md bg-opacity-80 -z-1">
@@ -203,7 +232,7 @@ function ChatBody({ socket }: { socket: Socket }) {
               ref={messageInput}
               placeholder="Type a message"
               accept="image/*"
-              className="w-full p-2 rounded bg-gray-100 text-gray-800"
+              className="w-[70%] xl:w-[55%] border-2 border-black p-2 rounded bg-gray-100 text-gray-800"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && send()}
@@ -223,3 +252,5 @@ function ChatBody({ socket }: { socket: Socket }) {
 }
 
 export default ChatBody;
+
+                        

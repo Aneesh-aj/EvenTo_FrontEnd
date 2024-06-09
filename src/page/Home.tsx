@@ -132,7 +132,7 @@ const Home: React.FC = () => {
             </div>
           ) : (
             <div className="w-full flex justify-center">
-              <div>Hello</div>
+              <div></div>
             </div>
           )
         }

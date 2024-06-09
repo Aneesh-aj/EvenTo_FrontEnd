@@ -20,6 +20,7 @@ import image from "../../assets/9318688.jpg"
 
 import { PostAddModal } from "../../componant/organizer/PostAddModal";
 import { PostEditModal } from "../../componant/organizer/PostEditModal";
+import { OrganizerBottumBar } from "../../componant/common/OrganizerBottumBar";
 
 
 const OrganizerProfile: React.FC = () => {
@@ -124,7 +125,7 @@ const OrganizerProfile: React.FC = () => {
     return (
         <>
             <Nav />
-            <div className='h-auto bg-white w-full flex p-2 flex-row justify-center '>
+            <div className='h-auto bg-white w-full flex p-2 flex-row justify-center  mb-20'>
                 <div className="w-full xl:w-7/12">
                     <div className="w-full rounded-lg shadow-md border-2 mt-20 h-auto bg-white">
                         <div className="w-full rounded-lg object-contain relative shadow bg-white h-32 xl:h-48 flex items-end">
@@ -236,6 +237,9 @@ const OrganizerProfile: React.FC = () => {
                 <div className="w-2/12 p-2 mt-20 h-auto hidden xl:block">
                     <EventPostListing />
                 </div>
+            </div>
+            <div className="w-full bottum-0 flex justify-center z-0">
+                <OrganizerBottumBar />
             </div>
         </>
     );

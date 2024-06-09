@@ -21,17 +21,17 @@ export const OrganizerBottumBar: React.FC = () => {
         </Link>
         <Link to={`/organizer/dashboard/${currentUser.id}`} className="text-gray-600 hover:text-blue-500 w-1/5 flex flex-col justify-center items-center">
           <BookOutlinedIcon/>
-          <span className="block text-xs">Event</span>
+          <span className="block text-xs">Events</span>
         </Link>
         <Link to={`/organizer/organizerEventPost/${currentUser.id}`} className="text-gray-600 hover:text-blue-500  w-1/5 flex flex-col justify-center items-center">
            <CelebrationOutlinedIcon/>
           <span className="block text-xs">EventPost</span>
         </Link>
-        <Link to="/user/message" className="text-gray-600 hover:text-blue-500  w-1/5 flex flex-col justify-center items-center">
+        <Link to="/organizer/message" className="text-gray-600 hover:text-blue-500  w-1/5 flex flex-col justify-center items-center">
            <MailOutlineOutlinedIcon/>
           <span className="block text-xs">Message</span>
         </Link>
-        <Link to={`/user/profile/${currentUser.id}`} className="text-gray-600 hover:text-blue-500  w-1/5 flex flex-col justify-center items-center">
+        <Link to={`/organizer/profile/${currentUser.id}`} className="text-gray-600 hover:text-blue-500  w-1/5 flex flex-col justify-center items-center">
           <Person2OutlinedIcon/>
           <span className="block text-xs">Profile</span>
         </Link>

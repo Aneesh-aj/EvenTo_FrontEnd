@@ -71,7 +71,7 @@ export const EventPostEdit: React.FC<Props> = ({ isOpen, onClose, formData }) =>
     return (
         <>
             <Modal open={isOpen} onClose={onClose}>
-                <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", bgcolor: "background.paper", boxShadow: 24, p: 5, width: 600, overflowY: 'auto', maxHeight: '90vh' }}>
+                <Box component="form" className="w-[80%] xl:w-[40%]" onSubmit={handleSubmit(onSubmit)} sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", bgcolor: "background.paper", boxShadow: 24, p: 5, overflowY: 'auto', maxHeight: '90vh',borderRadius:'3px' }}>
                     <Toaster />
                     <div className="w-full flex flex-col gap-2">
                         <div className="w-full flex justify-center p-3">

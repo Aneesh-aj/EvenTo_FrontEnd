@@ -6,7 +6,7 @@ import CustomBarChart from "./Revenue"
 export const OrganizerDashboard = () => {
     return (
         <>
-            <div className="hidden lg:block xl:block w-full  h-auto flex gap-6 flex-col">
+            <div className="hidden lg:block xl:block w-full  h-auto  gap-6 flex-col">
                 <div className="w-full flex justify-center">
                     <div className="w-[80%] h-[7rem] flex gap-3 ps-7 pe-7 justify-evenly">
                         <div className="w-1/4  h-full rounded-md shadow-xl">

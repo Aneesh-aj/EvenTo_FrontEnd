@@ -59,15 +59,15 @@ export const PostAddModal: React.FC<Props> = ({ isOpen, onClose, organizerId }) 
     return (
         <>
             <Modal open={isOpen} onClose={onClose} sx={{borderRadius:'5px',}}>
-                <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ position: "absolute", borderRadius:'5px',top: "50%", left: "50%", transform: "translate(-50%, -50%)", bgcolor: "background.paper", boxShadow: 24, p: 5, width: 600, overflowY: 'auto', maxHeight: '90vh' }}>
+                <Box component="form" className="w-[90%] xl:w-[40%] p-3 xl:p-5" onSubmit={handleSubmit(onSubmit)} sx={{ position: "absolute", borderRadius:'5px',top: "50%", left: "50%", transform: "translate(-50%, -50%)", bgcolor: "background.paper", boxShadow: 24 ,  overflowY: 'auto', maxHeight: '90vh' }}>
                     <Toaster />
-                    <div className="w-full p-4 flex justify-end">
+                    <div className="w-full p-2 xl:p-4 flex justify-end">
                         <CloseIcon onClick={onClose}></CloseIcon>
                     </div>
-                    <div className="w-full flex flex-col gap-2">
                         <div className="w-full flex justify-center ">
                             <h1 className="font-bold">Post Creation</h1>
                         </div>
+                    <div className="w-full flex flex-col gap-2 p-3">
                         <TextField
                             label="Title"
                             variant="outlined"

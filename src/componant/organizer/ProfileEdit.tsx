@@ -368,7 +368,7 @@ const ProfileEdit: React.FC<Props> = ({ isOpen, onClose, organizerData }) => {
 
     return (
         <Modal open={isOpen} onClose={onClose}  sx={{borderRadius:'5px',}}>
-            <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",borderRadius:'5px', bgcolor: "background.paper", boxShadow: 24, p: 2, width: 600, overflowY: 'auto', maxHeight: '90vh' }}>
+            <Box className="w-[90%] xl:w-[50%]" sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",borderRadius:'5px', bgcolor: "background.paper", boxShadow: 24, p: 2, overflowY: 'auto', maxHeight: '90vh' }}>
                  <div className="w-full p-4 flex justify-end">
                       <CloseIcon  onClick={onClose}></CloseIcon>
                  </div>
@@ -406,9 +406,9 @@ const ProfileEdit: React.FC<Props> = ({ isOpen, onClose, organizerData }) => {
                                         />
                                     ))
                                 }
-                                style={{ width: 500 }}
+                                
                                 renderInput={(params) => (
-                                    <TextField {...params} label="Categories" placeholder="Select Categories" />
+                                    <TextField {...params} label="Categories" className="" placeholder="Select Categories" />
                                 )}
                             />
 

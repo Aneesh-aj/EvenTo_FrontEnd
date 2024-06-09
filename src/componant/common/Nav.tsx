@@ -68,7 +68,7 @@ const Nav: React.FC = () => {
                         <ul className="flex w-full flex-col md:flex-row  md:space-x-4 mt-4 md:mt-0 md:ml-auto ">
                             {!role && (
                                 <>
-                                    <li className=" xl:border-t-0 border-t-2  rounded-sm  w-full flex justify-center"><a href="/" className="hover:text-gray-500 block py-2 md:py-0">Home</a></li>
+                                    <li className=" border-t-2 xl:border-t-0   rounded-sm  w-full flex justify-center"><a href="/" className="hover:text-gray-500 block py-2 md:py-0">Home</a></li>
                                     <li  className=" xl:border-b-0 w-full  flex justify-center"><a href="#" className="hover:text-gray-500 block py-2 md:py-0">Events</a></li>
                                     <li  className=" w-full flex justify-center"><a href="#" className="hover:text-gray-500 block py-2 md:py-0">About</a></li>
                                     <li  className=" xl:border-b-0 w-full  flex justify-center"><a href="#"  className="hover:text-gray-500 block py-2 md:py-0"></a></li>
@@ -81,7 +81,7 @@ const Nav: React.FC = () => {
                             )}
                             {role === "user" && (
                                 <>
-                                    <li  className="border-t-2 xl:border-b-0 w-full flex justify-center"><a href="/" className="hover:text-gray-500 block py-2 md:py-0">Home</a></li>
+                                    <li  className="border-t-2 xl:border-t-0 xl:border-b-0 w-full flex justify-center"><a href="/" className="hover:text-gray-500 block py-2 md:py-0">Home</a></li>
                                     <li  className=" xl:border-b-0 w-full flex justify-center"><a href="/user/booking" className="hover:text-gray-500 block py-2 md:py-0">Booking</a></li>
                                     <li  className=" xl:border-b-0 w-full flex justify-center"><a href="/user/events" className="hover:text-gray-500 block py-2 md:py-0">Events</a></li>
                                     <li  className=" xl:border-b-0 w-full flex justify-center"><a href={`/user/profile/${currentUser.id}`} className="hover:text-gray-500 block py-2 md:py-0">Profile</a></li>
@@ -91,11 +91,11 @@ const Nav: React.FC = () => {
                             )}
                             {role === "organizer" && (
                                 <>
-                                    <li><a href={`/organizer/dashboard/${currentUser.id}`} className="hover:text-gray-500 block py-2 md:py-0">Events</a></li>
-                                    <li><a href={`/organizer/message`} className="hover:text-gray-500 block py-2 md:py-0">Message</a></li>
-                                    <li><a href={`/organizer/profile/${currentUser.id}`} className="hover:text-gray-500 block py-2 md:py-0">Profile</a></li>
-                                    <li><a href={`/organizer/organizerEventPost/${currentUser.id}`} className="hover:text-gray-500 block py-2 md:py-0">EventPost</a></li>
-                                    <li><button onClick={organizerLogout} className="  bg-blue-400 pt-1 pb-1 px-3 text-white rounded-md hover:bg-blue-300 block md:inline-block mt-2 md:mt-0">Logout</button></li>
+                                    <li className="border-t-2 xl:border-b-0 w-full flex justify-center"><a href={`/organizer/dashboard/${currentUser.id}`} className="hover:text-gray-500 block py-2 md:py-0">Events</a></li>
+                                    <li className=" xl:border-b-0 w-full flex justify-center"><a href={`/organizer/message`} className="hover:text-gray-500 block py-2 md:py-0">Message</a></li>
+                                    <li className=" xl:border-b-0 w-full flex justify-center"><a href={`/organizer/profile/${currentUser.id}`} className="hover:text-gray-500 block py-2 md:py-0">Profile</a></li>
+                                    <li className=" xl:border-b-0 w-full flex justify-center"><a href={`/organizer/organizerEventPost/${currentUser.id}`} className="hover:text-gray-500 block py-2 md:py-0">EventPost</a></li>
+                                    <li className=" xl:border-b-0 w-full flex justify-center"><button onClick={organizerLogout} className="  bg-blue-400 pt-1 pb-1 px-3 text-white rounded-md hover:bg-blue-300 block md:inline-block mt-2 md:mt-0">Logout</button></li>
                                 </>
                             )}
                             {role === "admin" && (

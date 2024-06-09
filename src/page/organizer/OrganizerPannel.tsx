@@ -8,6 +8,8 @@ import EventPannel from '../../componant/organizer/EventPannel';
 import { EventRequests } from './EventRequests';
 import { Chat } from '../../componant/common/chat/Chat';
 import { OrganizerDashboard } from './OrganizerDashboard';
+import image from "../../assets/isometric_26.jpg"
+import { OrganizerBottumBar } from '../../componant/common/OrganizerBottumBar';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -30,7 +32,7 @@ function CustomTabPanel(props: TabPanelProps) {
   );
 }
 
-export default function OrganizerPannel(){
+export default function OrganizerPannel() {
   const location = useLocation();
   const navigate = useNavigate();
   const currentUser = useGetUser();
@@ -75,7 +77,7 @@ export default function OrganizerPannel(){
   return (
     <>
       <Nav />
-      <Box sx={{ width: '100%', paddingTop: '5rem' }}>
+      <Box sx={{ width: '100%', paddingTop: '5rem' }} className="hidden xl:block lg:block">
         <Box
           sx={{
             borderBottom: 1,
@@ -102,23 +104,30 @@ export default function OrganizerPannel(){
               <Tab sx={{ marginLeft: '10%' }} label="Dashboard" />
               <Tab sx={{ marginLeft: '20%' }} label="Events" />
               <Tab sx={{ marginLeft: '20%' }} label="Requests" />
-          
+
             </Tabs>
           </div>
         </Box>
         <CustomTabPanel value={value} index={0}>
-            <OrganizerDashboard/>
+          <OrganizerDashboard />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-             <EventPannel />
+          <EventPannel />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-             <EventRequests/>
+          <EventRequests />
         </CustomTabPanel>
-        {/* <CustomTabPanel value={value} index={3}>
-              <Chat/>
-        </CustomTabPanel> */}
       </Box>
+      <div className='w-full block  xl:hidden lg:hidden items-center content-center  h-screen '>
+        <div className="w-full   flex flex-col items-center ">
+          <img src={image} className='w-full h-full' alt="" />
+          <h4 className='font-semibold p-5'>Switch to laptop view</h4>
+        </div>
+      </div>
+      <div className="w-full bottum-0 flex justify-center z-0">
+        <OrganizerBottumBar />
+      </div>
+
     </>
   );
 }

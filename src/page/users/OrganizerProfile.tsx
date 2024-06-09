@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import Nav from "../../componant/common/Nav";
 
-import { findbyId, getPost, uploadBackground, uploadProfilePicture } from "../../api/organizer";
+import { findbyId, getPost} from "../../api/organizer";
 import Chip from '@mui/material/Chip';
 import { Country, State } from "country-state-city";
 import image from "../../assets/9318688.jpg"
-import { EventPostListing } from "../../componant/organizer/EventPostListing";
 import bg from "../../assets/unknownProfile.jpeg"
 import ShareIcon from '@mui/icons-material/Share';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -115,8 +114,8 @@ const OrganizerProfile: React.FC = () => {
                                         <Divider variant="middle" />
                                         <div className="w-full h-auto p-4 flex flex-col gap-4">
                                             <div className="w-full h-14 flex items-center ">
-                                                <div className="w-[50%] h-full flex items-center gap-4">
-                                                    <div className="w-14 h-14 bg-yellow-300 rounded-full">
+                                                <div className="w-[50%] h-full flex items-center gap-4 ">
+                                                    <div className="w-10 h-10 xl:w-14 xl:h-14 bg-yellow-300 rounded-full">
                                                         <img src={organizerData?.profileImage} className="h-full w-full rounded-full" alt="" />
                                                     </div>
                                                     <h1 className="font-bold text-lg">{organizerData?.name}</h1>

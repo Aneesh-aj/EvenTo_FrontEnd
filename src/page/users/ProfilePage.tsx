@@ -149,14 +149,14 @@ export const ProfilePage: React.FC = () => {
 
                 </div>
                 <div className="xl:w-3/12 mt-0 xl:mt-20  p-2">
-                    <div className="w-full mb-4 bg-white rounded-md h-[2.5rem] border-2 flex justify-center items-center">
+                    <div className="w-full shadow-lg mb-4 bg-white rounded-md h-[2.5rem] border-2 flex justify-center items-center">
                         latest Events
                         <TrendingFlatTwoToneIcon />
                     </div>
                     <LatestEvent />
 
                 </div>
-                {/* {userDeta} */}
+              
             </div>
             <div className="w-full flex justify-center">
                 <BottumBar />

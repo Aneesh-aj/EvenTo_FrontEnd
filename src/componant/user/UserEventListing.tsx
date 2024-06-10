@@ -8,6 +8,15 @@ import { getAlleventPost } from '../../api/organizer';
 import { getAllcategory } from "../../api/user";
 import image from '../../assets/9318688.jpg';
 
+const splitDate = (dateString:string) => {
+    const dateParts = dateString.split(' ');
+    const day = dateParts[0];
+    const month = dateParts[1];
+    const date = dateParts[2];
+    const year = dateParts[3];
+    return `${month} ${date} ${day} ${year}`;
+};
+
 export const UserEventListing = () => {
     const navigate = useNavigate();
 
@@ -25,6 +34,7 @@ export const UserEventListing = () => {
             setError(false);
             try {
                 const response = await getAlleventPost();
+                console.log(" --------from backend",response)
                 const allcategory = await getAllcategory();
                 setCategory(allcategory.category);
                 setEvents(response.posts);
@@ -81,7 +91,7 @@ export const UserEventListing = () => {
                     <button className='bg-blue-400 h-[2rem] rounded-md w-[5rem] text-white' onClick={() => handleSearch(searchQuery)}>Search</button>
                 </div>
             </div>
-            <div className="w-full xl:m-2 p-2 h-auto">
+            <div className="w-full xl:m-2 p-2 h-auto mb-16">
                 {loading ? (
                     <div className="grid gap-3 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                         {[...Array(8)].map((_, index) => (
@@ -139,7 +149,7 @@ export const UserEventListing = () => {
                                         title="Event Image"
                                     />
                                     <div className="-translate-y-6 rounded-b-lg w-full h-30 bg-black text-center">
-                                        <h1 className="text-white">may 12 monday 2024</h1>
+                                        <h1 className="text-white">{splitDate(ele.event.date)}</h1>
                                     </div>
                                     <CardContent
                                         sx={{
@@ -168,7 +178,7 @@ export const UserEventListing = () => {
                                             sx={{ height: '30px', overflow: 'hidden', overflowWrap: 'break-word', wordWrap: 'break-word' }}
                                             color="text.secondary"
                                         >
-                                            $ 100
+                                            Rs.{ele.event.paymentAmount}
                                         </Typography>
                                     </CardContent>
                                 </Card>

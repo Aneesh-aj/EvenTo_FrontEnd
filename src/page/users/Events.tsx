@@ -1,7 +1,10 @@
+import { useEffect, useState } from "react"
 import { BottumBar } from "../../componant/common/BottumBar"
 import Nav from "../../componant/common/Nav"
 import { SideBar } from "../../componant/common/SideBar"
 import { UserEventListing } from "../../componant/user/UserEventListing"
+import { getAlleventPost } from "../../api/organizer"
+import { getAllcategory } from "../../api/user"
 
 
 export const Events = () => {

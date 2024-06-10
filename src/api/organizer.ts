@@ -368,3 +368,12 @@ export const getPost = async(organizerId:string)=>{
      throw error
   }
 }
+
+export const dashBoardData =async(organizerId:string)=>{
+  try{
+       const response = await Api.get(organizerRoutes.getDashboardData+`/${organizerId}`)
+       return response.data
+  }catch(error){
+     throw error
+  }
+}

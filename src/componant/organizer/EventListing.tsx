@@ -41,8 +41,10 @@ const EventListing = () => {
     try {
       const events = await cancelEvent(eventId, currentUser.id)
       if (events.success) {
-        setEvents(events.events)
+        getEvents()
+        toast.success("cancelled successfully")
       } else {
+        getEvents()
         toast.error(events.message)
       }
     } catch (error) {

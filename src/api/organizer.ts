@@ -340,9 +340,7 @@ export const postCreation = async(data:post)=>{
 }
 
 export const postUpdate = async(postId:string,data:post)=>{
-  try{
-     
-       
+  try{  
        const response = await Api.post(organizerRoutes.postUpdate,{postId:postId,data:data})
        return response.data
   }catch(error){
@@ -375,5 +373,23 @@ export const dashBoardData =async(organizerId:string)=>{
        return response.data
   }catch(error){
      throw error
+  }
+}
+
+export const fetchRevenue= async(organizerId:string)=>{
+  try{
+       const response = await Api.get(organizerRoutes.getRevenue+`/${organizerId}`)
+       return response.data
+  }catch(error){
+     throw error
+  }
+}
+
+export const fetchEventGraph =async(organizerId:string)=>{
+  try{
+      const response = await Api.get(organizerRoutes.getEventGraph+`/${organizerId}`)
+      return response.data
+  }catch(error){
+    throw error
   }
 }

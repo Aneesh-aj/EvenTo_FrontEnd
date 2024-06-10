@@ -66,13 +66,11 @@ const SeatCreating: React.FC<Propose> = ({ seatArranging }) => {
 
     const exportSeats = () => {
         const availableSeats: { row: string; column: number }[] = [];
-        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''); 
-        seats.forEach((row, rowIndex) => {
+        seats.forEach((row) => {
             row.forEach((seat) => {
                 availableSeats.push({ ...seat });
             });
         });
-        console.log("Available Seats:", availableSeats);
         seatArranging(availableSeats as Seat[])
 
     };

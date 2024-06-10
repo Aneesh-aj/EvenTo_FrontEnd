@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { book, getAllseat, payment } from "../../api/user"
-import { useNavigate, useParams } from "react-router-dom"
+import {  useParams } from "react-router-dom"
 import { Ievents, Seat } from "../../@types/eventType";
 import { loadStripe } from "@stripe/stripe-js"
 import toast, { Toaster } from "react-hot-toast";
@@ -18,12 +18,10 @@ export const SeatBooking = () => {
     const [selectedSeats, setSelectedSeats] = useState<Seat[]>([]);
     const [postId, setPostid] = useState<string>()
     const [event, setEvent] = useState<Ievents>()
-    console.log(" devnet", event)
 
     useEffect(() => {
 
         socket.on('seatSelected', ({ data }) => {
-            console.log('Seat ------------selected:', data);
             getSeat()
         });
 
@@ -104,9 +102,7 @@ export const SeatBooking = () => {
 
 
     const handleConfirmBooking = async () => {
-        // Send selectedSeats array to backend
-        console.log("Selected Seats:", selectedSeats);
-
+   
         setSelectedSeats([]);
         if (selectedSeats.length == 0) return toast.error("please select seats")
 
@@ -122,12 +118,11 @@ export const SeatBooking = () => {
 
 
         const response = await book(event?._id as string, selectedSeats, currentUser.id)
-        console.log(" the respnseeeeeeeee -----------------------", response)
         handleSeatSelection()
         if (response.success) {
             await loadStripe("pk_test_51PFyqWSEhUTiu13xKxIRFqzlwRSAvqHPNSJ0EfCCjE37wcSfKFBZmKiv2oJY1gnaSWPmKb4HgfpITlKqwZ70Amoo00Rwxor5D4")
             const payments = await payment(event?._id as string, currentUser.id, selectedSeats, event?.paymentAmount as string, postId as string)
-            console.log(payments)
+  
             window.location = payments
         } else {
             toast.error("seat Already taken")
@@ -222,7 +217,7 @@ export const SeatBooking = () => {
                     <div className="w-full fixed pe-16 h-[100px] bg-white  flex justify-center">
                         <button
                             onClick={handleConfirmBooking}
-                            className="mt-6 p-3 h-[3rem] shadow-md bg-blue-500 text-white rounded-md shadow hover:bg-blue-600"
+                            className="mt-6 p-3 h-[3rem] shadow-md bg-blue-500 text-white rounded-md  hover:bg-blue-600"
                         >
                             Confirm Booking
                         </button>

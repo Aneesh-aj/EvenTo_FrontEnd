@@ -8,7 +8,7 @@ import { getAlleventPost } from '../../api/organizer';
 import { getAllcategory } from "../../api/user";
 import image from '../../assets/9318688.jpg';
 
-const splitDate = (dateString:string) => {
+const splitDate = (dateString: string) => {
     const dateParts = dateString.split(' ');
     const day = dateParts[0];
     const month = dateParts[1];
@@ -34,7 +34,7 @@ export const UserEventListing = () => {
             setError(false);
             try {
                 const response = await getAlleventPost();
-                console.log(" --------from backend",response)
+                console.log(" --------from backend", response)
                 const allcategory = await getAllcategory();
                 setCategory(allcategory.category);
                 setEvents(response.posts);
@@ -130,7 +130,7 @@ export const UserEventListing = () => {
                                     onClick={() => {
                                         navigate(`/user/postDetails/${ele._id}`);
                                     }}
-                                    className='shadow-md'
+                                    className='shadow-md relative'
                                     sx={{
                                         width: '100%',
                                         height: 'auto',
@@ -148,6 +148,11 @@ export const UserEventListing = () => {
                                         image={ele?.image}
                                         title="Event Image"
                                     />
+                                    {new Date(ele.event.date) < new Date() && (
+                                        <div className="absolute top-0 right-0 w-full bg-red-500 text-white text-md font-bold xl:ps-14 shadow-gray-500 text-shadow-xl  shadow-sm px-2 py-1 transform rotate-45 translate-x-12 text-center ps-10 translate-y-4">
+                                            Expired
+                                        </div>
+                                    )}
                                     <div className="-translate-y-6 rounded-b-lg w-full h-30 bg-black text-center">
                                         <h1 className="text-white">{splitDate(ele.event.date)}</h1>
                                     </div>

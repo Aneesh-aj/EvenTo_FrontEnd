@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import { cancelEvent, changeEventStatus, getAllEvents, getUpcomingEvent } from "../../api/organizer"
+import { cancelEvent, changeEventStatus, getUpcomingEvent } from "../../api/organizer"
 import useGetUser from "../../hook/useGetUser"
-import { Box, Button, Card, Pagination, Skeleton } from "@mui/material"
+import { Box, Button, Pagination, Skeleton } from "@mui/material"
 import EastIcon from '@mui/icons-material/East';
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";

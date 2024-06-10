@@ -35,7 +35,9 @@ const organizerRoutes={
     postUpdate:"/organizer/postUpdate",
     postDelete:"/organizer/deletePost",
     getPosts:"/organizer/getPosts",
-    getDashboardData:'/organizer/getDashboardData'
+    getDashboardData:'/organizer/getDashboardData',
+    getRevenue:"/organizer/getRevenue",
+    getEventGraph:"/organizer/getEventGraph"
     
 }
 

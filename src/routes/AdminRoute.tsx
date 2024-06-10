@@ -10,6 +10,7 @@ import RequestDetails from "../page/admin/RequestDetails"
 // import Errorpage from "../Components/404page"
 import Users from "../page/admin/Users"
 import { CategoryPage } from "../page/admin/CategoryPage"
+import { AdminDashboard } from "../page/admin/AdminDashboard"
 // import Organizers from "../Pages/AdminPages/organizer"
 
 
@@ -19,6 +20,7 @@ function AdminRoutes() {
         <>
             <Routes>
             
+                    <Route path="/dashboard" element={<AdminDashboard/>} />
                     <Route path="/request" element={<AdminRequest />} />
                     <Route path="/users" element={<Users/>} />                   
                      <Route path="/login" element={< AdminLogin/>} />

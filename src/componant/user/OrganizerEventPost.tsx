@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react"
-import bg from "../../assets/3902762.jpg"
 import { useNavigate, useParams } from "react-router-dom"
 import { getEventPost } from "../../api/organizer"
 import image from "../../assets/9318688.jpg"
-import useGetUser from "../../hook/useGetUser"
 
 export const OrganizerEventPosts = () => {
     const [eventPosts,setEventPosts] = useState([])

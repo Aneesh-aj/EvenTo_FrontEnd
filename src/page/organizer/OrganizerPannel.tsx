@@ -6,7 +6,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import useGetUser from '../../hook/useGetUser';
 import EventPannel from '../../componant/organizer/EventPannel';
 import { EventRequests } from './EventRequests';
-import { Chat } from '../../componant/common/chat/Chat';
 import { OrganizerDashboard } from './OrganizerDashboard';
 import image from "../../assets/isometric_26.jpg"
 import { OrganizerBottumBar } from '../../componant/common/OrganizerBottumBar';
@@ -54,10 +53,11 @@ export default function OrganizerPannel() {
       return 2;
     }
 
-    return -1; // If no matching prefix, return a default or error index
+    return -1; 
   };
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+     console.log(event)
     setValue(newValue);
     switch (newValue) {
       case 0:

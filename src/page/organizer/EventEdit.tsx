@@ -79,7 +79,6 @@ const EventEdit: React.FC = () => {
     const [selectedCity, setSelectedCity] = useState<string | undefined>();
     const [booking, setBooking] = useState<boolean>()
     const [formPart, setFormPart] = useState<boolean>(true)
-    const [seatPart, setSeatPart] = useState<boolean>(false)
     const [eventCountry, setEventCountry] = useState<string | undefined>()
     const [eventState, setEventState] = useState<string | undefined>()
     const [eventCity, setEventCity] = useState<string | undefined>()
@@ -101,7 +100,6 @@ const EventEdit: React.FC = () => {
     useEffect(() => {
         async function fetching() {
             const events = await geteventDetails(id as string)
-            console.log("----------------Fetching----- the events --------------------------------------------------", events.details.event)
             setCurrentEvent(events.details.event)
         }
         fetching()
@@ -163,9 +161,7 @@ const EventEdit: React.FC = () => {
         data.startingTime = startingTime,
             data.endingTime = endingTime
 
-        console.log("-------------------data----------------", data)
         const response = await updateEvent(data, id as string)
-        console.log(" the resposne ss", response)
         if (response.event.success == true) {
          
             // window.location.reload()
@@ -199,9 +195,7 @@ const EventEdit: React.FC = () => {
             const eventDate = dayjs(currentEvent.date);
             setSelectedDate(eventDate);
             setValue('date', eventDate);
-            console.log(" 1 starting time ", currentEvent.startingTime)
             const starting = dayjs(currentEvent.startingTime);
-            console.log(" 2 staring itme ", starting)
             setStartingTime(starting);
             setValue('startingTime', starting);
 
@@ -219,13 +213,12 @@ const EventEdit: React.FC = () => {
             setValue('seatArrangement', currentEvent.seatArrangement)
         }
     }, [setValue, currentEvent])
-    console.log(" the statee ", selectedState, " and the normal", currentEvent.state)
 
     useEffect(() => {
         const getCountries = async () => {
             const result: Country[] = await Country.getAllCountries();
             const getCategorys = await getCategory(currentUser.id)
-            console.log(" the getting categorysss", getCategorys)
+
             setCategory(getCategorys.category)
             setCountries(result);
             setEventCountys(result)
@@ -293,7 +286,6 @@ const EventEdit: React.FC = () => {
     }, [selectedCountry, eventCountry]);
 
  
-    console.log(" the sleected country", selectedCountry, "and ", currentEvent.country)
 
 
     return (

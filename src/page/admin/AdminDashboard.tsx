@@ -1,10 +1,15 @@
+import Nav from "../../componant/common/Nav"
 import CustomLineChart from "../organizer/Revenue"
 
 
 export const AdminDashboard = () => {
+     
+    
+     
     return (
-        <>
-            <div className="w-full  h-auto flex gap-6 flex-col">
+        <>  
+             <Nav/>
+            <div className="w-full  h-auto flex gap-6 flex-col pt-20">
                 <div className="w-full flex justify-center">
                     <div className="w-[80%] h-[7rem] flex gap-3 ps-7 pe-7">
                         <div className="w-1/4  h-full rounded-md shadow-xl">

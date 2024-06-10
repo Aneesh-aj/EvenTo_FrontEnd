@@ -13,7 +13,6 @@ import bg from "../../assets/unknownProfile.jpeg"
 import { Divider } from "@mui/material";
 import ShareIcon from '@mui/icons-material/Share';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import CommentIcon from '@mui/icons-material/Comment';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import image from "../../assets/9318688.jpg"
@@ -44,13 +43,13 @@ const OrganizerProfile: React.FC = () => {
     const [shouldRefetch, setShouldRefetch] = useState<boolean>(false);
     const currentUser = useSelector((state: { user: currentUser }) => state.user);
     const id = currentUser?.id;
+    setLiked(true)
 
 
     async function changing(e: React.ChangeEvent<HTMLInputElement>) {
         const file = e.target.files?.[0];
         if (file) {
             const url = await UploadBackgroundImage(file);
-            console.log("getting the url", url);
             setBackground(url);
             await uploadBackground(id, url);
         }
@@ -60,7 +59,6 @@ const OrganizerProfile: React.FC = () => {
         const file = e.target.files?.[0];
         if (file) {
             const url = await UploadProfilePicture(file);
-            console.log("getting the url", url);
             setProfile(url);
             await uploadProfilePicture(id, url);
         }
@@ -81,7 +79,6 @@ const OrganizerProfile: React.FC = () => {
             setBackground(organizer?.organizer.backgroundImage);
             setProfile(organizer?.organizer.profileImage);
             const allposts = await getPost(id)
-            console.log(" the all psotsss", allposts)
             setPosts(allposts.posts)
 
         }
@@ -118,7 +115,6 @@ const OrganizerProfile: React.FC = () => {
 
   async function deletePost(id:string){
       const response =  await postDelete(id)
-      console.log(" the resposen --",response)
       setShouldRefetch(!shouldRefetch)
   }
 

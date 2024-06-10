@@ -1,8 +1,8 @@
 
 import { useEffect, useState } from "react"
-import { getAllEvents, getRequest } from "../../api/organizer"
+import {  getRequest } from "../../api/organizer"
 import useGetUser from "../../hook/useGetUser"
-import { Box, Button, Card } from "@mui/material"
+import {  Button } from "@mui/material"
 import EastIcon from '@mui/icons-material/East';
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +14,6 @@ export const EventRequestListing= () => {
   useEffect(() => {
     async function getRequests() {
       const requests = await getRequest(currentUser.id)
-      console.log(" the evnenen", requests.allRequests)
       setEvents(requests.allRequests)
     }
     getRequests()
@@ -90,7 +89,7 @@ export const EventRequestListing= () => {
 
                       }
                       
-                      <div onClick={(e)=>{navigate(`/organizer/requestDetails/${elem._id}`)}} >
+                      <div onClick={()=>{navigate(`/organizer/requestDetails/${elem._id}`)}} >
                       <EastIcon/>
                       </div>
                     </li>

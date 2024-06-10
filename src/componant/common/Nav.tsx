@@ -100,6 +100,7 @@ const Nav: React.FC = () => {
                             )}
                             {role === "admin" && (
                                 <>
+                                    <li><a href="/admin/dashboard" className="hover:text-gray-500 block py-2 md:py-0">Dashboard</a></li>
                                     <li><a href="/admin/organizers" className="hover:text-gray-500 block py-2 md:py-0">Organizers</a></li>
                                     <li><a href="/admin/users" className="hover:text-gray-500 block py-2 md:py-0">Users</a></li>
                                     <li><a href="/admin/request" className="hover:text-gray-500 block py-2 md:py-0">Request</a></li>

@@ -3,7 +3,6 @@ import { fetchEvent } from "../../api/organizer"
 import { useEffect, useState } from "react"
 import useGetUser from "../../hook/useGetUser"
 import EventCreationForm from "./EventCreationForm"
-import SeatCreating from "./SeatCreating"
 import  EventListing  from "./EventListing"
 import { EventSchedule } from "./EventSchedule"
 

@@ -5,9 +5,8 @@ import { isApprove } from "../../api/organizer"
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { currentUser } from "../../@types/allTypes"
-import { setApproval, setUser } from "../../redux/userSlice"
+import {  setUser } from "../../redux/userSlice"
 import useGetUser from "../../hook/useGetUser"
-import { clearUser } from "../../utils/clearUser"
 
 export const WaitingPage = () => {
     const [isApproved,setApprove]= useState<boolean>()
@@ -19,7 +18,6 @@ export const WaitingPage = () => {
     useEffect(()=>{
       async function callingFunction(){
         const approve = await isApprove(user.id)
-          console.log(" the approval",approve)
          dispatch(setUser({
              role:currentUser.role,
              name:currentUser.name,

@@ -1,4 +1,3 @@
-import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import TrendingFlatTwoToneIcon from '@mui/icons-material/TrendingFlatTwoTone';
 import { Box } from '@mui/material';

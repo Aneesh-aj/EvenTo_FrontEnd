@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { EventRequestListing } from "../../componant/organizer/EventRequestListing";
 import { EventRequestApprove } from "../../componant/organizer/EventRequestApprove";
 

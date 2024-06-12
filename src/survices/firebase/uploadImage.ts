@@ -53,10 +53,14 @@ export const userProfileUpload = async (image:File):Promise <any>=>{
     const imageRef = ref(firebaseDB,`/user/profile/${v4()+image.name}`)
     if(image){
         try{
+            console.log("-----------1")
             await uploadBytes(imageRef,image)
+            console.log("------------------2")
             const downloeadUrl = await getDownloadURL(imageRef)
+            console.log(" --------------3")
             return downloeadUrl
         }catch(error){
+            console.log(" 0000",error)
             throw error
         }
     }

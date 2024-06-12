@@ -13,7 +13,7 @@ export const SideBar=()=>{
     const navigate = useNavigate()
 
     return(
-        <div className="w-0 xl:w-2/12 h-fit mt-9 flex gap-2 flex-col">
+        <div className="w-0 xl:w-2/12 h-[600px]  mt-9 flex gap-2 flex-col">
         <Card className="-lg h-[11rem] bg-white  ">
             <div className="w-full pt-5 h-4/6 p-3 flex justify-center">
                 <div style={{ backgroundImage: `url(${bg})`, backgroundSize: 'cover', backgroundPosition: "center" }} className="rounded-full bg-green-500 w-[40%] ">

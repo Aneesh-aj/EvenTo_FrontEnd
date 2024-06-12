@@ -18,6 +18,7 @@ export const PostAddModal: React.FC<Props> = ({ isOpen, onClose, organizerId }) 
     console.log(" id ", organizerId);
 
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [loading,setLoading]= useState(false)
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<post>({
         defaultValues: {
             organizerId: organizerId,
@@ -29,17 +30,23 @@ export const PostAddModal: React.FC<Props> = ({ isOpen, onClose, organizerId }) 
 
     const onSubmit = async (data: post) => {
         try {
+            setLoading(true)
             if (selectedFile) {
                 const url = await eventPostImageUploead(selectedFile);
                 data.postImage = url;
             }
 
             console.log(" the data -----------", data)
+
             const created = await postCreation(data);
+            setSelectedFile(null)
+             setValue("description","")
             if (created.success) {
+                setLoading(false)
                 toast.success(created.message);
                 onClose();
             } else {
+                setLoading(false)
                 toast.error(created.message);
             }
         } catch (error) {
@@ -69,7 +76,7 @@ export const PostAddModal: React.FC<Props> = ({ isOpen, onClose, organizerId }) 
                         </div>
                     <div className="w-full flex flex-col gap-2 p-3">
                         <TextField
-                            label="Title"
+                            label="Description"
                             variant="outlined"
                             fullWidth
                             {...register("description", { required: "Title is required" })}
@@ -96,7 +103,7 @@ export const PostAddModal: React.FC<Props> = ({ isOpen, onClose, organizerId }) 
 
                         </div>}
                         <div className="w-full h-10 m-1 p-1">
-                            <Button className="w-full m-1" variant="contained" color="primary" type="submit">Submit</Button>
+                            <Button className="w-full m-1" disabled={loading} variant="contained" color="primary" type="submit">{loading ?"Loading":"Submit"}</Button>
                         </div>
                     </div>
                 </Box>

@@ -3,23 +3,36 @@
 @tailwind utilities;
 
 .custom-scrollbar {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE 10+ */
-  }
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE 10+ */
+}
 
-  .custom-scrollbar::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
-  }
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
+  /* Safari and Chrome */
+}
 
-  body{
-    background-color:white ;
-    /* background-color:#f5f5f5 ; */
-    font-family: 'Roboto', sans-serif;
-  }
-  .custom-box-shadow{
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-  }
+body {
+  background-color: white;
+  /* background-color:#f5f5f5 ; */
+  font-family: 'Roboto', sans-serif;
+}
 
+.custom-box-shadow {
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
 
+/* Hide scrollbar for Chrome, Safari, and Opera */
+.custom-scroll::-webkit-scrollbar {
+  display: none;
+}
 
-  
+/* Hide scrollbar for IE, Edge, and Firefox */
+.custom-scroll {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}

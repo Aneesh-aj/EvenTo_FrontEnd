@@ -27,6 +27,7 @@ export const ProfilePage: React.FC = () => {
     const [cityName, setCity] = useState<any>()
     const [profile, setProfile] = useState<any>()
     const profileIMG = useRef<HTMLInputElement>(null);
+    const [loading,setLoading]=useState(false)
 
     useEffect(() => {
         async function getUser() {
@@ -65,11 +66,16 @@ export const ProfilePage: React.FC = () => {
     async function changingProfile(e: React.ChangeEvent<HTMLInputElement>) {
         const file = e.target.files?.[0];
         // alert(" the file : ",file)
+        setLoading(true)
+        console.log(" befoeree",file)
         if (file) {
+            console.log(" insideee")
             const url = await userProfileUpload(file);
             console.log(" the ulr---", url)
             setProfile(url);
+            setLoading(false)
             const result = await userUploadPicture(currentUser.id, url);
+            
         }
     }
 
@@ -94,7 +100,7 @@ export const ProfilePage: React.FC = () => {
                             <h1 className="font-bold text-xl xl:text-3xl">{userData && userData.user.name}</h1>
 
                         </div>
-                        <button className="w-[6rem] h-[2rem] xl:ms-5 rounded-md shadow-lg bg-blue-500 text-white " onClick={(e) => { profileIMG.current?.click() }}>change
+                        <button className="w-[6rem] h-[2rem] xl:ms-5 rounded-md shadow-lg bg-blue-500 text-white " disabled={loading} onClick={(e) => { profileIMG.current?.click() }}>{loading?"Uploading":"Change"}
                             <span><LoopSharpIcon sx={{ width: 18, height: 15 }} /></span>
                             <input type="file" className="hidden" ref={profileIMG} onChange={(e) => changingProfile(e)} />
 

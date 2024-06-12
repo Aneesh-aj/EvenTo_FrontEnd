@@ -6,6 +6,7 @@ import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
 import CelebrationOutlinedIcon from '@mui/icons-material/CelebrationOutlined';
 import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
 import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
+import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import useGetUser from '../../hook/useGetUser';
 
 export const BottumBar: React.FC = () => {
@@ -30,6 +31,10 @@ export const BottumBar: React.FC = () => {
         <Link to="/user/message" className="text-gray-600 hover:text-blue-500  w-1/5 flex flex-col justify-center items-center">
            <MailOutlineOutlinedIcon/>
           <span className="block text-xs">Message</span>
+        </Link>
+        <Link to={`/user/posts`} className="text-gray-600 hover:text-blue-500  w-1/5 flex flex-col justify-center items-center">
+          <DynamicFeedIcon/>
+          <span className="block text-xs">Posts</span>
         </Link>
         <Link to={`/user/profile/${currentUser.id}`} className="text-gray-600 hover:text-blue-500  w-1/5 flex flex-col justify-center items-center">
           <Person2OutlinedIcon/>

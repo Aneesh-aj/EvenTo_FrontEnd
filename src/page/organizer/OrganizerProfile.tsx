@@ -26,7 +26,7 @@ const OrganizerProfile: React.FC = () => {
     const imageRef = useRef<HTMLInputElement>(null);
     const profileIMG = useRef<HTMLInputElement>(null);
     const [backgroundUrl, setBackground] = useState<any>();
-    const [liked, setLiked] = useState(true)
+    // const [liked, setLiked] = useState(true)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [isModalOpenPost, setIsModalOpenPost] = useState<boolean>(false);
     const [isModalOpenEdit, setIsModalOpenEdit] = useState<boolean>(false);
@@ -43,7 +43,7 @@ const OrganizerProfile: React.FC = () => {
     const [shouldRefetch, setShouldRefetch] = useState<boolean>(false);
     const currentUser = useSelector((state: { user: currentUser }) => state.user);
     const id = currentUser?.id;
-    setLiked(true)
+    // setLiked(true)
 
 
     async function changing(e: React.ChangeEvent<HTMLInputElement>) {
@@ -83,7 +83,7 @@ const OrganizerProfile: React.FC = () => {
 
         }
         getInfo();
-    }, [id, shouldRefetch]);
+    }, [id,shouldRefetch]);
 
     const handleOpenModal = () => {
         setIsModalOpen(true);
@@ -208,7 +208,7 @@ const OrganizerProfile: React.FC = () => {
                                                 <img src={ele?.postImage} className="w-full h-full rounded-md" alt="" />
                                             </div>
                                             <div className="w-full h-10 flex gap-4">
-                                                <FavoriteIcon sx={{ stroke: 'black', color: `${liked ? 'red' : 'white'}`, boxShadow: '3px', width: '2rem', height: '100%' }} />
+                                                {/* <FavoriteIcon sx={{ stroke: 'black', color: `${liked ? 'red' : 'white'}`, boxShadow: '3px', width: '2rem', height: '100%' }} /> */}
                                                 {/* <CommentIcon  sx={{stroke:'black',color:"black",boxShadow:'3px',width:'2rem',height:'100%'}} /> */}
                                                 <ShareIcon sx={{ stroke: 'black', color: "black", boxShadow: '3px', width: '2rem', height: '100%' }} />
                                             </div>

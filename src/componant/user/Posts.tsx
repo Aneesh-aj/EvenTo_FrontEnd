@@ -16,8 +16,11 @@ import { getAllPost } from "../../api/user";
 import Api from '../../survices/axios';
 import moment from 'moment';
 import useGetUser from '../../hook/useGetUser';
-import nocomment from "../../assets/7613.jpg"
-import "../../index.css"
+import nocomment from "../../assets/7613.jpg";
+import Picker from '@emoji-mart/react';
+import data from '@emoji-mart/data';
+import "../../index.css";
+import { transform } from 'framer-motion';
 
 export const Posts = () => {
     const currentUser = useGetUser();
@@ -29,6 +32,7 @@ export const Posts = () => {
     const [newComment, setNewComment] = useState('');
     const [currentImage, setImage] = useState();
     const [comments, setComments] = useState<any>([]);
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
     const navigate = useNavigate();
 
@@ -76,6 +80,11 @@ export const Posts = () => {
         setNewComment('');
     };
 
+    const handleEmojiSelect = (emoji: any) => {
+        setNewComment((prevComment) => prevComment + emoji.native);
+        setShowEmojiPicker(false);
+    };
+
     const formatTime = (time: any) => {
         const now = moment();
         const commentTime = moment(time);
@@ -114,26 +123,26 @@ export const Posts = () => {
                 <SideBar />
                 <div className="x-full xl:w-[60%] h-auto mt-10 relative rounded-md overflow-y-auto custom-scroll" style={{ maxHeight: '100vh' }}>
                     {loading ? (
-                      Array.from(new Array(3)).map((_, index) => (
-                        <Box key={index} className="bg-white p-4 w-full rounded-md mb-4 shadow-md border">
-                            <Box className="flex items-center mb-2 xl:mb-4">
-                                <Skeleton variant="circular" width="100%" height="56px" />
-                                <Box ml={2} flex="1">
-                                    <Skeleton width="40%" height={20} />
-                                    <Skeleton width="20%" height={15} />
+                        Array.from(new Array(3)).map((_, index) => (
+                            <Box key={index} className="bg-white p-4 w-full rounded-md mb-4 shadow-md border">
+                                <Box className="flex items-center mb-2 xl:mb-4">
+                                    <Skeleton variant="circular" width="100%" height="56px" />
+                                    <Box ml={2} flex="1">
+                                        <Skeleton width="40%" height={20} />
+                                        <Skeleton width="20%" height={15} />
+                                    </Box>
+                                </Box>
+                                <Divider />
+                                <Skeleton variant="rectangular" width="100%" height={20} sx={{ margin: '16px 0' }} />
+                                <Skeleton variant="rectangular" width="100%" height={200} />
+                                <Box className="flex items-center gap-4 mt-4">
+                                    <Skeleton variant="circular" width="40px" height="40px" />
+                                    <Skeleton variant="circular" width="40px" height="40px" />
+                                    <Skeleton variant="circular" width="40px" height="40px" />
                                 </Box>
                             </Box>
-                            <Divider />
-                            <Skeleton variant="rectangular" width="100%" height={20} sx={{ margin: '16px 0' }} />
-                            <Skeleton variant="rectangular" width="100%" height={200} />
-                            <Box className="flex items-center gap-4 mt-4">
-                                <Skeleton variant="circular" width="40px" height="40px" />
-                                <Skeleton variant="circular" width="40px" height="40px" />
-                                <Skeleton variant="circular" width="40px" height="40px" />
-                            </Box>
-                        </Box>
-                    ))
-                    
+                        ))
+
                     ) : (
                         posts.length ? posts.map((ele: any) => (
                             <div key={ele._id} className="bg-white p-4 rounded-md mb-4 shadow-md border">
@@ -176,13 +185,7 @@ export const Posts = () => {
                                     </IconButton>
                                 </div>
                             </div>
-                        )) : (
-                            <div className="w-full h-[400px] flex justify-center">
-                                <div className="w-[50%] h-[100%]">
-                                    <img src={image} className="w-full h-full" alt="" />
-                                </div>
-                            </div>
-                        )
+                        )) : <div className="w-full h-[30rem] flex justify-center items-center font-bold text-4xl">No Post Available</div>
                     )}
                 </div>
                 <div className="w-[20%] pt-10 hidden xl:block">
@@ -260,7 +263,7 @@ export const Posts = () => {
                             </List>
 
                         </DialogContent>
-                        <Box sx={{ width: "100%", padding: '2%', display: 'flex', alignItems: 'center' }}>
+                        <Box sx={{ width: "100%", padding: '2%', display: 'flex', alignItems: 'center', position: 'relative' }}>
                             <TextField
                                 variant="outlined"
                                 placeholder="Add a comment..."
@@ -280,12 +283,20 @@ export const Posts = () => {
                                     },
                                 }}
                             />
+                            <IconButton onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
+                                😊
+                            </IconButton>
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <DialogActions>
                                     <Button onClick={handleAddComment} color="primary">Post</Button>
                                 </DialogActions>
                             </Box>
                         </Box>
+                        {showEmojiPicker && (
+                            <div style={{ position: 'absolute', bottom: '80px', right: '20px', transform: 'translateY(-30px)' }}>
+                                <Picker data={data} onEmojiSelect={handleEmojiSelect} />
+                            </div>
+                        )}
                     </div>
                 </DialogContent>
             </Dialog>

@@ -14,6 +14,7 @@ import { Chat } from "../componant/common/chat/Chat";
 import { RequestDetails } from "../componant/organizer/RequestDetails";
 import RequestEventCreation from "../componant/organizer/RequestEventCreation";
 import OrganizerForgotPassword from "../page/organizer/OragnizerForgotPasswrod";
+import { Blocked } from "../componant/common/Blocked";
 
 function OrganizerRoutes() {
     const role = useGetUser().role;
@@ -36,6 +37,7 @@ function OrganizerRoutes() {
                         <Route path="/eventPostDetails/:id" element={<OrganizerEventPostDetails/>} />
                         <Route path="/eventEdit/:id" element={<EventEdit/>} />
                         <Route path="/entrys/:id" element={<EventEntryList/>} />
+                        <Route path="/organizer/blocked" element={<Blocked/>} />
                         <Route path="/requestDetails/:id" element={<RequestDetails/>} />
                         <Route path="/requestEventCreation/:id" element={<RequestEventCreation/>} />
                         <Route path="*" element={<ErrorPage />} />

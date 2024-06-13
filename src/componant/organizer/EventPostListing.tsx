@@ -13,7 +13,6 @@ export const EventPostListing = () => {
      useEffect(()=>{
         async function fetchAllpost(){
                const response = await getEventPost(currentUser.id)
-               console.log(" -----------____________------",response)
                setEventPosts(response.eventPost)
         }
         fetchAllpost()

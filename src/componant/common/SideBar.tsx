@@ -26,7 +26,7 @@ export const SideBar=()=>{
         </Card>
         <Card className="w-full h-fit  bg-white  ">
             <ul className="flex flex-col gap-3  ">
-                <li className="flex h-[5rem] " onClick={(e)=>navigate("/user/events")}>
+                <li className="flex h-[5rem] " onClick={()=>navigate("/user/events")}>
                     <div className="w-6/12 h-full flex items-center justify-center">
                         <EventIcon />
                     </div>
@@ -35,7 +35,7 @@ export const SideBar=()=>{
                     </div>
                 </li>
                 <Divider variant="middle" />
-                <li className="flex h-[5rem] " onClick={(e)=>{navigate("/user/message")}} >
+                <li className="flex h-[5rem] " onClick={()=>navigate("/user/message")} >
                     <div className="w-6/12 h-full flex items-center justify-center">
                         <MessageIcon />
                     </div>
@@ -44,7 +44,7 @@ export const SideBar=()=>{
                     </div>
                 </li>
                 <Divider variant="middle" />
-                <li className="flex  h-[5rem]" onClick={(e)=>{navigate("/user/Booking")}}>
+                <li className="flex  h-[5rem]" onClick={()=>{navigate("/user/Booking")}}>
                     <div className="w-6/12 h-full flex items-center justify-center">
                         <BookIcon />
                     </div>

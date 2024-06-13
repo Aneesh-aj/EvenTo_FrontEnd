@@ -4,7 +4,6 @@ import { InputText } from 'primereact/inputtext';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { validateEmail, validatePassword } from '../../utils/validation';
-// import { login } from '../../api/user';
 import toast, { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../redux/userSlice';

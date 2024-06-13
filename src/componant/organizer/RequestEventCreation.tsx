@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers';
-import {  getCategory, getRequestDetails, geteventDetails, requestCreateEvent, updateEvent } from '../../api/organizer';
+import {  getCategory, getRequestDetails, requestCreateEvent } from '../../api/organizer';
 import useGetUser from '../../hook/useGetUser';
 import {  useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -79,12 +79,9 @@ const RequestEventCreation: React.FC = () => {
     const [selectedState, setSelectedState] = useState<string | undefined>();
     const [selectedCity, setSelectedCity] = useState<string | undefined>();
     const [booking, setBooking] = useState<boolean>()
-    const [formPart, setFormPart] = useState<boolean>(true)
-    const [seatPart, setSeatPart] = useState<boolean>(false)
     const [eventCountry, setEventCountry] = useState<string | undefined>()
     const [eventState, setEventState] = useState<string | undefined>()
-    const [eventCity, setEventCity] = useState<string | undefined>()
-    const [eventType, setEventType] = useState<boolean>()
+
     const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
     const [startingTime, setStartingTime] = useState<Dayjs | null>(null)
     const [endingTime, setEndingTime] = useState<Dayjs | null>(null)
@@ -307,8 +304,7 @@ const RequestEventCreation: React.FC = () => {
                     <Toaster position='top-center'></Toaster>
                     <Box component="form" sx={{ m: 1, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} onSubmit={handleSubmit(onSubmit)}>
                         <div className='w-[100%] flex items-center flex-col justify-center'>
-                            {
-                                formPart && <>
+                           
                                     <div className='w-[50%] flex  justify-center p-3'>
                                         <p> *provide information about the creaters</p>
                                     </div>
@@ -495,8 +491,7 @@ const RequestEventCreation: React.FC = () => {
                                                 defaultValue={currentEvent.eventCity}
                                                 key={currentEvent.eventCity}
                                                 {...register("eventCity", { required: "Please Select a City" })}
-                                                onChange={(e) => {
-                                                    setEventCity(e.target.value)
+                                                onChange={() => {
                                                     trigger("eventCity")
                                                 }}
                                                 label="City"
@@ -588,7 +583,6 @@ const RequestEventCreation: React.FC = () => {
                                                 key={currentEvent.eventType}
                                                 id="demo-simple-select"
                                                 {...register("eventType", { required: "Select EventType" })}
-                                                onChange={(e) => { e.target.value == "Private" ? setEventType(false) : setEventType(true) }}
                                                 label="evenType" >
                                                 <MenuItem value={"Public"}>Public</MenuItem>
                                                 <MenuItem value={"Private"}>Private</MenuItem>
@@ -710,10 +704,7 @@ const RequestEventCreation: React.FC = () => {
                                     <div className='w-[50%] p-4'>
                                         <button type='submit' className='w-[97%] py-3  font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center'>submit</button>
                                     </div>
-                                </>
-
-
-                            }
+                            
                         </div>
 
                     </Box>

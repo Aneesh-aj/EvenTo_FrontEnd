@@ -22,6 +22,7 @@ export const SeatBooking = () => {
     useEffect(() => {
 
         socket.on('seatSelected', ({ data }) => {
+            console.log(data)
             getSeat()
         });
 

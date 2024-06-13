@@ -8,25 +8,23 @@ import { useNavigate } from 'react-router-dom';
 
 
 export const LatestEvent: React.FC = () => {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+  
     const [events, setEvents] = useState([]);
     const navigate = useNavigate()
 
 
     useEffect(() => {
         const fetchPosts = async () => {
-            setLoading(true);
-            setError(false);
+         
             try {
                 const response = await getAlleventPost();
                 console.log(" getAllpostss", response)
                 setEvents(response.posts);
             } catch (error) {
                 console.error('Error fetching event posts:', error);
-                setError(true);
+                
             } finally {
-                setLoading(false);
+               
             }
         };
         fetchPosts();

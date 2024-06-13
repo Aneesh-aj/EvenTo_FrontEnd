@@ -6,9 +6,6 @@ import { useForm } from 'react-hook-form';
 import { validateEmail, validatePassword } from '../../utils/validation';
 import {  verifyOtp } from '../../api/organizer';
 import toast, { Toaster } from 'react-hot-toast';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../../redux/userSlice';
-import { currentUser } from '../../@types/allTypes';
 import '../../index.css';
 import image from '../../assets/business-management-illustration-set-characters-planning-work-tasks-managing-inbox-emails_566886-5785.jpg';
 import { otpSenting, updatePassword } from '../../api/user';
@@ -21,8 +18,7 @@ const ForgotPassword: React.FC = () => {
     const [passwordPart, setPasswordPart] = useState<boolean>(false);
     const [email, setEmail] = useState<string>('');
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const currentUserState = useSelector((state: currentUser) => state);
+  
 
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
 
@@ -31,7 +27,6 @@ const ForgotPassword: React.FC = () => {
         setEmail(data.email);
         try {
            const otpcreation =   await otpSenting(data.email, "user");
-             console.log(" --------------------------otpcre",otpcreation)
            if(otpcreation.success){
 
                toast.success("OTP sent successfully!");

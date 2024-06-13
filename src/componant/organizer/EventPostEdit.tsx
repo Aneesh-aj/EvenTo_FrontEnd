@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IeventPost } from "../../@types/eventType";
 import { eventPostImageUploead } from "../../survices/firebase/uploadImage";
-import { createPost, updatePost } from "../../api/organizer";
+import {  updatePost } from "../../api/organizer";
 import toast, { Toaster } from "react-hot-toast";
 
 interface Props {

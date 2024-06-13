@@ -3,7 +3,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { BookingHistory } from '../../componant/user/BookingHistory';
 import { BottumBar } from '../../componant/common/BottumBar';
 import { useState } from 'react';
 import { RequestPending } from '../../componant/admin/RequestPending';

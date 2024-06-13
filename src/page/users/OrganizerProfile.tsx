@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "../../componant/common/Nav";
 
 import { findbyId, getPost} from "../../api/organizer";
@@ -14,12 +14,10 @@ import { Divider } from "@mui/material";
 import { BottumBar } from "../../componant/common/BottumBar";
 
 const OrganizerProfile: React.FC = () => {
-    const imageRef = useRef<HTMLInputElement>(null);
-    const profileIMG = useRef<HTMLInputElement>(null);
+   
     const [posts, setPosts] = useState([])
 
     const [backgroundUrl, setBackground] = useState<any>();
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [organizerData, setOrganizer] = useState<any>();
     const [regions, setRegions] = useState<{ country: string | undefined, state: string | undefined, city: string | undefined, pin: string | undefined }>({
         country: undefined,
@@ -29,7 +27,6 @@ const OrganizerProfile: React.FC = () => {
     });
     const navigate = useNavigate()
     const [profile, setProfile] = useState<any>();
-    const [shouldRefetch, setShouldRefetch] = useState<boolean>(false);
     const { id } = useParams()
     const liked = true
 
@@ -53,7 +50,7 @@ const OrganizerProfile: React.FC = () => {
             setPosts(allposts.posts)
         }
         getInfo();
-    }, [id, shouldRefetch]);
+    }, [id]);
 
 
 

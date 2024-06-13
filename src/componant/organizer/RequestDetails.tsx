@@ -2,7 +2,7 @@ import { Divider, Box, Typography, Button, Grid, Container, Paper } from "@mui/m
 import Nav from "../common/Nav";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ApproveRequest, RejectRequest, getRequestDetails, geteventDetails } from "../../api/organizer";
+import { ApproveRequest, RejectRequest, getRequestDetails } from "../../api/organizer";
 import { Ievents } from "../../@types/eventType";
 import toast from "react-hot-toast";
 import useGetUser from "../../hook/useGetUser";

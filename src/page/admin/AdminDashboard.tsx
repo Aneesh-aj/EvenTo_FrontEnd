@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import Nav from "../../componant/common/Nav"
-import CustomLineChart from "../organizer/Revenue"
 import AdminChart from "./AdminChart"
 import { fetchDashboard } from "../../api/admin"
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import {
     Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, IconButton,
     List, ListItem, ListItemAvatar, ListItemText, Avatar, Typography, Divider, Box, Skeleton
@@ -10,7 +10,6 @@ import ShareIcon from '@mui/icons-material/Share';
 import Nav from "../common/Nav";
 import { SideBar } from "../common/SideBar";
 import bg from "../../assets/FE.jpg";
-import image from "../../assets/9318688.jpg";
 import { useNavigate } from "react-router-dom";
 import { getAllPost } from "../../api/user";
 import Api from '../../survices/axios';
@@ -20,14 +19,12 @@ import nocomment from "../../assets/7613.jpg";
 import Picker from '@emoji-mart/react';
 import data from '@emoji-mart/data';
 import "../../index.css";
-import { transform } from 'framer-motion';
 
 export const Posts = () => {
     const currentUser = useGetUser();
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPost, setCurrentPost] = useState();
-    const [liked, setLiked] = useState(true);
     const [open, setOpen] = useState(false);
     const [newComment, setNewComment] = useState('');
     const [currentImage, setImage] = useState();
@@ -109,7 +106,7 @@ export const Posts = () => {
 
     async function like(id: any) {
         try {
-            const response = await Api.post('/comments/postlike', { postId: id, userId: currentUser.id });
+             await Api.post('/comments/postlike', { postId: id, userId: currentUser.id });
             getPost();
         } catch (error) {
             throw error;

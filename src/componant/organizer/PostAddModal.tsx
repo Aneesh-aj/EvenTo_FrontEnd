@@ -1,9 +1,8 @@
 import { Box, Button, Modal, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { useForm } from "react-hook-form";
-import { IeventPost } from "../../@types/eventType";
 import { eventPostImageUploead } from "../../survices/firebase/uploadImage";
-import { createPost, postCreation, updatePost } from "../../api/organizer";
+import {  postCreation } from "../../api/organizer";
 import toast, { Toaster } from "react-hot-toast";
 import CloseIcon from '@mui/icons-material/Close';
 import { post } from "../../@types/post";

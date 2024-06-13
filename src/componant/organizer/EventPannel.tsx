@@ -1,5 +1,4 @@
 import { useNavigate, useLocation } from "react-router-dom"
-import { fetchEvent } from "../../api/organizer"
 import { useEffect, useState } from "react"
 import useGetUser from "../../hook/useGetUser"
 import EventCreationForm from "./EventCreationForm"
@@ -13,16 +12,8 @@ const EventPannel: React.FC = () => {
     const [eventTrue, setEventTrue] = useState<boolean>(false)
     const [eventFormTrue, setEventFormTrue] = useState<boolean>(false)
     const [scheduleTrue, setScheduleTrue] = useState<boolean>(false)
-    const [events, setEvents] = useState<any>()
-
-    const fetchEvents = async () => {
-        const data = await fetchEvent(currentUser?.id)
-        console.log("data from of the event", data)
-        setEvents(data)
-    }
 
     useEffect(() => {
-        // Check the current path and update the state accordingly
         const path = location.pathname;
         if (path.includes("/organizer/events/Schedules")) {
             setScheduleTrue(true);
@@ -52,7 +43,7 @@ const EventPannel: React.FC = () => {
         } 
     }
 
-    console.log(events, "okkk")
+
 
     return (
         <>

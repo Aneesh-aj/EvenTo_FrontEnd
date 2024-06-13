@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import EditProfileModal from "../../componant/user/ProfileEdit";
 import useGetUser from "../../hook/useGetUser";
 import { userDetails, userUploadPicture } from "../../api/user";
-import { Country, State, City } from 'country-state-city';
+import { Country, State } from 'country-state-city';
 import { userProfileUpload } from "../../survices/firebase/uploadImage";
 import { Box } from "@mui/material";
 import toast from "react-hot-toast";
@@ -74,7 +74,7 @@ export const ProfilePage: React.FC = () => {
             console.log(" the ulr---", url)
             setProfile(url);
             setLoading(false)
-            const result = await userUploadPicture(currentUser.id, url);
+             await userUploadPicture(currentUser.id, url);
             
         }
     }
@@ -83,11 +83,7 @@ export const ProfilePage: React.FC = () => {
         setIsModalOpen(false);
     };
 
-    const handleSubmitModal = (formData: any) => {
-        // Handle form submission logic here, e.g., send data to backend
-        console.log("Form data:", formData);
-        handleCloseModal(); // Close the modal after submission
-    };
+
     return (
 
         <>
@@ -100,7 +96,7 @@ export const ProfilePage: React.FC = () => {
                             <h1 className="font-bold text-xl xl:text-3xl">{userData && userData.user.name}</h1>
 
                         </div>
-                        <button className="w-[6rem] h-[2rem] xl:ms-5 rounded-md shadow-lg bg-blue-500 text-white " disabled={loading} onClick={(e) => { profileIMG.current?.click() }}>{loading?"Uploading":"Change"}
+                        <button className="w-[6rem] h-[2rem] xl:ms-5 rounded-md shadow-lg bg-blue-500 text-white " disabled={loading} onClick={() => { profileIMG.current?.click() }}>{loading?"Uploading":"Change"}
                             <span><LoopSharpIcon sx={{ width: 18, height: 15 }} /></span>
                             <input type="file" className="hidden" ref={profileIMG} onChange={(e) => changingProfile(e)} />
 

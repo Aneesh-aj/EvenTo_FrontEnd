@@ -1,4 +1,3 @@
-// src/componant/admin/AddCategoryModal.tsx
 
 import React, { useState } from 'react';
 import { Modal, Box, TextField, Button, Typography } from '@mui/material';

@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { validateEmail, validatePassword, validateUsername } from '../../utils/validation';
 import { signup } from '../../api/user';
 import toast, { Toaster } from 'react-hot-toast';
-import  style from '../../index.css'
 import image from '../../assets/business-management-illustration-set-characters-planning-work-tasks-managing-inbox-emails_566886-5785.jpg'
 
 

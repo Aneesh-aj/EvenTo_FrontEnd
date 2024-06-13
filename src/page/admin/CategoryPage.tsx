@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../../componant/common/Nav";
-import { editCategory, getCategory, addCategory, deleteCategory } from "../../api/admin";
+import {  getCategory, deleteCategory } from "../../api/admin";
 import { Divider, TextField, Button, Pagination, Stack, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -39,7 +39,6 @@ export const CategoryPage: React.FC = () => {
         }
     }
 
-    // Function to handle search input change
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         const query = event.target.value.toLowerCase();
         setSearchQuery(query);
@@ -49,11 +48,12 @@ export const CategoryPage: React.FC = () => {
             (category._id?.toLowerCase() || "").includes(query)
         );
         setTotalPages(Math.ceil(filtered.length / itemsPerPage));
-        setPage(1); // Reset to the first page when searching
+        setPage(1);
     };
 
     // Function to handle pagination change
     const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+        console.log(event)
         setPage(value);
     };
 

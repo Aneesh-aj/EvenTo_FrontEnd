@@ -17,7 +17,7 @@ const Nav: React.FC = () => {
     const handleToggle = () => setIsOpen(!isOpen);
 
     async function logingOut() {
-        const response = await logout();
+         await logout();
      
             dispatch(setUser({ role: "", name: "", email: "", id: "" }));
             toast.success(" user Logout successfully!!!");
@@ -26,7 +26,7 @@ const Nav: React.FC = () => {
     }
 
     async function organizerLogout() {
-        const response = await orgLout();
+        await orgLout();
         dispatch(setUser({ role: "", name: "", email: "", id: "" }));
         toast.success("Logged out successfully");
         navigate("/");

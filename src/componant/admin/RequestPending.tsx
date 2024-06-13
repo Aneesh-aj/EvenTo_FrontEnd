@@ -41,6 +41,7 @@ export const RequestPending: React.FC = () => {
   }, [dispatch, navigate]);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+    console.log(event)
     setCurrentPage(page);
   };
 

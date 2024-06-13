@@ -82,7 +82,7 @@ const OtpForm: React.FC = () => {
     const resendOpt = async () => {
         console.log(email," emailllllll")
         if (email) {
-            const resended = await resendOtp(email);
+            await resendOtp(email);
             toast.success(" otp sended to your mail") // Use extracted email if it's defined
         } else {
             toast.error('invalid email address')

@@ -46,6 +46,7 @@ const Organizers: React.FC = () => {
     };
 
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        console.log(event)
         setPage(value);
     };
 
@@ -54,7 +55,7 @@ const Organizers: React.FC = () => {
         : [];
 
     async function access(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id: any) {
-        console.log("the calling id ", id);
+        console.log("the calling id ", e);
         await Api.post(`/admin/organizer/block/${id}`);
         fetchData();
     }

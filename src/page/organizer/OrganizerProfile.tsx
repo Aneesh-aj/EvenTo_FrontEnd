@@ -12,7 +12,6 @@ import { EventPostListing } from "../../componant/organizer/EventPostListing";
 import bg from "../../assets/unknownProfile.jpeg"
 import { Divider } from "@mui/material";
 import ShareIcon from '@mui/icons-material/Share';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import image from "../../assets/9318688.jpg"
@@ -114,7 +113,7 @@ const OrganizerProfile: React.FC = () => {
 
 
   async function deletePost(id:string){
-      const response =  await postDelete(id)
+        await postDelete(id)
       setShouldRefetch(!shouldRefetch)
   }
 

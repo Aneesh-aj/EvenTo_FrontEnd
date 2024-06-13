@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Api from "../../survices/axios";
 import Pagination from "@mui/material/Pagination";
-import defaultProfileImage from "../../assets/3156814.jpg"; // Import your default profile image
+import defaultProfileImage from "../../assets/3156814.jpg"; 
 
 const Users: React.FC = () => {
     const [users, setUsers] = useState<any[]>([]);
@@ -11,7 +11,6 @@ const Users: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState<string>("");
 
     useEffect(() => {
-        // Fetch initial data to get all users and total pages for pagination
         const fetchData = async () => {
             try {
                 const response = await Api.get("/admin/users");
@@ -38,6 +37,7 @@ const Users: React.FC = () => {
     }, [searchQuery, users]);
 
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        console.log(event)
         setPage(value);
     };
 

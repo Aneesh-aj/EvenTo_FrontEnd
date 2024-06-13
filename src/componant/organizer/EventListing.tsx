@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { cancelEvent, getAllEvents } from "../../api/organizer"
 import useGetUser from "../../hook/useGetUser"
-import { Box, Button, Card, Skeleton, Pagination } from "@mui/material"
+import { Box, Button, Skeleton, Pagination } from "@mui/material"
 import EastIcon from '@mui/icons-material/East';
 import { useNavigate } from "react-router-dom";
 import bg from "../../assets/9318688.jpg"
@@ -34,6 +34,7 @@ const EventListing = () => {
   }, [currentPage]);
 
   const handlePageChange = (event:any, newPage:number) => {
+    console.log(event)
     setCurrentPage(newPage);
   };
 

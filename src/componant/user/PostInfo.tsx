@@ -1,10 +1,8 @@
 import { Chip, Divider } from "@mui/material"
-import bg from "../../assets/FE.jpg"
 import { useEffect, useState } from "react"
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { getPostDetails } from "../../api/user"
 import { useNavigate, useParams } from "react-router-dom"
-import { UserEventListing } from "./UserEventListing";
 
 
 
@@ -130,10 +128,7 @@ export const PostInfo = () => {
                     <p className="font-normal pt-5 overflow-auto break-all"> {data && data.post.about}</p>
                 </div>
             </div>
-            {/* <div className="w-full">
-                <h1 className="font-bold">You Might also like</h1>
-            </div> */}
-            {/* <UserEventListing></UserEventListing> */}
+       
         </>
     )
 }

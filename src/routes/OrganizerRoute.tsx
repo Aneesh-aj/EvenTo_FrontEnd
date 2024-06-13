@@ -13,7 +13,6 @@ import EventEdit from "../page/organizer/EventEdit";
 import { Chat } from "../componant/common/chat/Chat";
 import { RequestDetails } from "../componant/organizer/RequestDetails";
 import RequestEventCreation from "../componant/organizer/RequestEventCreation";
-import OrganizerForgotPassword from "../page/organizer/OragnizerForgotPasswrod";
 import { Blocked } from "../componant/common/Blocked";
 
 function OrganizerRoutes() {

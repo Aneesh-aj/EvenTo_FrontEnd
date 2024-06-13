@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../../survices/axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { Country, State, City } from "country-state-city";
+import { Country, State } from "country-state-city";
 import toast, { Toaster } from "react-hot-toast";
 
 const RequestDetails: React.FC = () => {

@@ -1,5 +1,4 @@
 import Nav from "../../componant/common/Nav";
-import useGetUser from "../../hook/useGetUser";
 import { useEffect, useState } from "react";
 import { Country, State } from "country-state-city";
 import { allOrganizers } from "../../api/user";

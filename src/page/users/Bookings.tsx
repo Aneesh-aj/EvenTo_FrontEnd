@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import './style.css';
 
 import Tabs from '@mui/material/Tabs';

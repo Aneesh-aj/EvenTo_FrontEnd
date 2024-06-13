@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, colors } from '@mui/material';
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import { City, Country, State } from 'country-state-city';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
@@ -7,15 +7,14 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { useForm } from 'react-hook-form';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers';
-import { createEvent, getCategory } from '../../api/organizer';
+import {  getCategory } from '../../api/organizer';
 import useGetUser from '../../hook/useGetUser';
 
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { eventFormData } from '../../@types/eventType';
-import { setEvent } from '../../redux/eventSlice';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import toast, { Toaster } from 'react-hot-toast';
@@ -82,12 +81,10 @@ const RequestPage: React.FC = () => {
     const [selectedState, setSelectedState] = useState<string | undefined>();
     const [selectedCity, setSelectedCity] = useState<string | undefined>();
     const [booking, setBooking] = useState<boolean>()
-    const [formPart, setFormPart] = useState<boolean>(true)
-    const [seatPart, setSeatPart] = useState<boolean>(false)
+  
     const [eventCountry, setEventCountry] = useState<string | undefined>()
     const [eventState, setEventState] = useState<string | undefined>()
-    const [eventCity, setEventCity] = useState<string | undefined>()
-    const [eventType, setEventType] = useState<boolean>()
+  
     const [eventCitys, setEventCitys] = useState<City[]>([])
     const [eventStates, setEventStates] = useState<State[]>([]);
     const [eventCountrys, setEventCountys] = useState<Country[]>([]);
@@ -245,11 +242,7 @@ const RequestPage: React.FC = () => {
         getEventStates();
     }, [selectedCountry, eventCountry]);
 
-    function seatArranging(seat: Seat[]) {
-        setValue('seatArrangement', seat)
-
-        handleSubmit(onSubmit)
-    }
+  
 
     return (
         <>
@@ -431,8 +424,7 @@ const RequestPage: React.FC = () => {
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
                                             {...register("eventCity", { required: "Please Select a City" })}
-                                            onChange={(e) => {
-                                                setEventCity(e.target.value)
+                                            onChange={() => {
                                                 trigger("eventCity")
                                             }}
                                             label="City"
@@ -530,7 +522,6 @@ const RequestPage: React.FC = () => {
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
                                             {...register("eventType", { required: "Select EventType" })}
-                                            onChange={(e) => { e.target.value == "Private" ? setEventType(false) : setEventType(true) }}
                                             label="evenType" >
                                             <MenuItem value={"Public"}>Public</MenuItem>
                                             <MenuItem value={"Private"}>Private</MenuItem>

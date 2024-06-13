@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import useGetUser from '../../hook/useGetUser';
-import { fetchEventGraph } from '../../api/organizer';
+
 import { fetchGraphData } from '../../api/admin';
 
 type BackendData = {
@@ -57,7 +56,6 @@ const mergeData = (defaultData: { name: string, events: number }[], backendData:
 };
 
 const AdminChart = () => {
-  const currentUser = useGetUser();
   const currentYear = new Date().getFullYear();
   const [data, setData] = useState(defaultData);
   const [year, setYear] = useState(currentYear.toString());

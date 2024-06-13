@@ -39,6 +39,7 @@ export const EventSchedule = () => {
     }, [currentPage])
 
     const handlePageChange = (event: any, newPage: number) => {
+        console.log(event)
         setCurrentPage(newPage);
     };
 
@@ -156,7 +157,7 @@ export const EventSchedule = () => {
                                                     elem.status && elem.status === "upcoming" ? <Button variant="contained" sx={{ bgcolor: 'red' }} onClick={() => cancelEvents(elem._id)}>Cancel</Button> : <button className="w-[5.5rem] h-[2rem] "></button>
 
                                                 }
-                                                <div onClick={(e) => { navigate(`/organizer/eventDetails/${elem._id}`) }} >
+                                                <div onClick={() => { navigate(`/organizer/eventDetails/${elem._id}`) }} >
                                                     <EastIcon />
                                                 </div>
                                             </li>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import useGetUser from '../../../hook/useGetUser';
 import { getChatUsers } from '../../../api/organizer';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -18,7 +18,6 @@ function ChatList() {
     useEffect(() => {
         async function getUser() {
             const users = await getChatUsers(currentUser.id);
-            console.log("the users ______", users);
             setConversations(users.userList);
             setLoading(false); // Set loading to false once data is fetched
         }

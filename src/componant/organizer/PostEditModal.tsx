@@ -1,7 +1,6 @@
 import { Box, Button, Modal, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { IeventPost } from "../../@types/eventType";
 import { eventPostImageUploead } from "../../survices/firebase/uploadImage";
 import {  postUpdate } from "../../api/organizer";
 import toast, { Toaster } from "react-hot-toast";

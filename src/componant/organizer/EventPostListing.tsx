@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import bg from "../../assets/3902762.jpg"
+
 import { useNavigate } from "react-router-dom"
 import { getEventPost } from "../../api/organizer"
 import image from "../../assets/9318688.jpg"

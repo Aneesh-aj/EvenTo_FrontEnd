@@ -7,7 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 import useGetUser from "../../hook/useGetUser";
 import io from 'socket.io-client';
 
-export const socket = io("http://localhost:3000");
+export const socket = io(import.meta.env.VITE_BASE_URLS);
 
 
 

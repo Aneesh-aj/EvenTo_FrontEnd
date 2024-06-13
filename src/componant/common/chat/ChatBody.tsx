@@ -74,7 +74,6 @@ function ChatBody({ socket }: { socket: Socket }) {
         socket.emit("sendData", { ...newMessage, media: "" });
         await sendMessage(senter.id, id as string, messages, '');
       }
-
       setMessage('');
       setFile(null);
       setImagePreview(null);

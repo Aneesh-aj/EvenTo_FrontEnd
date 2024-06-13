@@ -1,100 +1,85 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Nav from "../../componant/common/Nav";
-import toast, { Toaster } from "react-hot-toast";
-import { allRequests } from "../../api/admin";
-import { clearUser } from "../../utils/clearUser";
-import { useDispatch } from "react-redux";
-import image from "../../assets/3156814.jpg"
-const AdminRequest: React.FC = () => {
-  const [requests, setRequests] = useState<any[] | null>(null);
-  const [isAccepted, setIsAccepted] = useState<boolean>(false);
-  const navigate = useNavigate()
-  const dispatch = useDispatch();
+
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import { BookingHistory } from '../../componant/user/BookingHistory';
+import { BottumBar } from '../../componant/common/BottumBar';
+import { useState } from 'react';
+import { RequestPending } from '../../componant/admin/RequestPending';
+import { RequestAccept } from '../../componant/admin/RequestAccept';
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await allRequests()
-        console.log(" the response======================================================= from the user", response)
-        if (response.success === false) {
-          toast.error(response.message)
-          clearUser(dispatch);
-          navigate("/auth/adminLogin")
-        }
-        setRequests(response.result);
-      } catch (error) {
-        console.error('Error fetching requests:', error);
-      }
+const AdminRequest = () => {
+
+  const [value, setValue] = useState(0);
+  const handleChange = (event: any, newValue: any) => {
+    console.log(" events", event)
+    setValue(newValue);
+  };
+
+  const a11yProps = (index: any) => {
+    return {
+      id: `tab-${index}`,
+      'aria-controls': `tabpanel-${index}`,
     };
+  };
 
-    fetchData();
-  }, []);
-
-  function pending() {
-    setIsAccepted(false);
-    console.log("calling ", isAccepted);
-  }
-
-  function accepted() {
-    setIsAccepted(true);
-    console.log("calling", isAccepted);
-  }
+  const CustomTabPanel = ({ children, value, index, ...other }: any) => {
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`tabpanel-${index}`}
+        aria-labelledby={`tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box sx={{ p: 3 }}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  };
 
   return (
     <>
-      <Nav />
-
-      <div className="w-full h-96 p-4 pt-[5rem] flex flex-col items-center">
-        < div className="rounded-md p-3 bg-white shadow-md w-full h-11 flex flex-row items-center">
-          <h2 className="font-sans font-bold ps-5">Organization Request</h2>
-          <Toaster position="top-right"
-            reverseOrder={false} />
-        </div>
-        <div className="rounded-md p-3 mt-1 w-11/12 h-11 flex items-center">
-          <div className={`w-6/12 flex justify-center ${isAccepted ? '' : 'underline'}`}>
-            <h3 className="font-bold" onClick={pending}>Pending</h3>
-          </div>
-          <div className={`w-6/12 flex justify-center ${isAccepted ? 'underline ' : ''}`}>
-            <h3 className="font-bold" onClick={accepted}>Accept</h3>
-          </div>
-        </div>
-
-        <div className="rounded-md bg-white mb-1 shadow-md mt-1 w-11/12 h-9 flex border p-6 items-center">
-          <div className="w-4/12 flex justify-center">Owner name</div>
-          <div className="w-4/12 flex justify-center">Email</div>
-          <div className="w-4/12 flex justify-center">phoneNumber</div>
-          <div className="w-4/12 flex justify-center"></div>
-        </div>
-        {requests?.length ?
-          requests.map((request) => (
-            (isAccepted ? request.approved : !request.approved) ? (
-              <div
-                key={request._id}
-                className="rounded-md bg- p-5 h-[5rem] bg-white border-2 shadow-md mt-2 w-11/12  flex flex-row items-center"
-              >
-                <div className="w-4/12 flex justify-center">{request.name}</div>
-                <div className="w-4/12 flex justify-center">{request.email}</div>
-                <div className="w-4/12 flex justify-center">{request.phoneNumber}</div>
-                <div className="w-4/12 flex justify-center">
-                  <Link to={`/admin/requestDetails/${request._id}`}>
-                    <button className="bg-blue-600 text-white w-16 rounded">
-                      View
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            ) : null
-          )):
-          (
-            <div className="w-full h-auto bg-red-600">
-                <div className="w-[50%] h-[400px]">
-                      <img src={image} className="w-full h-full" alt="" />
-                </div>
-            </div>
-          )
-          }
+      <div className='w-auto rounded-md border-2 border-gray-400 flex items-center p-3 shadow-md h-[4rem] m-6'>
+        <h1 className='font-bold'>All Requests</h1>
+      </div>
+      <Box sx={{ width: '100%' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', borderBottom: '0.5px solid', borderColor: 'divider' }}>
+          <Tabs
+            value={value}
+            sx={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              '& .MuiTabs-indicator': { // Target the indicator
+                transform: 'scaleX(0.5)', // Scale the indicator horizontally to half its size
+                transformOrigin: 'center bottom', // Set the origin of the transformation
+              },
+              '& .MuiTab-root:hover': {
+                backgroundColor: 'transparent', // Remove hover background color
+              }
+            }}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            <Tab label="upcoming" sx={{ minWidth: '50%' }} disableRipple  {...a11yProps(0)} />
+            <Tab label="history" sx={{ minWidth: '50%' }} disableRipple  {...a11yProps(1)} />
+          </Tabs>
+        </Box>
+        <CustomTabPanel value={value} index={0}>
+          <RequestPending/>
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+           <RequestAccept/>
+        </CustomTabPanel>
+      </Box>
+      <div className="w-full flex justify-center">
+        <BottumBar />
       </div>
     </>
   );

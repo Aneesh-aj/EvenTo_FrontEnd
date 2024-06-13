@@ -5,11 +5,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ApproveRequest, RejectRequest, getRequestDetails, geteventDetails } from "../../api/organizer";
 import { Ievents } from "../../@types/eventType";
 import toast from "react-hot-toast";
+import useGetUser from "../../hook/useGetUser";
 
 
 export const RequestDetails = () => {
   const [details, setDetails] = useState<Ievents>();
   const navigate = useNavigate()
+  const currentUser = useGetUser()
+  const [loading,setLoading] = useState<boolean>(false)
   const { id } = useParams();
 
   useEffect(() => {
@@ -52,23 +55,29 @@ export const RequestDetails = () => {
   };
 
   const Approve = async (id: string) => {
+    setLoading(true)
     const approved = await ApproveRequest(id)
     if (approved.success) {
+      setLoading(false)
       toast.success(approved.message)
     } else {
+      setLoading(false)
       toast.error(approved.message)
-
     }
+    navigate(`/organizer/requests/${currentUser.id}`)
   };
 
   const Reject = async (id: string) => {
+    setLoading(true)
     const rejected = await RejectRequest(id)
     if (rejected.success) {
+      setLoading(false)
       toast.success(rejected.message)
-
     } else {
+      setLoading(false)
       toast.error(rejected.message)
     }
+    navigate(`/organizer/requests/${currentUser.id}`)
   };
 
 
@@ -231,11 +240,11 @@ export const RequestDetails = () => {
             <>
               <div className="flex gap-2">
 
-                <Button variant="contained" color="error" onClick={() => Reject(id as string)}>
-                  Reject
+                <Button variant="contained" disabled={loading} color="error" onClick={() => Reject(id as string)}>
+                {loading ?"Loading":"Reject"} 
                 </Button>
-                <Button variant="contained" color="primary" onClick={() => Approve(id as string)}>
-                  Approve
+                <Button variant="contained" disabled={loading} color="primary" onClick={() => Approve(id as string)}>
+                 {loading ?"Loading":"Approve"} 
                 </Button>
               </div>
             </>

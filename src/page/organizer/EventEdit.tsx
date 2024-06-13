@@ -623,7 +623,6 @@ const EventEdit: React.FC = () => {
                                                 onChange={(e) => { e.target.value == "Registration" ? setBooking(true) : setBooking(false) }}
                                                 label="eventBooking" >
                                                 <MenuItem value={"SeatArrangment"}>SeatArrangment</MenuItem>
-                                                <MenuItem value={"Registration"}>Registration</MenuItem>
 
                                             </Select>
                                             {errors.eventBooking && (
@@ -641,8 +640,7 @@ const EventEdit: React.FC = () => {
                                                 onChange={(e) => { e.target.value != "Free" ? setPayment(true) : setPayment(false) }}
                                                 label="paymentMethod" >
                                                 <MenuItem value={"Online"}>Online</MenuItem>
-                                                <MenuItem value={"Offline"}>Offline</MenuItem>
-                                                <MenuItem value={"Free"}>Free</MenuItem>
+                                             
                                             </Select>
                                             {errors.paymentMethod && (
                                                 <FormHelperText error>{errors.paymentMethod.message}</FormHelperText>

@@ -5,6 +5,7 @@ import useGetUser from '../../hook/useGetUser';
 import { Country, State } from 'country-state-city';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { useNavigate } from 'react-router-dom';
 
 interface EventDetails {
   _id: string;
@@ -31,6 +32,7 @@ export const BookingList = () => {
   const [userBookings, setUserBookings] = useState<Booking[]>([]);
   const [locationMap, setLocationMap] = useState<LocationMap>({});
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate()
 
   useEffect(() => {
     async function fetchBooking() {
@@ -144,7 +146,7 @@ export const BookingList = () => {
           const countryName = locationMap[eventDetails.eventCountry];
 
           return (
-            <div key={ele._id} className="lg:w-[80%] sm:w-full mx-auto shadow-lg bg-transparent rounded-2xl overflow-hidden mt-3">
+            <div key={ele._id} className="lg:w-[80%] sm:w-full mx-auto shadow-lg bg-transparent rounded-2xl overflow-hidden mt-3" onClick={()=>navigate(`/user/postDetails/${ele.postId}`)}>
               <div className="ticket flex flex-col sm:flex-row">
                 <div className="flex items-start justify-between p-2 sm:p-4">
                   <img

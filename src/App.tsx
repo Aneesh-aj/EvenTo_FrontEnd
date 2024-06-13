@@ -12,7 +12,7 @@ import { findbyId } from './api/organizer';
 import { currentUser } from './@types/allTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from './redux/userSlice';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 function App() {
   const user = useGetUser().role;

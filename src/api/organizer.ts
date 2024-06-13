@@ -1,7 +1,7 @@
 import Api from "../survices/axios"
 import organizerRoutes from "../survices/endpoints/organizerEndPoint"
 import { IorganizerFormData } from "../@types/organizer"
-import { IeventPost, eventFormData } from "../@types/eventType"
+import { IeventPost } from "../@types/eventType"
 import { post } from "../@types/post"
 
 

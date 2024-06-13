@@ -5,7 +5,7 @@ import { allRequestsPending } from "../../api/admin";
 import { clearUser } from "../../utils/clearUser";
 import { useDispatch } from "react-redux";
 import image from "../../assets/3156814.jpg";
-import { Pagination, PaginationItem } from "@mui/lab";
+import { Pagination } from "@mui/lab";
 import { Box } from "@mui/material";
 
 export const RequestAccept: React.FC = () => {

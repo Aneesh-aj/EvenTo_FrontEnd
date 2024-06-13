@@ -6,7 +6,6 @@ import { setUser } from "../../redux/userSlice";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { orgLout } from "../../api/organizer";
-import { Button } from "@mui/material";
 
 const Nav: React.FC = () => {
     const role = useGetUser().role;

@@ -7,15 +7,14 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { useForm } from 'react-hook-form';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers';
 import { createEvent, getCategory } from '../../api/organizer';
 import useGetUser from '../../hook/useGetUser';
 import SeatCreating from './SeatCreating';
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { eventFormData } from '../../@types/eventType';
-import { setEvent } from '../../redux/eventSlice';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import toast, { Toaster } from 'react-hot-toast';

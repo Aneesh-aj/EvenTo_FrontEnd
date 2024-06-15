@@ -68,6 +68,7 @@ function App() {
               <Route path='/oranizer/blocked' element={<Blocked />}></Route>
             </>
           }
+          <Route path="/error" element={<ErrorPage />} />
           <Route path="/*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>

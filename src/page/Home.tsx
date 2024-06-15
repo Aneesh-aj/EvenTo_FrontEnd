@@ -21,6 +21,13 @@ const Home: React.FC = () => {
   console.log(" redux  ", currentUser.user.role
 
   );
+  const accessToken = localStorage.getItem('accessToken');
+  const refreshToken = localStorage.getItem('refreshToken');
+  const role = localStorage.getItem('role');
+
+  console.log(" the aceess",accessToken)
+  console.log(" the refresh",refreshToken)
+  console.log(" the role ",role)
 
   useEffect(() => {
     ScrollReveal().reveal('.scrollUp', {
@@ -41,7 +48,7 @@ const Home: React.FC = () => {
       reset: true,
     })
 
-
+ console.log(" hiiiiiiii")
     ScrollReveal().reveal('.scrollRight', {
       delay: 200,
       distance: '20px',

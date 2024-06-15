@@ -13,7 +13,7 @@ Api.interceptors.request.use(
         const accessToken = localStorage.getItem('accessToken');
         const refreshToken = localStorage.getItem('refreshToken');
         const role = localStorage.getItem('role');
-        
+        console.log(" acc____tre<role :_____________--",accessToken,"__________--",refreshToken,"____________________--",role)
         if (accessToken) {
             config.headers['Authorization'] = `Bearer ${accessToken}`;
         }

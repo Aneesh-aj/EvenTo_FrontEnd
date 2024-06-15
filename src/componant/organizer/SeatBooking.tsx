@@ -21,8 +21,7 @@ export const SeatBooking = () => {
 
     useEffect(() => {
 
-        socket.on('seatSelected', ({ data }) => {
-            console.log(data)
+        socket.on('seatSelected', () => {
             getSeat()
         });
 
@@ -43,9 +42,6 @@ export const SeatBooking = () => {
     async function getSeat() {
         const allSeats = await getAllseat(id as string);
 
-        console.log("all seats ", allSeats);
-        console.log(" iddddd", id)
-        console.log(" there ar elittlee e", allSeats.eventSeat[0].eventDetails[0])
         setEvent(allSeats.eventSeat[0].eventDetails[0])
         setPostid(allSeats.eventSeat[0]._id)
 
@@ -67,7 +63,6 @@ export const SeatBooking = () => {
         console.log("after the assigment", event)
     }, []);
 
-    console.log(" the paymetns amoudn", event?.paymentAmount)
     const handleSeatClick = (row: string, column: number, disabled: boolean, booked: boolean, isSelected: boolean) => {
         if (disabled || booked || isSelected) {
             return;

@@ -65,7 +65,7 @@ export const Posts = () => {
 
     const handleAddComment = async () => {
         console.log(" commingnngngngngnggnnggnngngn");
-        const response = await Api.post("/comments", { text: newComment, userId: currentUser.id, postId: currentPost });
+        const response = await Api.post("/comments/addComment", { text: newComment, userId: currentUser.id, postId: currentPost });
 
         const sortedComments = response.data.sort((a: any, b: any) => {
             const dateA = new Date(a.createdAt);

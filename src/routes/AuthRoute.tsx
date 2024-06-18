@@ -12,18 +12,17 @@ import OrganizerForgotPassword from "../page/organizer/OragnizerForgotPasswrod"
 
 function CommonRoutes() {
     const currentUser = useGetUser()
-    console.log(" currect userss", currentUser)
     return (
         <>
             <Routes>
-                <Route path="/adminLogin" element={currentUser.role ? <Navigate to={"/"} /> : <AdminLogin />} />
+                <Route path="/adminLogin" element={currentUser.role ? <Navigate to={"/"}/> : <AdminLogin />} />
                 <Route path="/organizerLogin" element={<OrganizerLogin />} />
                 <Route path="/userSignup" element={currentUser && currentUser.role ? <Navigate to={"/"} /> : <Signup />} />
                 <Route path="/userLogin" element={currentUser && currentUser.role ? <Navigate to={"/"} /> : <Login />} />
                 <Route path="/otp/:email" element={currentUser && currentUser.role ? <Navigate to={"/"} /> : <OtpForm />} />
                 <Route path="/organizerRegister" element={currentUser && currentUser.role ? <Navigate to={"/"} /> : <OrganizerRegistration />} />
                 <Route path="/user/forgotpassword" element={currentUser && currentUser.role ? <Navigate to={"/"} /> : <ForgotPassword />} />
-                <Route path="/forgotpassword" element={<OrganizerForgotPassword/>} />
+                <Route path="/forgotpassword" element={<OrganizerForgotPassword />} />
 
                 <Route path="/organizerLogin" element={currentUser && currentUser.approve === true ? <OrganizerLogin /> : <Navigate to={"/"} />} />
                 {

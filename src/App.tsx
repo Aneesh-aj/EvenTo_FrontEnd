@@ -17,13 +17,6 @@ import toast from 'react-hot-toast';
 function App() {
   const user = useGetUser().role;
 
-  const accessToken = localStorage.getItem('accessToken');
-  const refreshToken = localStorage.getItem('refreshToken');
-  const role = localStorage.getItem('role');
-
-  console.log(" the aceess",accessToken)
-  console.log(" the refresh",refreshToken)
-  console.log(" the role ",role)
   const currentUser = useGetUser()
   useSelector((state: currentUser) => state)
   const dispatch = useDispatch()

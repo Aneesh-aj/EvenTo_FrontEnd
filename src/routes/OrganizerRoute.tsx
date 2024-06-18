@@ -17,8 +17,6 @@ import { Blocked } from "../componant/common/Blocked";
 
 function OrganizerRoutes() {
     const role = useGetUser().role;
-    
-     console.log(" the role")
     return (
         <>
             <Routes>
@@ -26,26 +24,26 @@ function OrganizerRoutes() {
                     <>
                         <Route path="/Registration" element={<OrganizerRegistration />} />
                         <Route path="/profile/:id" element={<OrganizerProfile />} />
-                        <Route path="/Dashboard/:id" element={<OrganizerDashboard/>} />
-                        <Route path="/events/:id" element={<OrganizerDashboard/>} />
-                        <Route path="/requests/:id" element={<OrganizerDashboard/>} />
-                        <Route path="/message" element={<Chat/>} />
-                        <Route path="/message/:id" element={<Chat/>} />
-                        <Route path="/eventDetails/:id" element={<EventDetails/>} />
-                        <Route path="/organizerEventPost/:id" element={<OrganizerEventPost/>} />
-                        <Route path="/eventPostDetails/:id" element={<OrganizerEventPostDetails/>} />
-                        <Route path="/eventEdit/:id" element={<EventEdit/>} />
-                        <Route path="/entrys/:id" element={<EventEntryList/>} />
-                        <Route path="/organizer/blocked" element={<Blocked/>} />
-                        <Route path="/requestDetails/:id" element={<RequestDetails/>} />
-                        <Route path="/requestEventCreation/:id" element={<RequestEventCreation/>} />
+                        <Route path="/Dashboard/:id" element={<OrganizerDashboard />} />
+                        <Route path="/events/:id" element={<OrganizerDashboard />} />
+                        <Route path="/requests/:id" element={<OrganizerDashboard />} />
+                        <Route path="/message" element={<Chat />} />
+                        <Route path="/message/:id" element={<Chat />} />
+                        <Route path="/eventDetails/:id" element={<EventDetails />} />
+                        <Route path="/organizerEventPost/:id" element={<OrganizerEventPost />} />
+                        <Route path="/eventPostDetails/:id" element={<OrganizerEventPostDetails />} />
+                        <Route path="/eventEdit/:id" element={<EventEdit />} />
+                        <Route path="/entrys/:id" element={<EventEntryList />} />
+                        <Route path="/organizer/blocked" element={<Blocked />} />
+                        <Route path="/requestDetails/:id" element={<RequestDetails />} />
+                        <Route path="/requestEventCreation/:id" element={<RequestEventCreation />} />
                         <Route path="*" element={<ErrorPage />} />
                     </>
                 )}
                 {role && role === "requestPending" && (
                     <>
-                    
-                    <Route path="/pending" element={<WaitingPage />} /> </>
+
+                        <Route path="/pending" element={<WaitingPage />} /> </>
                 )}
             </Routes>
         </>

@@ -23,7 +23,10 @@ const AdminLogin: React.FC = () => {
       e.preventDefault()
       const data = await adminLogin(email as string,password as string)
 
-      console.log(data, "from the frontend !!!");
+      console.log(data, "from the frontend !!!",data);
+          localStorage.setItem("accessToken",data.accessToken)
+        localStorage.setItem("refreshToken",data.refreshToken)
+        localStorage.setItem("role",data.role)
        if(data.success){
          if (data) {
            toast.success(data.message)

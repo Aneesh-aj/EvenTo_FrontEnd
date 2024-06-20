@@ -24,10 +24,10 @@ export const login = async (loginData: loginData) => {
     }
 }
 
-export const otpVerify = async (otp: string) => {
+export const otpVerify = async (otp: string,email:string) => {
     try {
         console.log("what is the data and its type",otp,typeof otp)
-        const response = await Api.post(userRoutes.verifyOTP, {otp:otp})
+        const response = await Api.post(userRoutes.verifyOTP, {otp:otp,email:email})
         console.log(" after that api call ", response)
         return response.data
     } catch (error:any) {

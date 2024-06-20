@@ -155,7 +155,9 @@ export const ProfilePage: React.FC = () => {
                         latest Events
                         <TrendingFlatTwoToneIcon />
                     </div>
-                    <LatestEvent />
+                    <div className="w-full h-full mt-2 overflow-y-auto custom-scroll" style={{ maxHeight: '100vh' }}>
+                        <LatestEvent />
+                    </div>
 
                 </div>
               

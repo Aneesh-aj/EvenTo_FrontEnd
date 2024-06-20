@@ -27,9 +27,11 @@ const Signup: React.FC = () => {
     setLoading(true)
     const response = await signup(user);
     setLoading(false)
-    console.log("resonse from that function", response)
+    console.log("resonse from that function------------------------------------", response)
     if (response.success) {
       //  alert("1"+response.message)
+      localStorage.setItem("verifyToken",response.verifyToken)
+
       toast.success(response.message)
       navigate(`/auth/otp/${user.email}`)
     } if (response.response.data.status === 400) {

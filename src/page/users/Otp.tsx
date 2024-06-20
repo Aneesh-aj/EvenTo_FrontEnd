@@ -64,7 +64,7 @@ const OtpForm: React.FC = () => {
         }
         console.log(" the otp", otp)
         
-        const response = await otpVerify(otp )
+        const response = await otpVerify(otp,email as string )
         setLoading(false)
          if(response.email){
             toast.success(response.message)

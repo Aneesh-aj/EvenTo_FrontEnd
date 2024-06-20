@@ -13,7 +13,8 @@ Api.interceptors.request.use(
         const accessToken = localStorage.getItem('accessToken');
         const refreshToken = localStorage.getItem('refreshToken');
         const role = localStorage.getItem('role');
-        console.log(" acc____tre<role :_____________--",accessToken,"__________--",refreshToken,"____________________--",role)
+        const verifyToken = localStorage.getItem("verifyToken")
+        console.log(" acc____tre<role :_____________--",verifyToken,"____________________--",role)
         if (accessToken) {
             config.headers['Authorization'] = `Bearer ${accessToken}`;
         }
@@ -22,6 +23,9 @@ Api.interceptors.request.use(
         }
         if (role) {
             config.headers['x-user-role'] = role;
+        }
+        if(verifyToken){
+            config.headers['x-verify-token']= verifyToken;
         }
         
         return config;

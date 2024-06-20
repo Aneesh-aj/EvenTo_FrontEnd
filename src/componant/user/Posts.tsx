@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, IconButton,
     List, ListItem, ListItemAvatar, ListItemText, Avatar, Typography, Divider, Box, Skeleton
@@ -19,6 +19,7 @@ import nocomment from "../../assets/7613.jpg";
 import Picker from '@emoji-mart/react';
 import data from '@emoji-mart/data';
 import "../../index.css";
+import { LatestEvent } from './LatestEvent';
 
 export const Posts = () => {
     const currentUser = useGetUser();
@@ -123,7 +124,7 @@ export const Posts = () => {
                         Array.from(new Array(3)).map((_, index) => (
                             <Box key={index} className="bg-white p-4 w-full rounded-md mb-4 shadow-md border">
                                 <Box className="flex items-center mb-2 xl:mb-4">
-                                    <Skeleton variant="circular" width="100%" height="56px" />
+                                    <Skeleton variant="circular" width="8%" height="56px" />
                                     <Box ml={2} flex="1">
                                         <Skeleton width="40%" height={20} />
                                         <Skeleton width="20%" height={15} />
@@ -185,27 +186,12 @@ export const Posts = () => {
                         )) : <div className="w-full h-[30rem] flex justify-center items-center font-bold text-4xl">No Post Available</div>
                     )}
                 </div>
-                <div className="w-[20%] pt-10 hidden xl:block">
+                <div className="w-[20%] pt-10 hidden xl:block relative  " >
                     <div className="w-full bg-white rounded-md border-2 shadow-sm p-2">
                         <h1 className="font-bold">Suggestions</h1>
                     </div>
-                    <div className="w-full bg-white mt-3 p-3 rounded-md border-2 shadow-md">
-                        <div className="rounded-md w-full h-[6rem] flex justify-center">
-                            <img src={bg} className="w-full h-full object-cover rounded-md" alt="" />
-                        </div>
-                        <div className="p-2 w-full">
-                            <h1 className="font-bold">Random</h1>
-                        </div>
-                        <div className="w-full p-2 h-[5rem]">
-                            <p className="h-full text-sm break-words overflow-hidden">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates magnam reprehenderit delectus repudiandae, necessitatibus voluptate, voluptatum reiciendis soluta libero illo molestias nemo culpa amet voluptatibus fuga a impedit dolores quasi.
-                            </p>
-                        </div>
-                        <div className="w-full p-2 flex justify-center">
-                            <button className="w-8/12 h-[2rem] text-sm rounded-2xl text-white bg-violet-600">
-                                More...
-                            </button>
-                        </div>
+                    <div className="w-full h-full mt-2 overflow-y-auto custom-scroll" style={{ maxHeight: '100vh' }}>
+                        <LatestEvent />
                     </div>
                 </div>
             </div>

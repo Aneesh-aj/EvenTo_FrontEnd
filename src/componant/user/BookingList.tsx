@@ -28,7 +28,7 @@ interface LocationMap {
 }
 
 export const BookingList = () => {
-  const currentUser = useGetUser();
+  const  currentUser = useGetUser();
   const [userBookings, setUserBookings] = useState<Booking[]>([]);
   const [locationMap, setLocationMap] = useState<LocationMap>({});
   const [loading, setLoading] = useState(true);

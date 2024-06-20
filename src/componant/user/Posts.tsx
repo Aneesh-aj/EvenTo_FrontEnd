@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import {
     Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, IconButton,
     List, ListItem, ListItemAvatar, ListItemText, Avatar, Typography, Divider, Box, Skeleton
@@ -9,7 +9,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import Nav from "../common/Nav";
 import { SideBar } from "../common/SideBar";
-import bg from "../../assets/FE.jpg";
 import { useNavigate } from "react-router-dom";
 import { getAllPost } from "../../api/user";
 import Api from '../../survices/axios';

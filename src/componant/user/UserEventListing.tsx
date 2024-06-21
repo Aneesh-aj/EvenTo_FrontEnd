@@ -148,11 +148,13 @@ export const UserEventListing = () => {
                                         image={ele?.image}
                                         title="Event Image"
                                     />
-                                    {new Date(ele.event.date) < new Date() && (
+                                    {new Date(ele.event.date) < new Date()  ? (
                                         <div className="absolute top-0 right-0 w-full bg-red-500 text-white text-md font-bold xl:ps-14 shadow-gray-500 text-shadow-xl  shadow-sm px-2 py-1 transform rotate-45 translate-x-12 text-center ps-10 translate-y-4">
                                             Expired
                                         </div>
-                                    )}
+                                    ): ele.event.status =="cancelled" ?( <div className="absolute top-0 right-0 w-full bg-red-500 text-white text-md font-bold xl:ps-14 shadow-gray-500 text-shadow-xl  shadow-sm px-2 py-1 transform rotate-45 translate-x-12 text-center ps-10 translate-y-4">
+                                        Cancelled
+                                    </div>):""}
                                     <div className="-translate-y-6 rounded-b-lg w-full h-30 bg-black text-center">
                                         <h1 className="text-white">{splitDate(ele.event.date)}</h1>
                                     </div>

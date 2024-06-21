@@ -155,7 +155,6 @@ const EventCreationForm: React.FC = () => {
             data.startingTime = startingTime,
             data.endingTime = endingTime
             
-        //    console.log(" ---------final----------",data)
             const response = await createEvent(data)
             console.log(" the resposne ss", response)
             if (response.event.success == true) {

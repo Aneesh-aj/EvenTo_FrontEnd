@@ -42,12 +42,9 @@ const monthMap: { [key: string]: string } = {
   Dec: 'December'
 };
 
-// Function to merge backend data with default data
 const mergeData = (defaultData: { name: string, events: number }[], backendData: BackendData[], year: string) => {
-  // Reset the default data
   const resetData = defaultData.map(month => ({ ...month, events: 0 }));
 
-  // Filter backend data by year
   const filteredData = backendData.filter(data => data.year === year);
 
   filteredData.forEach(({ month, event }) => {
@@ -71,6 +68,7 @@ const EventChart = () => {
 
   async function getEventGraph() {
     const fetchedData: BackendData[] = await fetchEventGraph(currentUser.id);
+    console.log("  the chart data ",fetchedData)
     const uniqueYears = Array.from(new Set(fetchedData.map(d => d.year))) as string[];
     setYears(uniqueYears);
     setBackendData(fetchedData);

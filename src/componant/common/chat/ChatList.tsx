@@ -66,12 +66,12 @@ function ChatList() {
                         >
                             <div className="flex items-center space-x-3">
                                 <div className="w-10 h-10 bg-gray-300 rounded-full overflow-hidden">
-                                    <img src={convo.participantDetails[0].profileImage} alt="" className='w-full h-full object-cover' />
+                                    <img src={convo.participantDetails[0]?.profileImage} alt="" className='w-full h-full object-cover' />
                                 </div>
                                 <div>
-                                    <div className="font-bold">{convo?.participantDetails[0].name}</div>
+                                    <div className="font-bold">{convo?.participantDetails[0]?.name}</div>
                                     <div className="text-gray-500 text-sm truncate">
-                                        {convo.messageDetails[convo.messageDetails.length - 1].message}
+                                        {convo.messageDetails[convo.messageDetails.length - 1]?.message}
                                     </div>
                                 </div>
                             </div>

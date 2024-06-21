@@ -117,7 +117,6 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
 
   async function handler(e: React.FormEvent) {
     e.preventDefault();
-     alert(" calling outside the function")
     formData.append("name", ownerName);
     formData.append("email", email);
     formData.append("phoneNumber", phoneNumber);
@@ -182,7 +181,6 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
         throw error;
       }
     } catch (error) {
-      alert(error);
     }
   }
 
@@ -211,7 +209,6 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
       setLoading(false);
       if (response.success) {
         toast.success(response.message);
-        alert(" calling in the function")
         await handler(e);
       } else if (response.success === false) {
         toast.error(response.message);
@@ -372,7 +369,6 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
   };
 
   const resendOtpHandler = async () => {
-     alert(" calling")
     const otpResponse = await resendOtp(email);
     if (otpResponse.status === 200) {
       toast.success("OTP resent to your email.");

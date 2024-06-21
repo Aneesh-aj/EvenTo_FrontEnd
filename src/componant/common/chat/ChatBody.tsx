@@ -101,7 +101,6 @@ function ChatBody({ socket }: { socket: Socket }) {
     socket.on("resiveData", (data: any) => {
       console.log("the dchattttttt", chat);
       if (!chat) {
-        alert('');
         return fetchChat();
       } else {
         setChat((prevChat: any) => {
@@ -144,7 +143,7 @@ function ChatBody({ socket }: { socket: Socket }) {
           <div className="p-4 fixed border-b bg-white w-full flex justify-between items-center shadow-md z-10 ">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-gray-300 rounded-full overflow-hidden">
-                <img src={user?.profileImage} className="w-full h-full object-cover" alt="" />
+                <img src={user?.profileImage || bg} className="w-full h-full object-cover" alt="" />
               </div>
               <div className='font-semibold'>{user?.name}</div>
             </div>

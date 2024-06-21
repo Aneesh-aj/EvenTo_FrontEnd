@@ -20,6 +20,9 @@ const Nav: React.FC = () => {
          await logout();
      
             dispatch(setUser({ role: "", name: "", email: "", id: "" }));
+            localStorage.setItem("accessToken","")
+            localStorage.setItem("refreshToken","")
+            localStorage.setItem("role","")
             toast.success(" user Logout successfully!!!");
             navigate("/");
         
@@ -28,6 +31,9 @@ const Nav: React.FC = () => {
     async function organizerLogout() {
         await orgLout();
         dispatch(setUser({ role: "", name: "", email: "", id: "" }));
+        localStorage.setItem("accessToken","")
+        localStorage.setItem("refreshToken","")
+        localStorage.setItem("role","")
         toast.success("Logged out successfully");
         navigate("/");
     }
@@ -37,6 +43,9 @@ const Nav: React.FC = () => {
         if (response.success) {
             dispatch(setUser({ role: "", name: "", email: "", id: "" }));
             toast.success(response.message);
+            localStorage.setItem("accessToken","")
+            localStorage.setItem("refreshToken","")
+            localStorage.setItem("role","")
             navigate("/");
         } else {
             toast.error("Unable to log out");
@@ -45,6 +54,9 @@ const Nav: React.FC = () => {
 
     function adminLogout() {
         dispatch(setUser({ role: "", name: "", email: "", id: "" }));
+        localStorage.setItem("accessToken","")
+        localStorage.setItem("refreshToken","")
+        localStorage.setItem("role","")
         navigate("/");
     }
 
@@ -67,7 +79,7 @@ const Nav: React.FC = () => {
                         <ul className="flex w-full flex-col md:flex-row  md:space-x-4 mt-4 md:mt-0 md:ml-auto ">
                             {!role && (
                                 <>
-                                    <li className=" border-t-2 xl:border-t-0   rounded-sm  w-full flex justify-center"><a href="/" className="hover:text-gray-500 block py-2 md:py-0">Home</a></li>
+                                    <li className=" border-t-2 xl:border-t-0    rounded-sm  w-full flex justify-center"><a href="/" className="hover:text-gray-500 block py-2 md:py-0">Home</a></li>
                                     <li  className=" xl:border-b-0 w-full  flex justify-center"><a href="#" className="hover:text-gray-500 block py-2 md:py-0">Events</a></li>
                                     <li  className=" w-full flex justify-center"><a href="#" className="hover:text-gray-500 block py-2 md:py-0">About</a></li>
                                     <li  className=" xl:border-b-0 w-full  flex justify-center"><a href="#"  className="hover:text-gray-500 block py-2 md:py-0"></a></li>
@@ -90,7 +102,7 @@ const Nav: React.FC = () => {
                             )}
                             {role === "organizer" && (
                                 <>
-                                    <li className="border-t-2 xl:border-b-0 w-full flex justify-center"><a href={`/organizer/dashboard/${currentUser.id}`} className="hover:text-gray-500 block py-2 md:py-0">Events</a></li>
+                                    <li className="border-t-2 xl:border-b-0 w-full xl:border-t-0 flex justify-center"><a href={`/organizer/dashboard/${currentUser.id}`} className="hover:text-gray-500 block py-2 md:py-0">Events</a></li>
                                     <li className=" xl:border-b-0 w-full flex justify-center"><a href={`/organizer/message`} className="hover:text-gray-500 block py-2 md:py-0">Message</a></li>
                                     <li className=" xl:border-b-0 w-full flex justify-center"><a href={`/organizer/profile/${currentUser.id}`} className="hover:text-gray-500 block py-2 md:py-0">Profile</a></li>
                                     <li className=" xl:border-b-0 w-full flex justify-center"><a href={`/organizer/organizerEventPost/${currentUser.id}`} className="hover:text-gray-500 block py-2 md:py-0">EventPost</a></li>

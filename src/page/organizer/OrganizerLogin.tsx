@@ -35,6 +35,9 @@ const OrganizerLogin: React.FC = () => {
         }
         const result = await organizerLogin(user.email,user.password)
         console.log("0-------",result)
+        localStorage.setItem("accessToken",result.accessToken)
+        localStorage.setItem("refreshToken",result.refreshToken)
+        localStorage.setItem("role",result.role)
         setLoading(false)
 
         if (result.organizer) {

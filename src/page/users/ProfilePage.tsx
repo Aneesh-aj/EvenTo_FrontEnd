@@ -65,7 +65,6 @@ export const ProfilePage: React.FC = () => {
 
     async function changingProfile(e: React.ChangeEvent<HTMLInputElement>) {
         const file = e.target.files?.[0];
-        // alert(" the file : ",file)
         setLoading(true)
         console.log(" befoeree",file)
         if (file) {

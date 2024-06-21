@@ -1,4 +1,4 @@
-import { Box, Button, Modal, TextField } from "@mui/material";
+import { Box, Button, CircularProgress, Modal, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IeventPost } from "../../@types/eventType";
@@ -14,6 +14,7 @@ interface Props {
 
 export const PostModal: React.FC<Props> = ({ isOpen, onClose, formData }) => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [loading, setLoading] = useState(false);
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<IeventPost>({
         defaultValues: {
             eventId: formData.eventId,
@@ -33,8 +34,10 @@ export const PostModal: React.FC<Props> = ({ isOpen, onClose, formData }) => {
         setValue("seatArrangment", formData.seatArrangment);
     }, [formData, setValue]);
 
-    async function onSubmit(data: IeventPost) {
+    const onSubmit = async (data: IeventPost) => {
+        setLoading(true);
         try {
+            console.log("The data is:", data);
             if (data.image) {
                 const created = await createPost(data);
                 if (created.success) {
@@ -49,19 +52,26 @@ export const PostModal: React.FC<Props> = ({ isOpen, onClose, formData }) => {
         } catch (error) {
             console.error(error);
             toast.error("Failed to create post.");
+        } finally {
+            setLoading(false);
         }
-    }
+    };
 
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
             setSelectedFile(event.target.files[0]);
+              console.log(" changes fiel",event.target.files[0])
+              setLoading(true)
             try {
                 const url = await eventPostImageUploead(event.target.files[0]);
+                console.log(" and the url is thsi ",url)
                 setValue('image', url);
                 toast.success("Image uploaded successfully.");
+                setLoading(false)
             } catch (error) {
                 console.error(error);
                 toast.error("Image upload failed.");
+                setLoading(false)
             }
         } else {
             setSelectedFile(null);
@@ -71,7 +81,22 @@ export const PostModal: React.FC<Props> = ({ isOpen, onClose, formData }) => {
     return (
         <>
             <Modal open={isOpen} onClose={onClose}>
-                <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", bgcolor: "background.paper", boxShadow: 24, p: 5, width: 600, overflowY: 'auto', maxHeight: '90vh' }}>
+                <Box
+                    component="form"
+                    onSubmit={handleSubmit(onSubmit)}
+                    sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 5,
+                        width: 600,
+                        overflowY: 'auto',
+                        maxHeight: '90vh'
+                    }}
+                >
                     <Toaster />
                     <div className="w-full flex flex-col gap-2">
                         <div className="w-full flex justify-center p-3">
@@ -120,7 +145,15 @@ export const PostModal: React.FC<Props> = ({ isOpen, onClose, formData }) => {
                             <p style={{ color: "red" }}>Please select a file.</p>
                         )}
                         <div className="w-full h-10 m-1 p-1">
-                            <Button className="w-full m-1" variant="contained" color="primary" type="submit">Submit</Button>
+                            <Button
+                                className="w-full m-1"
+                                variant="contained"
+                                color="primary"
+                                type="submit"
+                                disabled={loading}
+                            >
+                                {loading ? <CircularProgress size={24} /> : "Submit"}
+                            </Button>
                         </div>
                     </div>
                 </Box>

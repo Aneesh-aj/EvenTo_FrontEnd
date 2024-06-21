@@ -81,7 +81,7 @@ const AdminLogin: React.FC = () => {
               <div>
               </div>
               <div>
-                <a href="#" className="font-medium text-indigo-600">Forgot Password?</a>
+                {/* <a href="#" className="font-medium text-indigo-600">Forgot Password?</a> */}
               </div>
             </div>
             <button type='submit' className="w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center">

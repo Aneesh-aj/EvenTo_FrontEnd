@@ -36,6 +36,8 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
   const [selectedCountry, setSelectedCountry] = useState<string | undefined>();
   const [selectedState, setSelectedState] = useState<string | undefined>();
   const [selectedCity, setSelectedCity] = useState<string | undefined>();
+  const [timer, setTimer] = useState<number>(300); 
+  const [canResend, setCanResend] = useState<boolean>(false);
   const navigate = useNavigate()
   const [loading, setLoading] = useState<boolean>(false)
   const [ownerName, setOwnername] = useState<string>('');
@@ -54,6 +56,22 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
 
   useSelector((state: currentUser) => state)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    const countdown = setInterval(() => {
+        setTimer(prev => {
+            if (prev > 0) {
+                return prev - 1;
+            } else {
+                setCanResend(true);
+                clearInterval(countdown);
+                return 0;
+            }
+        });
+    }, 1000);
+
+    return () => clearInterval(countdown);
+}, []);
 
   const formData = new FormData()
   const [errors, setErrors] = useState<Record<string, string | undefined>>({
@@ -77,7 +95,7 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
 
 
   useEffect(() => {
-    
+
 
     const getCountries = async () => {
       const result: Country[] = await Country.getAllCountries();
@@ -648,8 +666,12 @@ const OrganizerRegistration: React.FC<OrganizerRegistrationProps> = () => {
                   </svg>
                   <span>{loading ? "Loading" : "Register"}</span>
                 </button>
-                <div className="text-sm text-slate-500 mt-4">Didn't receive code? <p className="font-medium text-indigo-500 hover:text-indigo-600" onClick={()=>resendOtpHandler()}>Resend</p></div>
-
+                <div className="text-sm text-slate-500 mt-4">Didn't receive code? {canResend ? (
+                  <p className="font-medium text-indigo-500 hover:text-indigo-600 cursor-pointer" onClick={resendOtpHandler}>Resend</p>
+                ) : (
+                  <p className="text-slate-400">Resend available in {Math.floor(timer / 60)}:{('0' + (timer % 60)).slice(-2)}</p>
+                )}
+                </div>
               </div>
 
             </>

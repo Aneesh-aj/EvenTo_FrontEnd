@@ -6,7 +6,7 @@ import asset from "../../assets/two-factor-authentication-concept-illustration_1
 
 const OtpForm: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
-    const [timer, setTimer] = useState<number>(300); // 5 minutes timer (300 seconds)
+    const [timer, setTimer] = useState<number>(120); // 5 minutes timer (300 seconds)
     const [canResend, setCanResend] = useState<boolean>(false);
     const formRef = useRef<HTMLFormElement>(null);
     const inputsRef = useRef<Array<React.RefObject<HTMLInputElement>>>(Array.from({ length: 4 }, () => useRef<HTMLInputElement>(null)));
@@ -98,7 +98,7 @@ const OtpForm: React.FC = () => {
         if (email) {
             await resendOtp(email);
             toast.success(" otp sent to your mail");
-            setTimer(300); // Reset timer to 5 minutes
+            setTimer(120); // Reset timer to 5 minutes
             setCanResend(false);
         } else {
             toast.error('invalid email address');

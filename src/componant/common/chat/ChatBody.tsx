@@ -23,7 +23,7 @@ function ChatBody({ socket }: { socket: Socket }) {
     try {
       const userChat = await getChat(senter.id, id as string);
       setUser(userChat.user);
-      setChat(userChat.chat || { messages: [] }); // Ensure chat is initialized with an empty messages array
+      setChat(userChat.chat || { messages: [] }); 
       socket.emit('joinRoom', { senderId: senter.id, receiverId: id });
     } catch (error) {
       console.error("Error fetching chat:", error);

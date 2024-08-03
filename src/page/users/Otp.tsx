@@ -6,7 +6,7 @@ import asset from "../../assets/two-factor-authentication-concept-illustration_1
 
 const OtpForm: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
-    const [timer, setTimer] = useState<number>(120); // 5 minutes timer (300 seconds)
+    const [timer, setTimer] = useState<number>(120); 
     const [canResend, setCanResend] = useState<boolean>(false);
     const formRef = useRef<HTMLFormElement>(null);
     const inputsRef = useRef<Array<React.RefObject<HTMLInputElement>>>(Array.from({ length: 4 }, () => useRef<HTMLInputElement>(null)));
